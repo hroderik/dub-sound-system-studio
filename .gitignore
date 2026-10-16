@@ -1,21 +1,2 @@
-# Sistema operacional
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Editores
-.vscode/
-.idea/
-*.swp
-*~
-
-# Testes e capturas locais (não fazem parte do app)
-capturas de teste/
-*.log
-
-# Node / ferramentas de teste
+rust/target/
 node_modules/
-package-lock.json
-
-# Windows: arquivos temporários do launcher
-*.tmp

@@ -25,7 +25,7 @@ cargo install tauri-cli
 ## 3. Dependências do sistema (Linux)
 
 ```bash
-sudo apt install libwebkit2gtk-4.1-dev build-essential curl wget file \
+sudo apt install libwebkit2gtk-4.1-dev build-essential pkg-config \
   libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
 ```
 
@@ -71,4 +71,3 @@ emcc tape_delay.c -O3 -s WASM=1 -s EXPORTED_FUNCTIONS="['_tape_delay_init','_tap
 - Tauri 2: https://tauri.app/
 - Emscripten: https://emscripten.org/
 - DubStemMix: https://github.com/hroderik/DubStemMix
-- ROADMAP-REA: docs/ROADMAP-REA.md

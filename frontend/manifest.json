@@ -1,0 +1,13 @@
+{
+  "name": "DUB MIXER Sound System",
+  "short_name": "Dub Mixer",
+  "description": "Mesa de som dub completa em um unico arquivo HTML",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "landscape",
+  "icons": [
+    { "src": "docs/img/mesa-completa.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}

@@ -307,7 +307,7 @@ medição, memória e comunicação. Se não quiser firmware, o patamar 1 funcio
 | Sincronia | Detectar o tempo (como o app faz) e mandar o LFO da sirene entrar no compasso |
 | Auto-desligamento | Desligar a alimentação após X minutos sem sinal |
 
-O firmware é onde o **REA** (`docs/ROADMAP-REA.md`) e o hardware se encontram: o
+O firmware é onde o software e o hardware se encontram: o
 mesmo comportamento documentado do app vira a especificação do firmware.
 
 ---
@@ -362,7 +362,7 @@ deu certo. Se não soar, descobrimos isso gastando R$ 60 em vez de R$ 400.
 
 ## Referências
 
-- [`docs/ROADMAP-REA.md`](ROADMAP-REA.md) — a outra frente: a versão executável nativa
+- `rust/` — a outra frente: a versão executável nativa (Rust/Tauri)
 - [Datasheet PT2399](https://www.google.com/search?q=PT2399+datasheet) — delay digital lofi
 - [Datasheet CD4046](https://www.google.com/search?q=CD4046+datasheet) — PLL e VCO
 - [Datasheet LM13700](https://www.google.com/search?q=LM13700+datasheet) — OTA: VCO e VCA

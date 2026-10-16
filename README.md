@@ -77,12 +77,11 @@ Não é um formulário com sliders — é um gabinete.
 
 O projeto tem **duas frentes futuras** documentadas:
 
-- **[Versão executável (app nativo)](docs/ROADMAP-REA.md)** — engenharia reversa assistida
-  sobre o [DubStemMix](https://github.com/hroderik/DubStemMix), para um app sem navegador
-  (com stems via `htdemucs` e soft takeover de knobs MIDI).
 - **[Versão física (hardware, R$ 100)](docs/ROADMAP-HARDWARE.md)** — mesa de dub de
   verdade que liga na tomada: crossover analógico, delay PT2399, sirene VCO, Synare
   LM13700, tudo em chassi de madeira. **Os 30 knobs desta tela são a especificação.**
+- **Versão executável (app nativo)** — em desenvolvimento (Rust/Tauri, com DSP em
+  `rust/` e `dsp/`). Roda em Linux/macOS/Windows com a mesma interface.
 
 > Leia os roadmaps antes de comprar qualquer componente: o hardware começa por
 > "um canal de ponta a ponta" para não comprar tudo e não montar nada.
@@ -485,7 +484,6 @@ dub-sound-system-studio/
 ├── LICENSE                            ← MIT
 │
 └── docs/
-    ├── ROADMAP-REA.md                 ← plano da versão executável (engenharia reversa)
     ├── ROADMAP-HARDWARE.md            ← plano da versão física (PCB, R$100)
     └── img/                           ← capturas de tela
 ```
@@ -582,22 +580,6 @@ uma linha de borda visível.
 
 O roadmap tem **duas frentes**. Cada uma tem seu documento:
 
-### 1. Versão executável (app nativo) — via engenharia reversa
-
-**→ [`docs/ROADMAP-REA.md`](docs/ROADMAP-REA.md)**
-
-A ideia: em vez de reescrever tudo do zero, usar **engenharia reversa assistida por
-agentes** ([`rea-agents`](https://github.com/morluto/rea)) sobre um projeto de
-referência já maduro — o [`hroderik/DubStemMix`](https://github.com/hroderik/DubStemMix)
-(console macOS nativo, Swift + C, MIT, com stems via `htdemucs` ONNX e efeitos em C
-com buses compartilhados).
-
-Objetivo: um **executável otimizado** (sem navegador, sem iframe, sem latência de
-`<iframe>`) que rode em **Linux, macOS e Windows** com o mesmo visual e as mesmas
-funções desta mesa — e, de bônus, **separação de stems** (tirar o vocal/baixo da
-música para fazer dub de verdade) e **soft takeover de knobs** para usar controlador
-MIDI físico.
-
 ### 2. Versão física — a mesa de verdade, por R$100
 
 **→ [`docs/ROADMAP-HARDWARE.md`](docs/ROADMAP-HARDWARE.md)**
@@ -621,7 +603,7 @@ primeira "um canal de ponta a ponta", para não comprar tudo e não montar nada.
 1. ✅ **Agora** — app web em arquivo único (esta versão).
 2. **Depois** — terminar a documentação e os testes de compatibilidade (Android Safari,
    Safari iOS).
-3. **Depois** — versão executável via REA (reaproveitando o DubStemMix).
+3. **Depois** — versão executável nativa (Rust/Tauri, em `rust/`).
 4. **Depois** — protótipo em protoboard da versão física.
 5. **Depois** — PCB, chassi e produção do primeiro lote.
 
@@ -719,8 +701,6 @@ Créditos e inspirações:
 - **[DubStemMix](https://github.com/hroderik/DubStemMix)** — console dub nativo (Swift/C,
   MIT). Referência de arquitetura para a futura versão executável: buses compartilhados
   com handoff de 1 buffer, soft takeover de knobs, perfis de controlador como dados.
-- **[rea-agents](https://github.com/morluto/rea)** — MCP de engenharia reversa, ferramenta
-  escolhida para a frente de REA do roadmap.
 - **Presets de sirene** — nomes inspirados nos estilos clássicos de sound system
   (O.B.F, Iration Steppas, King Tubby, Jah Shaka, Channel One, Mungo's Hi Fi,
   Alpha & Omega, Aba Shanti-I, Kebra Ethiopia, Stand High Patrol). São apenas
