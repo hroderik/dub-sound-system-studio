@@ -154,6 +154,9 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **Volume da sirene em 8 %** por padrão.
 - **VU estéreo real** (L/R) com ponteiro analógico.
 - **YouTube removido** — a mesa toca apenas arquivos locais.
+- **PWA** — manifest + service worker: instalável na tela inicial e funciona offline.
+- **Reverb de mola** — knob REVERB no master (depois do delay), com impulso de spring.
+- **MIDI** — botão 🎹 MIDI: ON/OFF com soft takeover (CCs mapeados para os knobs).
 
 ### 🎚️ Canal 1 e Canal 2 (decks)
 
