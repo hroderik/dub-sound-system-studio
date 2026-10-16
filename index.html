@@ -1142,6 +1142,9 @@
     <div class="segmented" role="group" aria-label="MIDI">
         <button type="button" id="btnMidi" onclick="toggleMidi()" title="Liga/desliga controle MIDI (soft takeover)">🎹 MIDI: OFF</button>
     </div>
+    <div class="segmented" role="group" aria-label="WASM">
+        <button type="button" id="btnWasm" onclick="provarRotaWasm()" title="Prova a rota WASM/AudioWorklet (passo 3 do roadmap)">🔬 Provar rota WASM</button>
+    </div>
     <div class="segmented" role="group" aria-label="Modo de fundo">
         <button type="button" id="bgLightBtn" onclick="setBgMode('light')">☀️ Claro</button>
         <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
@@ -2450,6 +2453,34 @@
         if (crossed) {
             k.setValue(val);
             midiSoft[cc] = val;
+        }
+    }
+
+
+    /* ===== PROVA DA ROTA WASM / AudioWorklet (passo 3 do ROADMAP-REA) =====
+       Registra o worklet dsp/tape_delay_processor.js e toca um tom através dele,
+       provando que DSP sample-accurate roda dentro do index.html. */
+    async function provarRotaWasm() {
+        let btn = document.getElementById('btnWasm');
+        if (btn) { btn.disabled = true; btn.innerText = '🔬 Testando…'; }
+        try {
+            unlockAudioContext();
+            await audioCtx.audioWorklet.addModule('dsp/tape_delay_processor.js');
+            const node = new AudioWorkletNode(audioCtx, 'tape-delay');
+            node.port.postMessage({ time: 0.375, fb: 0.4, wet: 0.5 });
+            const osc = audioCtx.createOscillator(); osc.type = 'sawtooth'; osc.frequency.value = 220;
+            const g = audioCtx.createGain(); g.gain.value = 0.15;
+            osc.connect(g); g.connect(node); node.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 2.5);
+            console.log('[WASM] AudioWorklet registrado e tocando (2.5s). Rota validada.');
+            if (btn) { btn.innerText = '🔬 Rota OK'; }
+            setTimeout(() => { if (btn) { btn.disabled = false; btn.innerText = '🔬 Provar rota WASM'; } }, 2600);
+        } catch (e) {
+            console.error('[WASM] Falhou:', e);
+            alert('Falha ao provar a rota WASM: ' + (e && e.message ? e.message : e) +
+                  '\n\nSe abriu por file://, o AudioWorklet pode ser bloqueado por CORS. ' +
+                  'Use o servidor local (python -m http.server) e tente de novo.');
+            if (btn) { btn.disabled = false; btn.innerText = '🔬 Provar rota WASM'; }
         }
     }
     })();
