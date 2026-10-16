@@ -416,6 +416,10 @@ do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
 | 10 | **King Tubby's Water** | Azul água (VU analógico) |
 | 11 | **Volcano Lava** | Laranja sobre basalto (LED master) |
 | 12 | **Cosmic Dub** | Violeta espacial (VU analógico) |
+| 13 | **Neve 1073** | Azul marinho + prata (preamp clássico) |
+| 14 | **API 512** | Burgundy + prata (preamp americano) |
+| 15 | **SSL 4000** | Grafite + azul (channel strip) |
+| 16 | **Tube Preamp** | Valvulado, warm, dourado |
 
 Combine com o fundo **☀️ Claro** ou **🌙 Noturno**, e com **📐 3D ON/OFF**.
 
