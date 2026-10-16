@@ -1817,6 +1817,16 @@
         }
     }
 
+    /* ===== PONTE TAURI (versao executavel) =====
+       Detecta se esta rodando dentro do Tauri e expoe comandos Rust para
+       processamento offline (CONVERTER) com soft takeover. */
+    function isTauri() { return !!(window.__TAURI__ || window.__TAURI_INTERNALS__); }
+    async function tauriInvoke(cmd, args) {
+        if (!isTauri() || !window.__TAURI_INTERNALS__) return null;
+        try { return await window.__TAURI_INTERNALS__.invoke(cmd, args); }
+        catch (e) { console.warn('[Tauri] invoke falhou:', e); return null; }
+    }
+
     /* ===== PEDAIS OPCIONAIS (show/hide) =====
        O DJ escolhe o que quer em cima da mesa: escondendo o que não vai usar
        o gabinete fica mais curto e a tela mais limpa. */
