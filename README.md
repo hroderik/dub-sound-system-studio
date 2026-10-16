@@ -73,6 +73,20 @@ Não é um formulário com sliders — é um gabinete.
 
 ---
 
+## 🗺️ Roadmaps (próximas frentes)
+
+O projeto tem **duas frentes futuras** documentadas:
+
+- **[Versão executável (app nativo)](docs/ROADMAP-REA.md)** — engenharia reversa assistida
+  sobre o [DubStemMix](https://github.com/hroderik/DubStemMix), para um app sem navegador
+  (com stems via `htdemucs` e soft takeover de knobs MIDI).
+- **[Versão física (hardware, R$ 100)](docs/ROADMAP-HARDWARE.md)** — mesa de dub de
+  verdade que liga na tomada: crossover analógico, delay PT2399, sirene VCO, Synare
+  LM13700, tudo em chassi de madeira. **Os 30 knobs desta tela são a especificação.**
+
+> Leia os roadmaps antes de comprar qualquer componente: o hardware começa por
+> "um canal de ponta a ponta" para não comprar tudo e não montar nada.
+
 ## 🚀 Como rodar
 
 ### Windows (jeito fácil)
