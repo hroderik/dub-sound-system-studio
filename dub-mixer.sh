@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # ================================================================
 #  Dub Mixer - abre o mixer por um servidor local (http://localhost)
-#  Isso e necessario para o YOUTUBE funcionar: o YouTube nao aceita
-#  tocar dentro de uma pagina aberta direto do disco (file://).
+#  (O servidor local ainda e usado para evitar cache e para servir a pagina.)
 #
 #  Funciona no Linux e no macOS. Este script:
 #    1) sobe o servidor, 2) ESPERA ele responder,
@@ -16,6 +15,9 @@ set -u
 PORT=8712
 PAGINA=index.html
 URL="http://127.0.0.1:${PORT}/${PAGINA}"
+# O "?v=..." so serve para furar cache de navegador (caso um servidor antigo
+# ainda esteja no ar). O serve.py ja manda "no-store" em tudo.
+URL_ABRIR="${URL}?v=$(date +%s 2>/dev/null || echo 0)"
 
 # --- vai para a pasta do script (funciona tambem com ./caminho/dub-mixer.sh) ---
 cd "$(dirname "$0")" || exit 1
@@ -49,8 +51,13 @@ fi
 
 # ---------- sobe o servidor em segundo plano ----------
 if [ "$ABRE_SOZINHO" = "0" ]; then
-    echo "  Iniciando servidor com: $PYEXE -m http.server $PORT --bind 127.0.0.1"
-    "$PYEXE" -m http.server "$PORT" --bind 127.0.0.1 >/dev/null 2>&1 &
+    if [ -f "./serve.py" ]; then
+        echo "  Iniciando servidor (serve.py, sem cache) na porta $PORT ..."
+        "$PYEXE" ./serve.py "$PORT" >/dev/null 2>&1 &
+    else
+        echo "  Iniciando servidor com: $PYEXE -m http.server $PORT --bind 127.0.0.1"
+        "$PYEXE" -m http.server "$PORT" --bind 127.0.0.1 >/dev/null 2>&1 &
+    fi
     SERVIDOR_PID=$!
 
     # ---------- espera o servidor responder antes de abrir o navegador ----------
@@ -79,18 +86,18 @@ fi
 # ---------- navegador ----------
 if [ "$(uname -s)" = "Darwin" ]; then
     # macOS
-    if command -v open >/dev/null 2>&1; then open "$URL"; fi
+    if command -v open >/dev/null 2>&1; then open "$URL_ABRIR"; fi
 else
     # Linux
     for nav in xdg-open firefox google-chrome chromium-browser chromium sensible-browser; do
-        if command -v "$nav" >/dev/null 2>&1; then "$nav" "$URL" >/dev/null 2>&1 & break; fi
+        if command -v "$nav" >/dev/null 2>&1; then "$nav" "$URL_ABRIR" >/dev/null 2>&1 & break; fi
     done
 fi
 
 echo "  PAGINA ABERTA EM:  $URL"
 echo
 echo "  Enquanto este terminal estiver aberto, o servidor continua no ar - e"
-echo "  ele que faz o YOUTUBE tocar. Para encerrar, feche a janela (Ctrl+C)."
+echo "  Para encerrar, feche a janela (Ctrl+C)."
 echo
 echo "  Celular na mesma Wi-Fi? Use:  http://$(hostname -I 2>/dev/null | awk '{print $1}'):${PORT}/${PAGINA}"
 echo

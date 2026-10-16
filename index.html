@@ -48,6 +48,14 @@
             --toolbar-border: rgba(255,255,255,0.12);
             --screw-color: rgba(255,255,255,0.16);
 
+            /* Texto de status (nome do arquivo).
+               Sao cores claras para os temas ESCUROS; os temas CLAROS
+               sobrescrevem por versoes escuras (senao some no fundo). */
+            --status-ok: #86efac;
+            --status-info: #93c5fd;
+            --status-warn: #fbbf24;
+            --status-err: #f87171;
+
             /* Controles de UI para o Master VU */
             --rack-ears-display: none;
             --master-analog-display: none;
@@ -117,6 +125,12 @@
             --on-gold: #f5f5f5;
             --master-analog-display: flex;
             --master-led-display: none;
+        
+            /* Painel claro: cores de status escuras para dar contraste */
+            --status-ok: #0a4d24;
+            --status-info: #1e3a8a;
+            --status-warn: #7c2d12;
+            --status-err: #991b1b;
         }
 
         /* TEMA: BENIDUB DS01 (Preto & Branco com Knobs Prata) */
@@ -152,6 +166,12 @@
             --on-gold: #fff;
             --master-analog-display: flex;
             --master-led-display: none;
+        
+            /* Painel claro: cores de status escuras para dar contraste */
+            --status-ok: #0a4d24;
+            --status-info: #1e3a8a;
+            --status-warn: #7c2d12;
+            --status-err: #991b1b;
         }
         /* Colorindo os knobs do tema DIY via nth-child/IDs */
         body.theme-diy #knobIsoBass, body.theme-diy #knobSirenRate, body.theme-diy #knobVolB { background: radial-gradient(circle at 35% 35%, #eab308 0%, #a16207 100%); border-color: #713f12; }
@@ -174,6 +194,12 @@
             --on-gold: #fff;
             --master-analog-display: flex;
             --master-led-display: none;
+        
+            /* Painel claro: cores de status escuras para dar contraste */
+            --status-ok: #0a4d24;
+            --status-info: #1e3a8a;
+            --status-warn: #7c2d12;
+            --status-err: #991b1b;
         }
         body.theme-acapulco #knobIsoSub, body.theme-acapulco #knobSirenPitch { background: radial-gradient(circle at 35% 35%, #ef4444 0%, #b91c1c 100%); }
         body.theme-acapulco #knobIsoLM, body.theme-acapulco #knobSirenVol { background: radial-gradient(circle at 35% 35%, #eab308 0%, #a16207 100%); }
@@ -205,6 +231,12 @@
             --on-gold: #fff;
             --master-analog-display: flex;
             --master-led-display: none;
+        
+            /* Painel claro: cores de status escuras para dar contraste */
+            --status-ok: #0a4d24;
+            --status-info: #1e3a8a;
+            --status-warn: #7c2d12;
+            --status-err: #991b1b;
         }
         /* Patina discreta: knobs com tons de baquelite */
         body.theme-vintage #knobIsoSub, body.theme-vintage #knobSirenVol { background: radial-gradient(circle at 35% 35%, #f0e2c6 0%, #c8b48c 100%); }
@@ -237,10 +269,141 @@
             --on-gold: #fff;
             --master-analog-display: none;
             --master-led-display: flex;
+        
+            /* Painel claro: cores de status escuras para dar contraste */
+            --status-ok: #0a4d24;
+            --status-info: #1e3a8a;
+            --status-warn: #7c2d12;
+            --status-err: #991b1b;
         }
         /* Pads vermelhos estilo MPC nos knobs de destaque */
         body.theme-mpc #knobIsoSub, body.theme-mpc #knobSirenVol { background: radial-gradient(circle at 35% 35%, #e04836 0%, #8f1f13 100%); border-color: #5c1109; --knob-indicator: #fff; }
         body.theme-mpc #knobIsoHigh, body.theme-mpc #knobMasterDTime { background: radial-gradient(circle at 35% 35%, #f0a02a 0%, #a85f08 100%); border-color: #6b3b02; --knob-indicator: #2b1600; }
+
+        /* ============================================================
+           TEMAS 9 a 12
+           ============================================================ */
+
+        /* TEMA: RASTAFARI (verde, ouro e vermelho) */
+        body.theme-rasta {
+            --metal-panel: linear-gradient(180deg, #0f4d2a 0%, #08301a 100%);
+            --wood-left: linear-gradient(135deg, #7d1b12 0%, #4a0f09 100%);
+            --wood-right: linear-gradient(135deg, #4a0f09 0%, #2a0806 100%);
+            --border-outer: #04150b;
+            --border-metal: #2f7d4f;
+            --gold: #ffd43b;
+            --text-color: #eaf6ee;
+            --sub-text: #a9c9b4;
+            --section-bg: linear-gradient(145deg, #0b3d21, #062713);
+            --led-off: #061b10;
+            --knob-base: radial-gradient(circle at 35% 35%, #f4d03f 0%, #c9a227 45%, #6b5211 85%, #3b2d08 100%);
+            --knob-border: #ffe07a;
+            --knob-indicator: #1a1200;
+            --surface: rgba(255,255,255,0.07);
+            --hairline: rgba(255,255,255,0.16);
+            --btn-bg: linear-gradient(180deg, #14532d 0%, #0a301a 100%);
+            --btn-text: #ffd43b;
+            --btn-border: rgba(255,255,255,0.22);
+            --input-bg: rgba(0,0,0,0.4);
+            --input-text: #eaf6ee;
+            --input-border: rgba(255,255,255,0.2);
+            --screw-color: rgba(255,255,255,0.22);
+            --on-gold: #0a2b17;
+            --master-analog-display: none;
+            --master-led-display: flex;
+        }
+        body.theme-rasta #knobIsoSub, body.theme-rasta #knobSirenPitch { background: radial-gradient(circle at 35% 35%, #e11d48 0%, #8f0f2e 100%); border-color: #ff6b8a; --knob-indicator: #fff; }
+        body.theme-rasta #knobIsoHigh, body.theme-rasta #knobMasterDTime { background: radial-gradient(circle at 35% 35%, #22c55e 0%, #15803d 100%); border-color: #6ee7a0; --knob-indicator: #052e16; }
+
+        /* TEMA: KING TUBBY'S WATER (azul água / dub de estúdio) */
+        body.theme-water {
+            --metal-panel: linear-gradient(180deg, #0e3a52 0%, #07202e 100%);
+            --wood-left: linear-gradient(135deg, #123044 0%, #071a26 100%);
+            --wood-right: linear-gradient(135deg, #071a26 0%, #04101a 100%);
+            --border-outer: #020b11;
+            --border-metal: #2b6f8c;
+            --gold: #5fe3f0;
+            --text-color: #dff4f8;
+            --sub-text: #8fb6c2;
+            --section-bg: linear-gradient(145deg, #0a2b3c, #051a25);
+            --led-off: #04121a;
+            --knob-base: radial-gradient(circle at 35% 35%, #e6f7fa 0%, #a7d4de 42%, #4a7f8f 82%, #173845 100%);
+            --knob-border: #bff0f7;
+            --knob-indicator: #052b34;
+            --surface: rgba(255,255,255,0.07);
+            --hairline: rgba(255,255,255,0.15);
+            --btn-bg: linear-gradient(180deg, #124763 0%, #08293a 100%);
+            --btn-text: #cdf6fb;
+            --btn-border: rgba(255,255,255,0.2);
+            --input-bg: rgba(0,0,0,0.4);
+            --input-text: #dff4f8;
+            --input-border: rgba(255,255,255,0.2);
+            --screw-color: rgba(255,255,255,0.22);
+            --on-gold: #041b23;
+            --master-analog-display: flex;
+            --master-led-display: none;
+        }
+        body.theme-water #knobIsoSub, body.theme-water #knobSirenRate { background: radial-gradient(circle at 35% 35%, #38bdf8 0%, #0369a1 100%); border-color: #7dd3fc; --knob-indicator: #06283a; }
+
+        /* TEMA: VOLCANO LAVA (laranja incandescente sobre basalto) */
+        body.theme-lava {
+            --metal-panel: linear-gradient(180deg, #1c0f08 0%, #0a0605 100%);
+            --wood-left: linear-gradient(135deg, #3d1c10 0%, #1c0a04 100%);
+            --wood-right: linear-gradient(135deg, #1c0a04 0%, #0d0402 100%);
+            --border-outer: #050303;
+            --border-metal: #6b3410;
+            --gold: #ff8a1f;
+            --text-color: #ffe9d6;
+            --sub-text: #c6a189;
+            --section-bg: linear-gradient(145deg, #22110a, #110806);
+            --led-off: #1a0d07;
+            --knob-base: radial-gradient(circle at 35% 35%, #f97316 0%, #c2410c 45%, #4a1607 85%, #1f0a04 100%);
+            --knob-border: #ffb273;
+            --knob-indicator: #fff3e6;
+            --surface: rgba(255,255,255,0.06);
+            --hairline: rgba(255,255,255,0.14);
+            --btn-bg: linear-gradient(180deg, #7c2d12 0%, #431407 100%);
+            --btn-text: #ffe4c4;
+            --btn-border: rgba(255,160,80,0.35);
+            --input-bg: rgba(0,0,0,0.5);
+            --input-text: #ffe9d6;
+            --input-border: rgba(255,160,80,0.3);
+            --screw-color: rgba(255,160,80,0.3);
+            --on-gold: #2b0f04;
+            --master-analog-display: none;
+            --master-led-display: flex;
+        }
+        body.theme-lava #knobIsoSub, body.theme-lava #knobSirenPitch { background: radial-gradient(circle at 35% 35%, #fbbf24 0%, #d97706 100%); border-color: #fcd34d; --knob-indicator: #3b1c02; }
+
+        /* TEMA: COSMIC DUB (violeta espacial) */
+        body.theme-cosmic {
+            --metal-panel: linear-gradient(180deg, #1b1140 0%, #0a0620 100%);
+            --wood-left: linear-gradient(135deg, #2a1b4d 0%, #150c2b 100%);
+            --wood-right: linear-gradient(135deg, #150c2b 0%, #0a0518 100%);
+            --border-outer: #050312;
+            --border-metal: #5b4a94;
+            --gold: #c4a2ff;
+            --text-color: #ece7ff;
+            --sub-text: #a99ecd;
+            --section-bg: linear-gradient(145deg, #170f33, #0c0720);
+            --led-off: #0a0616;
+            --knob-base: radial-gradient(circle at 35% 35%, #e9e0ff 0%, #b9a5ef 42%, #5a44a8 82%, #221641 100%);
+            --knob-border: #d7c9ff;
+            --knob-indicator: #150c2b;
+            --surface: rgba(255,255,255,0.07);
+            --hairline: rgba(255,255,255,0.15);
+            --btn-bg: linear-gradient(180deg, #3b2a73 0%, #1d1440 100%);
+            --btn-text: #ece7ff;
+            --btn-border: rgba(255,255,255,0.2);
+            --input-bg: rgba(0,0,0,0.45);
+            --input-text: #ece7ff;
+            --input-border: rgba(255,255,255,0.2);
+            --screw-color: rgba(255,255,255,0.22);
+            --on-gold: #1a0f3a;
+            --master-analog-display: flex;
+            --master-led-display: none;
+        }
+        body.theme-cosmic #knobIsoHigh, body.theme-cosmic #knobSynTune { background: radial-gradient(circle at 35% 35%, #f0abfc 0%, #a21caf 100%); border-color: #f5d0fe; --knob-indicator: #2e0a21; }
 
         * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body {
@@ -258,7 +421,7 @@
 
         /* ===== MESA COMPACTA (DJ escondeu equipamentos na barra) =====
            Menos equipamento na tela = gabinete realmente menor e mais curto. */
-        body.mesa-compacta .mixer-chassis { max-width: 940px; padding-top: 14px; padding-bottom: 14px; }
+        body.mesa-compacta .mixer-chassis { padding-top: 14px; padding-bottom: 14px; }
         body.mesa-compacta .mixer-header { margin-bottom: 10px; padding: 6px; }
         body.mesa-compacta .crossfader-section { margin-top: 6px; padding: 8px; }
 
@@ -292,8 +455,13 @@
             background: var(--toolbar-bg); color: var(--toolbar-text);
             border: 1px solid var(--toolbar-border);
             backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
-            box-shadow: var(--shadow-soft); transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+            box-shadow: var(--shadow-soft);
+            transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease,
+                        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease, box-shadow 0.3s ease;
         }
+        /* Auto-hide: rolando pra baixo a toolbar sobe e some; rolando pra cima (ou
+           trazendo o mouse de volta pro topo) ela volta. */
+        body.toolbar-hidden .toolbar { transform: translateY(-150%); opacity: 0; pointer-events: none; }
         .toolbar-group { display: flex; gap: 8px; align-items: center; padding-right: 4px; min-width: 0; max-width: 100%; }
         .toolbar-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.4px; opacity: 0.7; }
         .toolbar select {
@@ -320,7 +488,7 @@
                 repeating-linear-gradient(90deg, rgba(255,255,255,0.016) 0 1px, rgba(0,0,0,0.02) 1px 3px),
                 linear-gradient(180deg, rgba(255,255,255,0.10), rgba(0,0,0,0.28)),
                 var(--metal-panel);
-            border: 4px solid var(--border-outer); border-radius: 14px; padding: 22px 18px; max-width: 1020px; width: 100%; box-sizing: border-box;
+            border: 4px solid var(--border-outer); border-radius: 14px; padding: 22px 18px; max-width: min(1560px, 100%); width: 100%; box-sizing: border-box;
             box-shadow: 0 30px 60px rgba(0,0,0,0.95), 0 6px 14px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.12), inset 0 -4px 10px rgba(0,0,0,0.9); position: relative;
             transform: rotateX(1.5deg); transform-style: preserve-3d;
             border-left: 26px solid; border-left-image: var(--wood-left) 1;
@@ -348,8 +516,14 @@
         .mixer-header p { margin: 4px 0 0 0; color: var(--gold); font-size: 0.66rem; letter-spacing: 2.4px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.9); }
 
         /* minmax(0, 1fr) evita que textos longos (nome de arquivo/música) alarguem a coluna e descentralizem a torre do meio */
-        .mixer-grid { display: grid; grid-template-columns: minmax(0, 1fr) 250px minmax(0, 1fr); gap: 12px; align-items: start; }
+        /* Torre central mais larga (392px) para os dois VU analógicos redondos de 168px */
+        .mixer-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 392px) minmax(0, 1fr); gap: 12px; align-items: start; }
         .channel-strip, .center-tower { min-width: 0; }
+
+        /* LINHA INFERIOR — crossover + master tape delay lado a lado.
+           (O X-FADER saiu daqui e foi para a torre central, abaixo do MASTER OUT.) */
+        .lower-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; }
+        .lower-row > * { min-width: 0; margin-top: 0; margin-bottom: 0; }
 
         @media(max-width: 1024px) { .mixer-chassis { max-width: 980px; } }
         @media(max-width: 768px) { body { padding: 12px 6px 24px; } .mixer-chassis { padding: 12px 8px; transform: none; border-left-width: 10px; border-right-width: 10px; } .mixer-chassis::before { left: -10px; width: 10px; background-size: 8px 8px, 8px 8px, 100% 100%; } .mixer-chassis::after { right: -10px; width: 10px; background-size: 8px 8px, 8px 8px, 100% 100%; } .mixer-grid { grid-template-columns: 1fr; } .toolbar { border-radius: 20px; } }
@@ -358,6 +532,23 @@
         .section-box h4 { margin: 0 0 8px 0; font-size: 0.66rem; color: var(--gold); border-bottom: 1px dashed var(--border-metal); padding-bottom: 4px; text-align: center; letter-spacing: 1.6px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
 
         .master-tower { display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.6); border: 2px inset var(--border-metal); border-radius: 6px; padding: 12px 8px; box-shadow: inset 0 0 12px rgba(0,0,0,0.95), 0 1px 0 rgba(255,255,255,0.05); }
+
+        /* GRAVAR MIXAGEM + CONVERTER (sob o MASTER OUT) */
+        .master-io { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; width: 100%; }
+        .btn-io {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; box-sizing: border-box;
+            padding: 8px 6px; border-radius: 6px; cursor: pointer; font-family: var(--font-ui); font-weight: 700;
+            font-size: 0.6rem; letter-spacing: 0.5px; text-transform: uppercase;
+            background: linear-gradient(180deg, #23262e, #14161b); color: var(--gold); border: 1px solid var(--border-metal);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 6px rgba(0,0,0,0.6); transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+        .btn-io:hover { border-color: var(--gold); }
+        .btn-io:disabled { opacity: 0.5; cursor: progress; }
+        .btn-io.gravando { background: linear-gradient(180deg, #b91c1c, #7f1d1d); color: #fff; border-color: #fca5a5; }
+        .io-dot { width: 9px; height: 9px; border-radius: 50%; background: #6b7280; box-shadow: inset 0 0 3px rgba(0,0,0,0.8); flex: 0 0 auto; }
+        .btn-io.gravando .io-dot { background: #ef4444; box-shadow: 0 0 8px rgba(239,68,68,0.95); animation: recPulse 1s ease-in-out infinite; }
+        @keyframes recPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+        .io-status { margin: 6px 0 0; font-size: 0.55rem; color: var(--status-info); text-align: center; min-height: 0.8em; line-height: 1.3; }
 
         label { font-size: 0.56rem; margin-top: 4px; text-transform: uppercase; text-align: center; letter-spacing: 0.6px; font-weight: 700; color: var(--text-color); opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.8); }
         progress { width: 100%; height: 7px; border-radius: 4px; cursor: pointer; background: #050608; border: 1px solid #1c1f28; margin: 4px 0; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.9); -webkit-appearance: none; appearance: none; }
@@ -436,6 +627,155 @@
         /* duas colunas de largura igual (o rótulo embaixo pode ser mais largo que o botão) */
         .siren-controls-row { display: grid; grid-template-columns: repeat(2, minmax(72px, 1fr)); gap: 12px; justify-items: center; align-items: start; justify-content: center; margin-top: 12px; }
 
+        /* ===== PEDAL NA HORIZONTAL: controles à esquerda, botões de pedal à direita ===== */
+        .pedal-h-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: start; }
+        .pedal-h-controls { min-width: 0; }
+        .pedal-h-switch { display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: flex-start; padding-top: 4px; }
+        /* ===== FAIXA DOS PEDAIS: RACK (lado a lado) x DUB MIXER (um embaixo do outro) =====
+           Em flex, um pedal sozinho visivel ocupa a largura toda (nada de metade vazia).
+           O gap + margin-bottom reproduzem exatamente o espacamento de antes. */
+        .pedais-faixa { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+        .pedais-faixa > * { flex: 1 1 0; min-width: 0; margin-bottom: 0; }
+        body.modo-dubmixer .pedais-faixa { flex-direction: column; }
+        @media (max-width: 720px) { .pedais-faixa { flex-direction: column; } }
+
+        /* ===== MÓDULO DE RACK 19" (SIREN GENERATOR) =====
+           Chapa metálica de largura total, com orelhas de fixação e parafusos dos
+           dois lados. Só box-shadow/gradientes (nada de transform/filter). */
+        .section-box.rack-unit {
+            display: flex; align-items: stretch; padding: 0; border-radius: 5px;
+            border: 1px solid #06070a;
+            background: linear-gradient(180deg, #4d545c 0, #2b3036 5%, #1b1e22 50%, #2b3036 95%, #4d545c 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.9),
+                        inset 0 0 26px rgba(0,0,0,0.55), 0 9px 20px rgba(0,0,0,0.62);
+        }
+        /* Orelhas de rack (onde entram os parafusos de fixação) */
+        .rack-ear {
+            flex: 0 0 36px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            padding: 10px 0;
+            background: linear-gradient(90deg, #1e2126 0, #545b64 42%, #3a4046 68%, #191c20 100%);
+            border-right: 1px solid #090a0c; box-shadow: inset 1px 0 0 rgba(255,255,255,0.10);
+        }
+        .rack-ear.dir {
+            border-right: 0; border-left: 1px solid #090a0c;
+            background: linear-gradient(270deg, #1e2126 0, #545b64 42%, #3a4046 68%, #191c20 100%);
+            box-shadow: inset -1px 0 0 rgba(255,255,255,0.10);
+        }
+        .rack-screw {
+            width: 14px; height: 14px; border-radius: 50%; position: relative; display: block;
+            background: radial-gradient(circle at 34% 28%, #e6ebf0 0, #9aa2ab 30%, #565d65 62%, #1f2328 100%);
+            box-shadow: inset 0 -1px 2px rgba(0,0,0,0.75), inset 0 1px 1px rgba(255,255,255,0.45), 0 1px 2px rgba(0,0,0,0.85);
+        }
+        .rack-screw::after {
+            content: ''; position: absolute; left: 2px; right: 2px; top: 50%; height: 2px; margin-top: -1px;
+            border-radius: 1px; background: linear-gradient(180deg, #0d0f12, #3c4248);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.14);
+        }
+        /* Faceplate: marca do módulo + controles */
+        .rack-face { flex: 1 1 auto; min-width: 0; padding: 9px 14px 12px; }
+        .rack-brand {
+            display: flex; align-items: center; justify-content: center; gap: 7px;
+            font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.5rem;
+            letter-spacing: 2.2px; color: #9aa2ab; text-transform: uppercase; margin-bottom: 3px;
+            text-shadow: 0 1px 0 rgba(0,0,0,0.9);
+        }
+        .rack-led {
+            width: 7px; height: 7px; border-radius: 50%; display: inline-block;
+            background: radial-gradient(circle at 35% 30%, #ffe6b8, #f59e0b 45%, #7c2d12 100%);
+            box-shadow: 0 0 8px rgba(245,158,11,0.85), inset 0 0 2px rgba(255,255,255,0.65);
+        }
+        .section-box.rack-unit h4 { border-bottom-color: rgba(255,255,255,0.16); color: #e8c46a; }
+        .section-box.rack-unit .tape-delay-box { background: rgba(0,0,0,0.32); border-color: rgba(255,255,255,0.13); }
+        /* ===== MÓDULO DE RACK 19" — MODELO 2 (CROSSOVER): anodizado preto/azul ===== */
+        .section-box.rack-unit.rack-unit-2 {
+            background: linear-gradient(180deg, #1f2530 0, #0e1218 6%, #05070a 50%, #0e1218 94%, #1f2530 100%);
+            border-color: #020304;
+            box-shadow: inset 0 1px 0 rgba(59,130,246,0.18), inset 0 -1px 0 rgba(0,0,0,0.95),
+                        inset 0 0 30px rgba(0,0,0,0.7), 0 9px 20px rgba(0,0,0,0.62);
+        }
+        .section-box.rack-unit.rack-unit-2 .rack-ear {
+            background: linear-gradient(90deg, #0a0d12 0, #2a3340 42%, #141a22 68%, #06080c 100%);
+        }
+        .section-box.rack-unit.rack-unit-2 .rack-ear.dir {
+            background: linear-gradient(270deg, #0a0d12 0, #2a3340 42%, #141a22 68%, #06080c 100%);
+        }
+        .section-box.rack-unit.rack-unit-2 h4 { color: #93c5fd; border-bottom-color: rgba(59,130,246,0.35); }
+        .section-box.rack-unit.rack-unit-2 .rack-brand { color: #93c5fd; }
+        .section-box.rack-unit.rack-unit-2 .master-tape-dentro { border-top-color: rgba(59,130,246,0.3); }
+        .section-box.rack-unit.rack-unit-2 .master-tape-dentro .master-tape-titulo { color: #93c5fd; }
+        /* Versao compacta do rack do crossover (sem remover nada, so apertando) */
+        .section-box.rack-unit.rack-unit-2 .rack-ear { flex-basis: 26px; padding: 6px 0; }
+        .section-box.rack-unit.rack-unit-2 .rack-face { padding: 6px 10px 8px; }
+        .section-box.rack-unit.rack-unit-2 .rack-brand { margin-bottom: 2px; font-size: 0.46rem; }
+        .section-box.rack-unit.rack-unit-2 .crossover-grid { gap: 4px; }
+        .section-box.rack-unit.rack-unit-2 .band-box { padding: 5px 3px; }
+        .section-box.rack-unit.rack-unit-2 .led-tower { margin: 5px 0; padding: 3px 3px; gap: 1px; }
+        .section-box.rack-unit.rack-unit-2 .master-tape-dentro { margin-top: 6px; padding: 5px 8px 6px; }
+        .section-box.rack-unit.rack-unit-2 .master-tape-dentro .master-tape-titulo { margin-bottom: 4px; }
+        .section-box.rack-unit.rack-unit-2 .master-tape-dentro .knob-col { gap: 6px; }
+        /* Rack 19" EXTERNO: fica fora do gabinete, embaixo do dub mixer, centralizado
+           e com a mesma largura do gabinete (sem rolagem lateral). */
+        .rack-externo { width: 100%; max-width: min(1560px, 100%); margin: 14px auto 0; }
+        .rack-externo .section-box.rack-unit { margin-bottom: 0; }
+        /* ===== SYNARE / SPACE DRUM — modulo externo com visual de Synare ===== */
+        .synare-externo { width: 100%; max-width: min(1560px, 100%); margin: 14px auto 0; }
+        .synare-unit {
+            background: linear-gradient(180deg, #1a1a1e 0, #0a0a0c 6%, #050507 50%, #0a0a0c 94%, #1a1a1e 100%);
+            border: 1px solid #000; border-radius: 8px; padding: 12px 14px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.95),
+                        inset 0 0 30px rgba(0,0,0,0.8), 0 10px 22px rgba(0,0,0,0.65);
+            color: #e8e8ea;
+        }
+        .synare-brand {
+            display: flex; align-items: baseline; gap: 10px; justify-content: center;
+            padding-bottom: 8px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,120,40,0.35);
+        }
+        .synare-led {
+            width: 9px; height: 9px; border-radius: 50%; display: inline-block;
+            background: radial-gradient(circle at 35% 30%, #ffe6b8, #f97316 45%, #7c2d12 100%);
+            box-shadow: 0 0 10px rgba(249,115,22,0.9), inset 0 0 2px rgba(255,255,255,0.6);
+        }
+        .synare-title { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 1.05rem; font-weight: 700; letter-spacing: 3px; color: #fdba74; text-shadow: 0 0 8px rgba(249,115,22,0.5); }
+        .synare-sub { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.5rem; letter-spacing: 2px; color: #9ca3af; }
+        .synare-body { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
+        /* Pad circular de trigger (o "tambor") */
+        .synare-pad-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .synare-pad {
+            width: 132px; height: 132px; border-radius: 50%; position: relative;
+            background: radial-gradient(circle at 40% 35%, #3a1a0a 0, #1a0804 55%, #050201 100%);
+            border: 4px solid #7c2d12;
+            box-shadow: inset 0 -6px 14px rgba(0,0,0,0.9), inset 0 4px 8px rgba(249,115,22,0.15),
+                        0 0 18px rgba(249,115,22,0.35), 0 6px 12px rgba(0,0,0,0.7);
+            cursor: pointer; color: #fdba74; font-weight: 700; letter-spacing: 2px;
+            display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+            transition: transform 0.05s ease, box-shadow 0.05s ease;
+        }
+        .synare-pad:active { transform: scale(0.96); box-shadow: inset 0 -4px 10px rgba(0,0,0,0.95), inset 0 2px 6px rgba(249,115,22,0.25), 0 2px 6px rgba(0,0,0,0.7); }
+        .synare-pad-ring {
+            position: absolute; inset: 10px; border-radius: 50%;
+            border: 2px solid rgba(249,115,22,0.5);
+            box-shadow: inset 0 0 12px rgba(249,115,22,0.25);
+        }
+        .synare-pad-core { position: relative; z-index: 2; text-shadow: 0 0 6px rgba(249,115,22,0.8); }
+        .synare-pad-label { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.5rem; letter-spacing: 2px; color: #9ca3af; }
+        .synare-controls { min-width: 0; }
+        .synare-unit .synare-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 6px; justify-items: center; }
+        .synare-unit .tape-delay-box.synare-delay { background: rgba(249,115,22,0.06); border-color: rgba(249,115,22,0.3); }
+        .synare-unit .tape-delay-box.synare-delay h5 { color: #fdba74; }
+        @media (max-width: 720px) {
+            .synare-body { grid-template-columns: 1fr; }
+            .synare-pad { width: 110px; height: 110px; }
+            .synare-unit .synare-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media (max-width: 1024px) { .rack-externo { max-width: 980px; } }
+        /* Painel duplo: usa a largura total sem esticar nada (sirene em faixa própria) */
+        .pedal-h-controls.painel-duplo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+        .pedal-h-bloco { min-width: 0; }
+        /* Em telas estreitas o painel vira uma coluna só, sem quebrar o resto */
+        @media (max-width: 720px) { .pedal-h-controls.painel-duplo { grid-template-columns: minmax(0, 1fr); } .pedal-h-body { grid-template-columns: minmax(0, 1fr); } }
+        /* O botão do Synare fica compacto na coluna da direita */
+        .pedal-h-switch .btn-synare { width: 118px; max-width: none; margin: 4px 0; padding: 14px 8px; font-size: 0.68rem; line-height: 1.25; text-align: center; }
+
         /* ===== PEDAL SYNARE / SPACE DRUM ===== */
         .btn-synare { width: 100%; max-width: 280px; margin: 8px auto 12px auto; display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(to bottom, #7c2d12, #431407); border: 2px solid var(--btn-border); color: #fff; font-size: 0.84rem; font-weight: 700; padding: 12px 10px; border-radius: 6px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; box-shadow: 0 6px 14px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.18); user-select: none; }
         .btn-synare:active { box-shadow: inset 0 4px 12px rgba(0,0,0,0.75); }
@@ -454,6 +794,23 @@
         .knob-indicator { position: absolute; top: 4px; width: 3px; height: 14px; background: var(--knob-indicator); border-radius: 1px; transition: background 0.3s ease; }
 
         .knob-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; justify-items: center; }
+        /* Uma unica linha com dois knobs (ex.: CUTOFF + PAN) */
+        .knob-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; justify-items: center; align-items: start; }
+        /* Tres knobs na mesma linha (VOL + PAN + CUTOFF no EQ & FILTERS) */
+        .knob-row-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
+        .knob-row-3 .knob-container { margin: 6px 0 2px; min-width: 0; width: 100%; }
+        .knob-row-3 label { font-size: 0.5rem; letter-spacing: -0.2px; line-height: 1.25; text-align: center; max-width: 100%; overflow-wrap: break-word; }
+        /* Lista VERTICAL de knobs (knob a esquerda, rótulo a direita) — usada no MASTER TAPE DELAY */
+        .knob-col { display: flex; flex-direction: column; gap: 9px; }
+        .knob-col .knob-container { flex-direction: row; align-items: center; justify-content: flex-start; gap: 8px; margin: 0; }
+        .knob-col .knob-container label { flex: 1; min-width: 0; text-align: left; }
+        /* Master tape delay embutido na caixa do crossover (caixa única, sem vão) */
+        .master-tape-dentro { margin-top: 10px; padding: 8px 10px 10px; border-top: 1px dashed var(--border-metal); }
+        .master-tape-dentro .master-tape-titulo { font-size: 0.58rem; color: var(--gold); text-align: center; letter-spacing: 1px; margin-bottom: 6px; font-weight: 700; }
+        /* dentro da caixa do crossover os knobs ficam em linha (3 colunas), não empilhados */
+        .master-tape-dentro .knob-col { flex-direction: row; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: flex-start; }
+        .master-tape-dentro .knob-container { flex-direction: column; gap: 4px; }
+        .master-tape-dentro .knob-container label { flex: none; text-align: center; }
         .crossover-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; text-align: center; }
         /* Em telas estreitas as 5 bandas não cabem lado a lado: quebramos em 3 e depois 2 colunas */
         @media (max-width: 640px) { .crossover-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -467,51 +824,98 @@
         .led.amber.on { background-color: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
         .led.red.on { background-color: #ef4444; box-shadow: 0 0 8px #ef4444; }
 
-        /* MASTER VU: Controle dinâmico entre LED Vertical e Relógio Retangular via tema */
-        #ledsMaster { display: var(--master-led-display); }
+        /* MASTER VU: Controle dinâmico entre LED Vertical e Relógio Retangular via tema.
+           Agora sao DOIS medidores (estereo): um para o canal L e um para o R. */
+        #ledsMasterL, #ledsMasterR { display: var(--master-led-display); }
 
-        /* NOVO VU METER ANALÓGICO RETANGULAR */
+        /* VU METER ANALÓGICO REDONDO (galvanômetro de estúdio) */
         .analog-vu-meter {
             display: var(--master-analog-display);
-            width: 140px; height: 85px;
-            background: linear-gradient(to bottom, #d4a34b, #facc15 40%, #eab308 100%);
-            border: 8px solid #1c1e21; /* Bezel quadrado escuro */
-            border-radius: 4px;
             position: relative;
+            width: 168px; height: 168px;
+            box-sizing: border-box;
+            border: 7px solid #15171b;            /* bezel escuro */
+            border-radius: 50%;
             overflow: hidden;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.6), inset 0 0 15px rgba(0,0,0,0.4);
+            background:
+                radial-gradient(circle closest-side at 50% 20%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 44%),
+                radial-gradient(circle closest-side at 50% 50%, #fdf9ef 0%, #f4ecd8 52%, #e3d7b7 76%, #ccbc96 100%);
+            box-shadow:
+                0 0 0 2px #474d58,
+                0 0 0 4px #101216,
+                0 12px 20px rgba(0,0,0,0.72),
+                inset 0 0 16px rgba(120,96,48,0.45);
             margin: 6px 0;
         }
+        /* marca VU impressa no mostrador */
         .analog-vu-meter::before {
             content: 'VU';
-            position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-            font-family: 'Arial', sans-serif; font-size: 16px; font-weight: bold; color: #111; letter-spacing: 2px;
+            position: absolute; bottom: 16%; left: 50%; transform: translateX(-50%);
+            font-family: 'Arial', sans-serif; font-size: 11px; font-weight: 700; color: #23262b;
+            letter-spacing: 2px; opacity: 0.8; z-index: 5;
         }
-        .analog-scale {
-            position: absolute; top: 15px; left: 15px; right: 15px; height: 35px;
-            border-top: 2px dashed #222; border-radius: 50%;
+        /* Setor de ticks: recortado em ±45° em torno do topo (o resto do círculo fica limpo) */
+        .vu-ticks { position: absolute; inset: 0; border-radius: 50%; pointer-events: none; clip-path: polygon(50% 50%, 0 0, 100% 0); }
+        .vu-ticks::before, .vu-ticks::after { content: ''; position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, 0 0, 100% 0); }
+        /* Divisões menores */
+        .vu-ticks::before {
+            background: repeating-conic-gradient(from -46deg, #191c21 0deg 0.7deg, transparent 0.7deg 4.5deg);
+            -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 72%, #000 72% 84%, transparent 84%);
+                    mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 72%, #000 72% 84%, transparent 84%);
         }
-        .analog-scale::after {
-            content: ''; position: absolute; top: -2px; right: 0; width: 35%; height: 100%;
-            border-top: 2px dashed #dc2626; border-radius: 50% 50% 0 0;
+        /* Divisões maiores, nas 7 marcas numeradas */
+        .vu-ticks::after {
+            background: conic-gradient(from -46deg,
+                #0f1114 2deg 3.7deg,   transparent 3.7deg 15deg,
+                #0f1114 15deg 16.7deg, transparent 16.7deg 28deg,
+                #0f1114 28deg 29.7deg, transparent 29.7deg 40deg,
+                #0f1114 40deg 41.7deg, transparent 41.7deg 62deg,
+                #0f1114 62deg 63.7deg, transparent 63.7deg 74deg,
+                #0f1114 74deg 75.7deg, transparent 75.7deg 87deg,
+                #0f1114 87deg 88.7deg, transparent 88.7deg 90deg);
+            -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 66%, #000 66% 84%, transparent 84%);
+                    mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 66%, #000 66% 84%, transparent 84%);
         }
+        /* Faixa vermelha: de 0 VU até +3 VU */
+        .vu-redzone {
+            position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+            background: conic-gradient(from -46deg, transparent 0deg 62deg, #cf2020 62deg 87deg, transparent 87deg 360deg);
+            -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 84%, #000 84% 91%, transparent 91%);
+                    mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 84%, #000 84% 91%, transparent 91%);
+        }
+        /* Números da escala (posicionados por ângulo via --a) */
+        .vu-nums { position: absolute; inset: 0; pointer-events: none; }
+        .vu-nums span {
+            position: absolute; left: 50%; top: 50%; white-space: nowrap;
+            font-family: 'Arial', sans-serif; font-size: 6px; font-weight: 700; color: #14161a;
+            transform: translate(-50%, -50%) rotate(var(--a)) translateY(-50px) rotate(calc(-1 * var(--a)));
+        }
+        /* Ponteiro: fino, girando em torno do centro do mostrador */
         .analog-needle {
-            position: absolute; bottom: -5px; left: 50%; margin-left: -1px;
-            width: 2px; height: 75px;
-            background: #111;
-            transform-origin: bottom center;
+            position: absolute; bottom: 50%; left: 50%;
+            width: 2px; height: 40%; margin-left: -1px;
+            background: #14161a;
+            transform-origin: 50% 100%;
             transform: rotate(-45deg);
-            transition: transform 0.05s ease-out;
-            z-index: 10;
+            transition: transform 0.06s linear;
+            z-index: 6;
         }
-        /* Ponto base do ponteiro */
-        .analog-needle::after {
-            content: ''; position: absolute; bottom: 0; left: -4px; width: 10px; height: 10px;
-            background: #111; border-radius: 50%;
+        /* Eixo central cromado */
+        .vu-hub {
+            position: absolute; left: 50%; top: 50%; width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, #7b828d, #23262c 65%, #0d0f12 100%);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.85), inset 0 1px 1px rgba(255,255,255,0.35);
+            z-index: 8; pointer-events: none;
         }
+        /* Reflexo de vidro sobre o mostrador */
+        .vu-glass {
+            position: absolute; inset: 0; border-radius: 50%; pointer-events: none; z-index: 9;
+            background: linear-gradient(158deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.10) 34%, rgba(255,255,255,0) 52%);
+        }
+        /* MASTER ESTEREO: par de VU (L e R) lado a lado na torre central */
+        .vu-pair { display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 14px; margin: 6px 0 2px; }
+        .vu-channel { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .vu-label { font-size: 0.56rem; font-weight: 700; letter-spacing: 1px; color: var(--gold); opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.8); }
 
         /* user-select: none -> arrastar o fader nao seleciona o texto do rotulo.
            Sem isso, o arraste iniciava uma selecao e o Firefox desenhava a faixa
@@ -524,25 +928,16 @@
         .fader-slot-line { position: absolute; width: 100%; height: 3px; background: #000; top: 50%; transform: translateY(-50%); }
         .fader-cap { position: absolute; width: 56px; height: 26px; top: 3px; margin-left: -28px; background: linear-gradient(145deg, #2a2d36 0%, #111317 60%, #08090b 100%); border: 1px solid #4a5061; border-radius: 3px; cursor: grab; display: flex; justify-content: center; align-items: center; touch-action: none; box-shadow: 0 4px 6px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.12); }
         .fader-cap-line { width: 5px; height: 18px; background: #ffffff; border-radius: 1px; box-shadow: 0 0 3px rgba(255,255,255,0.5); }
-        .hidden-yt { position: absolute; left: -10000px; top: 0; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
         input[type="text"], select:not(#themeSelect) { width: 100%; background: var(--input-bg); color: var(--input-text); border: 1px solid var(--input-border); font-size: 0.68rem; padding: 7px 9px; border-radius: 5px; font-family: 'Share Tech Mono', ui-monospace, monospace; margin-bottom: 6px; box-sizing: border-box; outline: none; -webkit-appearance: none; appearance: none; }
 
         /* ===== TEXTO LONGO NÃO PODE EMPURRAR O LAYOUT ===== */
         .file-input-wrap { max-width: 100%; min-width: 0; overflow: hidden; }
         input[type="file"] { width: 100%; max-width: 100%; box-sizing: border-box; font-size: 0.6rem; padding: 4px; color: var(--input-text); background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 5px; font-family: 'Share Tech Mono', ui-monospace, monospace; }
         input[type="file"]::file-selector-button { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.58rem; font-weight: 700; padding: 4px 8px; margin-right: 6px; border-radius: 4px; border: 2px solid var(--btn-border); background: var(--btn-bg); color: var(--btn-text); cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15); }
-        #statusA, #statusB, #ytStatusA, #ytStatusB { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.6rem; margin: 2px 0; }
+        #statusA, #statusB { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.6rem; margin: 2px 0; }
     </style>
 </head>
-<body class="theme-dub bg-night">
-
-<!-- Aviso forte: o YouTube só toca quando a página é aberta pelo atalho .bat / http://localhost.
-     Quando aberta direto do disco (file://) este aviso aparece automaticamente. -->
-<div id="avisoFile" class="aviso-file">
-    <strong>⚠️ Você abriu o arquivo direto do disco — o YouTube NÃO vai tocar assim.</strong>
-    <span>Feche esta aba e abra pelo atalho <b>"Dub Mixer (com YouTube).bat"</b>. Se ele abrir uma página em branco, aguarde alguns segundos na janelinha preta do servidor e recarregue. Arquivos de áudio do seu PC funcionam normalmente mesmo assim.</span>
-    <button type="button" onclick="document.getElementById('avisoFile').style.display='none'">Entendi</button>
-</div>
+<body class="theme-dub bg-night sem-3d modo-rack">
 
 <div class="toolbar">
     <div class="toolbar-group">
@@ -556,20 +951,28 @@
             <option value="theme-dj">6. DJ Mixer (Painel Escuro)</option>
             <option value="theme-vintage">7. Vintage Conservado (Mesa Antiga)</option>
             <option value="theme-mpc">8. MPC Clássica (Cinza + Vermelho Akai)</option>
+            <option value="theme-rasta">9. Rastafari (Verde, Ouro e Vermelho)</option>
+            <option value="theme-water">10. King Tubby's Water (Azul Água)</option>
+            <option value="theme-lava">11. Volcano Lava (Laranja sobre Basalto)</option>
+            <option value="theme-cosmic">12. Cosmic Dub (Violeta Espacial)</option>
         </select>
+    </div>
+    <div class="segmented" role="group" aria-label="Modo do painel">
+        <button type="button" id="btnModoRack" class="active" aria-pressed="true" onclick="setModo('rack')" title="Pedais lado a lado numa faixa horizontal">📻 RACK</button>
+        <button type="button" id="btnModoDub" aria-pressed="false" onclick="setModo('dubmixer')" title="Pedais um embaixo do outro, exatamente como sempre foi">🎛️ DUB MIXER</button>
     </div>
     <div class="segmented" role="group" aria-label="Modo de fundo">
         <button type="button" id="bgLightBtn" onclick="setBgMode('light')">☀️ Claro</button>
         <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
     </div>
     <div class="segmented" role="group" aria-label="Efeito 3D do gabinete">
-        <button type="button" id="btn3D" class="active" onclick="toggle3D()" title="Liga/desliga a inclinação 3D do gabinete">📐 3D: ON</button>
+        <button type="button" id="btn3D" onclick="toggle3D()" title="Liga/desliga a inclinação 3D do gabinete">📐 3D: OFF</button>
     </div>
     <div class="toolbar-group">
-        <span class="toolbar-label">🧩 Módulos</span>
-        <div class="segmented" role="group" aria-label="Mostrar ou ocultar equipamentos opcionais">
-            <button type="button" id="btnModSiren" class="active" aria-pressed="true" onclick="toggleModulo('siren')" title="Mostrar/ocultar o SIREN GENERATOR &amp; PRESETS">🚨 SIRENE</button>
-            <button type="button" id="btnModSynare" class="active" aria-pressed="true" onclick="toggleModulo('synare')" title="Mostrar/ocultar o pedal SYNARE / SPACE DRUM">🥁 SYNARE</button>
+        <span class="toolbar-label">Pedais</span>
+        <div class="segmented" role="group" aria-label="Mostrar ou ocultar pedais">
+            <button type="button" id="btnModSiren" class="active" aria-pressed="true" onclick="togglePedal('siren')" title="Mostrar/ocultar o SIREN GENERATOR &amp; PRESETS">🚨 SIRENE</button>
+            <button type="button" id="btnModSynare" aria-pressed="false" onclick="togglePedal('synare')" title="Mostrar o pedal SYNARE / SPACE DRUM">🥁 SYNARE</button>
         </div>
     </div>
 </div>
@@ -587,15 +990,14 @@
         <!-- CANAL 1 -->
         <div class="channel-strip">
             <div class="section-box" style="border: 1px solid var(--gold); border-radius: var(--radius-md);">
-                <h4>CH 1 (MUSIC / YT)</h4>
+                <h4>CH 1 (MUSIC)</h4>
                 <div style="display:flex; gap:3px; margin-bottom:5px;">
-                    <button class="btn-sm" onclick="switchSource('A', 'file')">ARQUIVO</button>
-                    <button class="btn-sm btn-red" onclick="switchSource('A', 'youtube')">YOUTUBE</button>
+                    <span style="font-size:0.62rem; color:var(--gold); letter-spacing:1px; font-weight:700;">CH 1 — ARQUIVO</span>
                 </div>
 
                 <div id="sourceFileA">
                     <div class="file-input-wrap"><input type="file" id="fileA" accept="audio/*"></div>
-                    <p id="statusA" style="color: #86efac;" title="Nenhum arquivo">Nenhum arquivo</p>
+                    <p id="statusA" style="color: var(--status-ok);" title="Nenhum arquivo">Nenhum arquivo</p>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-green" onclick="togglePlay('A')">▶ PLAY</button>
                         <button class="btn-red" onclick="stopDeck('A')">⏹ STOP</button>
@@ -604,31 +1006,23 @@
                     <button class="btn-sm btn-amber" onclick="triggerNeedlePop('A')">📀 TIRAR AGULHA</button>
                 </div>
 
-                <div id="sourceYoutubeA" style="display:none;">
-                    <input type="text" id="ytInputA" placeholder="Link ou ID do YouTube">
-                    <button class="btn-sm btn-red" onclick="loadYouTube('A')">CARREGAR YT</button>
-                    <p id="ytStatusA" style="color: #93c5fd;">YouTube: aguardando link…</p>
-                    <div style="display:flex; gap:4px; margin-top:4px;">
-                        <button class="btn-sm" onclick="openYtInTab('A')">🔗 ABRIR NO YOUTUBE</button>
-                        <button class="btn-sm" onclick="loadTestYT('A')">🎬 VÍDEO DE TESTE</button>
-                    </div>
-                    <div style="display:flex; gap:4px; margin-top:4px;">
-                        <button class="btn-green" onclick="toggleYTPlay('A')">▶ PLAY/PAUSE</button>
-                        <button class="btn-red" onclick="stopYT('A')">⏹ STOP</button>
-                    </div>
-                    <p style="font-size:0.52rem; opacity:0.7; margin:4px 0 0;">Vídeo oficial de gravadora costuma bloquear. Se der "bloqueado", tente um lyric video ou clique em VÍDEO DE TESTE.</p>
-                </div>
 
-                <div class="knob-container" style="margin-top:8px;">
-                    <div class="knob-wrapper" id="knobVolA"><div class="knob-indicator"></div></div>
-                    <label>VOL CH1: <span id="lblVolA">100</span>%</label>
-                </div>
             </div>
             <div class="section-box">
                 <h4>EQ & FILTERS</h4>
-                <div class="knob-container">
-                    <div class="knob-wrapper" id="knobSweepA"><div class="knob-indicator"></div></div>
-                    <label>CUTOFF</label>
+                <div class="knob-row knob-row-3">
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobVolA"><div class="knob-indicator"></div></div>
+                        <label>VOL CH1: <span id="lblVolA">100</span>%</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobPanA"><div class="knob-indicator"></div></div>
+                        <label>PAN: <span id="lblPanA">C</span></label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSweepA"><div class="knob-indicator"></div></div>
+                        <label>CUTOFF</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -637,78 +1031,79 @@
         <div class="center-tower">
             <div class="master-tower">
                 <span style="font-size: 0.54rem; color: var(--gold); font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; opacity: 0.9;">MASTER OUT</span>
-                
-                <!-- TOWER LED (Padrão) -->
-                <div class="led-tower" id="ledsMaster" style="height: 110px;">
-                    <div class="led green"></div><div class="led green"></div><div class="led green"></div><div class="led green"></div>
-                    <div class="led green"></div><div class="led green"></div><div class="led green"></div><div class="led green"></div>
-                    <div class="led amber"></div><div class="led amber"></div><div class="led red"></div><div class="led red"></div>
-                </div>
-                
-                <!-- ANALOG VU RETANGULAR (Mostrado nos temas alternativos) -->
-                <div class="analog-vu-meter" id="analogVuMaster">
-                    <div class="analog-scale"></div>
-                    <div class="analog-needle" id="analogNeedleMaster"></div>
+
+                <!-- VU ESTEREO: um medidor para o canal L e outro para o canal R -->
+                <div class="vu-pair">
+                    <div class="vu-channel">
+                        <div class="led-tower" id="ledsMasterL" style="height: 110px;">
+                            <div class="led green"></div><div class="led green"></div><div class="led green"></div><div class="led green"></div>
+                            <div class="led green"></div><div class="led green"></div><div class="led green"></div><div class="led green"></div>
+                            <div class="led amber"></div><div class="led amber"></div><div class="led red"></div><div class="led red"></div>
+                        </div>
+                        <div class="analog-vu-meter" id="analogVuMasterL">
+                            <div class="vu-ticks"></div>
+                            <div class="vu-redzone"></div>
+                            <div class="vu-nums">
+                                <span style="--a:-44deg">-20</span>
+                                <span style="--a:-31deg">-10</span>
+                                <span style="--a:-18deg">-5</span>
+                                <span style="--a:-6deg">-3</span>
+                                <span style="--a:16deg">0</span>
+                                <span style="--a:28deg">+2</span>
+                                <span style="--a:41deg">+3</span>
+                            </div>
+                            <div class="analog-needle" id="analogNeedleMasterL"></div>
+                            <div class="vu-hub"></div>
+                            <div class="vu-glass"></div>
+                        </div>
+                        <span class="vu-label">L</span>
+                    </div>
+                    <div class="vu-channel">
+                        <div class="led-tower" id="ledsMasterR" style="height: 110px;">
+                            <div class="led green"></div><div class="led green"></div><div class="led green"></div><div class="led green"></div>
+                            <div class="led green"></div><div class="led green"></div><div class="led green"></div><div class="led green"></div>
+                            <div class="led amber"></div><div class="led amber"></div><div class="led red"></div><div class="led red"></div>
+                        </div>
+                        <div class="analog-vu-meter" id="analogVuMasterR">
+                            <div class="vu-ticks"></div>
+                            <div class="vu-redzone"></div>
+                            <div class="vu-nums">
+                                <span style="--a:-44deg">-20</span>
+                                <span style="--a:-31deg">-10</span>
+                                <span style="--a:-18deg">-5</span>
+                                <span style="--a:-6deg">-3</span>
+                                <span style="--a:16deg">0</span>
+                                <span style="--a:28deg">+2</span>
+                                <span style="--a:41deg">+3</span>
+                            </div>
+                            <div class="analog-needle" id="analogNeedleMasterR"></div>
+                            <div class="vu-hub"></div>
+                            <div class="vu-glass"></div>
+                        </div>
+                        <span class="vu-label">R</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="section-box" id="modSiren" style="margin-top: 8px;">
-                <h4>SIREN GENERATOR & PRESETS</h4>
-                <select id="sPreset" onchange="loadPreset()">
-                    <option value="1">1. O.B.F Dubquake Laser</option>
-                    <option value="2">2. Kebra Ethiopia Stepper</option>
-                    <option value="3">3. Iration Steppas Year 3000</option>
-                    <option value="4">4. King Tubby Sub Siren</option>
-                    <option value="5">5. Jah Shaka Warrior Horn</option>
-                    <option value="6">6. Mungo's Hi Fi Rub-A-Dub</option>
-                    <option value="7">7. Alpha & Omega Cyber Beam</option>
-                    <option value="8">8. Stand High Patrol Sweeper</option>
-                    <option value="9">9. Channel One Roots Sine</option>
-                    <option value="10">10. Aba Shanti-I Meditation</option>
-                </select>
+            <!-- GRAVAR MIXAGEM + CONVERTER COM OS PARÂMETROS ATUAIS -->
+            <div class="master-io">
+                <button type="button" id="btnRecord" class="btn-io" onclick="toggleGravacao()" title="Grava a saída master (o som que está saindo) em arquivo de áudio" aria-pressed="false">
+                    <span class="io-dot"></span><span id="recLabel">GRAVAR MIX</span>
+                </button>
+                <button type="button" id="btnConvert" class="btn-io" onclick="converterMusica()" title="Gera um WAV da música carregada já com VOL, PAN, CUTOFF, CROSSOVER, DELAY e BASS BOOST que você ajustou">
+                    ⬇ CONVERTER
+                </button>
+            </div>
+            <p id="ioStatus" class="io-status"></p>
 
-                <div class="knob-grid-2x2" style="margin-top:6px;">
-                    <div class="knob-container">
-                        <div class="knob-wrapper" id="knobSirenPitch"><div class="knob-indicator"></div></div>
-                        <label>PITCH</label>
-                    </div>
-                    <div class="knob-container">
-                        <div class="knob-wrapper" id="knobSirenRate"><div class="knob-indicator"></div></div>
-                        <label>RATE: <span id="lblSirenRate">3.0</span>Hz</label>
-                    </div>
-                </div>
-
-                <div class="knob-container" style="margin-top:6px;">
-                    <div class="knob-wrapper" id="knobSirenVol"><div class="knob-indicator"></div></div>
-                    <label style="color:var(--gold);">VOL SIRENE: <span id="lblSirenVol">40</span>%</label>
-                </div>
-
-                <div style="background: var(--surface); border: 1px dashed var(--hairline); padding: 8px; border-radius: var(--radius-sm); margin-top: 8px;">
-                    <h5 style="margin: 0 0 4px 0; font-size: 0.56rem; color: var(--gold); text-align: center; letter-spacing: 1px;">SIREN EXCLUSIVE TAPE DELAY</h5>
-                    <div class="knob-grid-2x2">
-                        <div class="knob-container">
-                            <div class="knob-wrapper" id="knobSirenDTime"><div class="knob-indicator"></div></div>
-                            <label>TIME: <span id="lblSDTime">0.375</span>s</label>
-                        </div>
-                        <div class="knob-container">
-                            <div class="knob-wrapper" id="knobSirenDFB"><div class="knob-indicator"></div></div>
-                            <label>FB: <span id="lblSDFB">40</span>%</label>
-                        </div>
-                    </div>
-                    <div class="knob-container" style="margin-top:4px;">
-                        <div class="knob-wrapper" id="knobSirenDWet"><div class="knob-indicator"></div></div>
-                        <label style="color:var(--gold);">WET: <span id="lblSDWet">30</span>%</label>
-                    </div>
-                </div>
-
-                <div class="siren-controls-row">
-                    <div class="push-btn-wrap">
-                        <button id="btnSiren" class="push-btn" onclick="toggleSirenBtn()" title="Disparar a sirene (clique de novo para parar)" aria-label="Disparar ou parar a sirene" aria-pressed="false">🚨</button>
-                        <label class="push-btn-label">SIRENE</label>
-                    </div>
-                    <div class="push-btn-wrap">
-                        <button id="btnSquareSweep" class="push-btn" onclick="toggleSweep()" title="Abaixa o rate da sirene gradualmente (clique de novo para voltar)" aria-label="Abaixar o rate gradualmente" aria-pressed="false">🎚️</button>
-                        <label class="push-btn-label">SWEEP</label>
+            <!-- CROSSFADER logo abaixo do MASTER OUT -->
+            <div class="crossfader-section" id="crossfaderBox">
+                <label id="crossLabel" style="color: var(--gold); font-weight: 700; letter-spacing: 0.8px;">X-FADER: CH 1 [ 50% ] CH 2</label>
+                <div class="fader-track" id="faderTrack" onclick="clickFaderTrack(event)" ondblclick="resetFader(event)">
+                    <div class="fader-slot-line"></div>
+                    <div class="fader-cap" id="faderCap">
+                        <div class="fader-cap-line"></div>
+                        <div class="fader-cap-knob"></div>
                     </div>
                 </div>
             </div>
@@ -717,15 +1112,14 @@
         <!-- CANAL 2 -->
         <div class="channel-strip">
             <div class="section-box" style="border: 1px solid var(--gold); border-radius: var(--radius-md);">
-                <h4>CH 2 (MUSIC / YT)</h4>
+                <h4>CH 2 (MUSIC)</h4>
                 <div style="display:flex; gap:3px; margin-bottom:5px;">
-                    <button class="btn-sm" onclick="switchSource('B', 'file')">ARQUIVO</button>
-                    <button class="btn-sm btn-red" onclick="switchSource('B', 'youtube')">YOUTUBE</button>
+                    <span style="font-size:0.62rem; color:var(--gold); letter-spacing:1px; font-weight:700;">CH 2 — ARQUIVO</span>
                 </div>
 
                 <div id="sourceFileB">
                     <div class="file-input-wrap"><input type="file" id="fileB" accept="audio/*"></div>
-                    <p id="statusB" style="color: #86efac;" title="Nenhum arquivo">Nenhum arquivo</p>
+                    <p id="statusB" style="color: var(--status-ok);" title="Nenhum arquivo">Nenhum arquivo</p>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-green" onclick="togglePlay('B')">▶ PLAY</button>
                         <button class="btn-red" onclick="stopDeck('B')">⏹ STOP</button>
@@ -734,56 +1128,125 @@
                     <button class="btn-sm btn-amber" onclick="triggerNeedlePop('B')">📀 TIRAR AGULHA</button>
                 </div>
 
-                <div id="sourceYoutubeB" style="display:none;">
-                    <input type="text" id="ytInputB" placeholder="Link ou ID do YouTube">
-                    <button class="btn-sm btn-red" onclick="loadYouTube('B')">CARREGAR YT</button>
-                    <p id="ytStatusB" style="color: #93c5fd;">YouTube: aguardando link…</p>
-                    <div style="display:flex; gap:4px; margin-top:4px;">
-                        <button class="btn-sm" onclick="openYtInTab('B')">🔗 ABRIR NO YOUTUBE</button>
-                        <button class="btn-sm" onclick="loadTestYT('B')">🎬 VÍDEO DE TESTE</button>
-                    </div>
-                    <div style="display:flex; gap:4px; margin-top:4px;">
-                        <button class="btn-green" onclick="toggleYTPlay('B')">▶ PLAY/PAUSE</button>
-                        <button class="btn-red" onclick="stopYT('B')">⏹ STOP</button>
-                    </div>
-                    <p style="font-size:0.52rem; opacity:0.7; margin:4px 0 0;">Vídeo oficial de gravadora costuma bloquear. Se der "bloqueado", tente um lyric video ou clique em VÍDEO DE TESTE.</p>
-                </div>
 
-                <div class="knob-container" style="margin-top:8px;">
-                    <div class="knob-wrapper" id="knobVolB"><div class="knob-indicator"></div></div>
-                    <label>VOL CH2: <span id="lblVolB">100</span>%</label>
-                </div>
             </div>
             <div class="section-box">
                 <h4>EQ & FILTERS</h4>
-                <div class="knob-container">
-                    <div class="knob-wrapper" id="knobSweepB"><div class="knob-indicator"></div></div>
-                    <label>CUTOFF</label>
+                <div class="knob-row knob-row-3">
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobVolB"><div class="knob-indicator"></div></div>
+                        <label>VOL CH2: <span id="lblVolB">100</span>%</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobPanB"><div class="knob-indicator"></div></div>
+                        <label>PAN: <span id="lblPanB">C</span></label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSweepB"><div class="knob-indicator"></div></div>
+                        <label>CUTOFF</label>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- CROSSFADER ESTILO FADER CAP -->
-    <div class="crossfader-section">
-        <label id="crossLabel" style="color: var(--gold); font-weight: 700; letter-spacing: 0.8px;">X-FADER: CH 1 [ 50% ] CH 2</label>
-        <div class="fader-track" id="faderTrack" onclick="clickFaderTrack(event)" ondblclick="resetFader(event)">
-            <div class="fader-slot-line"></div>
-            <div class="fader-cap" id="faderCap">
-                <div class="fader-cap-line"></div>
-                <div class="fader-cap-knob"></div>
+
+
+
+
+</div>
+</div>
+
+<!-- ===== SIREN GENERATOR — MÓDULO DE RACK 19" (fora do dub mixer, embaixo dele) =====
+     Largura alinhada ao gabinete, como um equipamento de rack separado sobre a mesa. -->
+<div class="rack-externo">
+    <div class="section-box rack-unit" id="modSiren" style="display: none;">
+        <div class="rack-ear" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
+
+        <div class="rack-face">
+            <div class="rack-brand"><span class="rack-led"></span> DUB SYSTEMS · SR-10 SIREN</div>
+            <h4>SIREN GENERATOR &amp; PRESETS</h4>
+            <div class="pedal-h-body">
+                <div class="pedal-h-controls painel-duplo">
+                    <div class="pedal-h-bloco">
+                        <select id="sPreset" onchange="loadPreset()">
+                            <option value="1">1. O.B.F Dubquake Laser</option>
+                            <option value="2">2. Kebra Ethiopia Stepper</option>
+                            <option value="3">3. Iration Steppas Year 3000</option>
+                            <option value="4">4. King Tubby Sub Siren</option>
+                            <option value="5">5. Jah Shaka Warrior Horn</option>
+                            <option value="6">6. Mungo's Hi Fi Rub-A-Dub</option>
+                            <option value="7">7. Alpha &amp; Omega Cyber Beam</option>
+                            <option value="8">8. Stand High Patrol Sweeper</option>
+                            <option value="9">9. Channel One Roots Sine</option>
+                            <option value="10">10. Aba Shanti-I Meditation</option>
+                        </select>
+
+                        <div class="knob-row knob-row-3" style="margin-top:8px;">
+                            <div class="knob-container">
+                                <div class="knob-wrapper" id="knobSirenPitch"><div class="knob-indicator"></div></div>
+                                <label>PITCH</label>
+                            </div>
+                            <div class="knob-container">
+                                <div class="knob-wrapper" id="knobSirenRate"><div class="knob-indicator"></div></div>
+                                <label>RATE: <span id="lblSirenRate">3.0</span>Hz</label>
+                            </div>
+                            <div class="knob-container">
+                                <div class="knob-wrapper" id="knobSirenVol"><div class="knob-indicator"></div></div>
+                                <label style="color:var(--gold);">VOL: <span id="lblSirenVol">8</span>%</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tape-delay-box">
+                        <h5>SIREN EXCLUSIVE TAPE DELAY</h5>
+                        <div class="knob-row knob-row-3">
+                            <div class="knob-container">
+                                <div class="knob-wrapper" id="knobSirenDTime"><div class="knob-indicator"></div></div>
+                                <label>TIME: <span id="lblSDTime">0.375</span>s</label>
+                            </div>
+                            <div class="knob-container">
+                                <div class="knob-wrapper" id="knobSirenDFB"><div class="knob-indicator"></div></div>
+                                <label>FB: <span id="lblSDFB">40</span>%</label>
+                            </div>
+                            <div class="knob-container">
+                                <div class="knob-wrapper" id="knobSirenDWet"><div class="knob-indicator"></div></div>
+                                <label style="color:var(--gold);">WET: <span id="lblSDWet">30</span>%</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pedal-h-switch">
+                    <div class="push-btn-wrap">
+                        <button id="btnSiren" class="push-btn" onclick="toggleSirenBtn()" title="Disparar a sirene (clique de novo para parar)" aria-label="Disparar ou parar a sirene" aria-pressed="false"></button>
+                        <label class="push-btn-label">SIRENE</label>
+                    </div>
+                    <div class="push-btn-wrap">
+                        <button id="btnSquareSweep" class="push-btn" onclick="toggleSweep()" title="Abaixa o rate da sirene gradualmente (clique de novo para voltar)" aria-label="Abaixar o rate gradualmente" aria-pressed="false"></button>
+                        <label class="push-btn-label">SWEEP</label>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- CROSSOVER 5-WAY ANALÓGICO COM KNOBS (Sempre Visíveis) -->
-    <div class="section-box" style="margin-top: 8px;">
+        <div class="rack-ear dir" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
+    </div>
+<!-- ===== CROSSOVER 5-WAY — MÓDULO DE RACK 19" (fora do dub mixer, embaixo dele) =====
+     Mesmo estilo de rack separado, modelo diferente da sirene. -->
+<div class="rack-externo">
+<!-- CROSSOVER 5-WAY ANALÓGICO COM KNOBS (Sempre Visíveis) -->
+    <div class="section-box rack-unit rack-unit-2" style="margin-top: 8px;">
+        <div class="rack-ear" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
+        <div class="rack-face">
+        <div class="rack-brand"><span class="rack-led" style="background:radial-gradient(circle at 35% 30%, #b8e6ff, #3b82f6 45%, #1e3a8a 100%); box-shadow:0 0 8px rgba(59,130,246,0.85), inset 0 0 2px rgba(255,255,255,0.65);"></span> DUB SYSTEMS · CX-5 CROSSOVER</div>
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-metal); padding-bottom: 6px; margin-bottom: 8px;">
             <h4 style="margin:0; border:none; padding:0;">CROSSOVER 5-WAY ANALÓGICO + ISOLATOR</h4>
             <div style="display:flex; gap: 4px;">
                 <button id="btnOnlySub" class="btn-solo" onclick="toggleOnlySub()">ONLY SUB</button>
                 <button id="btnOnlyMidHigh" class="btn-solo" onclick="toggleOnlyMidHigh()">ONLY MID-HIGH</button>
                 <button id="btnOnlyHigh" class="btn-solo" onclick="toggleOnlyHigh()">ONLY HIGH</button>
+                <button id="btnBassBoost" class="btn-solo" onclick="toggleBassBoost()" title="Reforço de graves (+12 dB abaixo de 110 Hz)" aria-pressed="false">BASS BOOST</button>
             </div>
         </div>
         <div class="crossover-grid">
@@ -838,108 +1301,119 @@
                 <button id="killHigh" class="btn-kill" onclick="toggleKill('high')">KILL</button>
             </div>
         </div>
-    </div>
 
-    <!-- MASTER TAPE DELAY (MÚSICA) -->
-    <div class="section-box">
-        <h4>MASTER TAPE DELAY (MÚSICA - GRAVES ISENTOS)</h4>
-        <div class="knob-grid-2x2" style="grid-template-columns: repeat(3, 1fr);">
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobMasterDTime"><div class="knob-indicator"></div></div>
-                <label>TIME: <span id="lblMDTime">0.375</span>s</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobMasterDFB"><div class="knob-indicator"></div></div>
-                <label>FB: <span id="lblMDFB">40</span>%</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobMasterDWet"><div class="knob-indicator"></div></div>
-                <label style="color:var(--gold);">WET: <span id="lblMDWet">0</span>%</label>
-            </div>
-        </div>
-    </div>
-
-    <!-- PEDAL SYNARE / SPACE DRUM (tambor analogico + delay proprio) -->
-    <div class="section-box" id="modSynare">
-        <h4>🥁 SYNARE / SPACE DRUM — PEDAL ANALÓGICO</h4>
-        <button id="btnSynare" class="btn-synare" onclick="hitSynare()" title="Toca o tambor Synare" aria-label="Tocar Synare">🥁 TOCAR SYNARE</button>
-        <div class="synare-grid">
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobSynTune"><div class="knob-indicator"></div></div>
-                <label>TUNE: <span id="lblSynTune">220</span>Hz</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobSynSweep"><div class="knob-indicator"></div></div>
-                <label>SWEEP: <span id="lblSynSweep">80</span>%</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobSynDecay"><div class="knob-indicator"></div></div>
-                <label>DECAY: <span id="lblSynDecay">0.45</span>s</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobSynTone"><div class="knob-indicator"></div></div>
-                <label>TONE: <span id="lblSynTone">900</span>Hz</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobSynNoise"><div class="knob-indicator"></div></div>
-                <label>NOISE: <span id="lblSynNoise">35</span>%</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobSynSpace"><div class="knob-indicator"></div></div>
-                <label>SPACE: <span id="lblSynSpace">20</span>%</label>
-            </div>
-            <div class="knob-container">
-                <div class="knob-wrapper" id="knobSynVol"><div class="knob-indicator"></div></div>
-                <label style="color:var(--gold);">VOL: <span id="lblSynVol">70</span>%</label>
-            </div>
-        </div>
-
-        <div class="tape-delay-box">
-            <h5>SYNARE EXCLUSIVE TAPE DELAY</h5>
-            <div class="knob-grid-2x2">
+        <!-- MASTER TAPE DELAY (MÚSICA) — dentro da mesma caixa do crossover -->
+        <div class="master-tape-dentro">
+            <div class="master-tape-titulo">MASTER TAPE DELAY (MÚSICA - GRAVES ISENTOS)</div>
+            <div class="knob-col">
                 <div class="knob-container">
-                    <div class="knob-wrapper" id="knobSynDTime"><div class="knob-indicator"></div></div>
-                    <label>TIME: <span id="lblSynDTime">0.300</span>s</label>
+                    <div class="knob-wrapper" id="knobMasterDTime"><div class="knob-indicator"></div></div>
+                    <label>TIME: <span id="lblMDTime">0.375</span>s</label>
                 </div>
                 <div class="knob-container">
-                    <div class="knob-wrapper" id="knobSynDFB"><div class="knob-indicator"></div></div>
-                    <label>FB: <span id="lblSynDFB">45</span>%</label>
+                    <div class="knob-wrapper" id="knobMasterDFB"><div class="knob-indicator"></div></div>
+                    <label>FB: <span id="lblMDFB">40</span>%</label>
+                </div>
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobMasterDWet"><div class="knob-indicator"></div></div>
+                    <label style="color:var(--gold);">WET: <span id="lblMDWet">0</span>%</label>
                 </div>
             </div>
-            <div class="knob-container" style="margin-top:4px;">
-                <div class="knob-wrapper" id="knobSynDWet"><div class="knob-indicator"></div></div>
-                <label style="color:var(--gold);">WET: <span id="lblSynDWet">35</span>%</label>
+        </div>
+        </div><!-- /.rack-face -->
+        <div class="rack-ear dir" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
+    </div>
+</div>
+
+
+<!-- ===== SYNARE / SPACE DRUM — MÓDULO EXTERNO (abaixo de todos os racks) =====
+     Visual inspirado no Space Drum original: corpo escuro, pad circular de trigger
+     grande à esquerda e os controles à direita. -->
+<div class="synare-externo">
+    <div class="synare-unit" id="modSynare" style="display: none;">
+        <div class="synare-brand">
+            <span class="synare-led"></span>
+            <span class="synare-title">SYNARE 3 · SPACE DRUM</span>
+            <span class="synare-sub">ANALOG PERCUSSION SYNTHESIZER</span>
+        </div>
+
+        <div class="synare-body">
+            <!-- Pad de trigger circular (o "tambor") -->
+            <div class="synare-pad-wrap">
+                <button id="btnSynare" class="synare-pad" onclick="hitSynare()" title="Toca o tambor Synare" aria-label="Tocar Synare">
+                    <span class="synare-pad-ring"></span>
+                    <span class="synare-pad-core">HIT</span>
+                </button>
+                <span class="synare-pad-label">TRIGGER PAD</span>
+            </div>
+
+            <!-- Controles -->
+            <div class="synare-controls">
+                <div class="synare-grid">
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSynTune"><div class="knob-indicator"></div></div>
+                        <label>TUNE: <span id="lblSynTune">220</span>Hz</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSynSweep"><div class="knob-indicator"></div></div>
+                        <label>SWEEP: <span id="lblSynSweep">80</span>%</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSynDecay"><div class="knob-indicator"></div></div>
+                        <label>DECAY: <span id="lblSynDecay">0.45</span>s</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSynTone"><div class="knob-indicator"></div></div>
+                        <label>TONE: <span id="lblSynTone">900</span>Hz</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSynNoise"><div class="knob-indicator"></div></div>
+                        <label>NOISE: <span id="lblSynNoise">35</span>%</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSynSpace"><div class="knob-indicator"></div></div>
+                        <label>SPACE: <span id="lblSynSpace">20</span>%</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobSynVol"><div class="knob-indicator"></div></div>
+                        <label style="color:var(--gold);">VOL: <span id="lblSynVol">70</span>%</label>
+                    </div>
+                </div>
+
+                <div class="tape-delay-box synare-delay">
+                    <h5>SYNARE EXCLUSIVE TAPE DELAY</h5>
+                    <div class="knob-grid-2x2">
+                        <div class="knob-container">
+                            <div class="knob-wrapper" id="knobSynDTime"><div class="knob-indicator"></div></div>
+                            <label>TIME: <span id="lblSynDTime">0.300</span>s</label>
+                        </div>
+                        <div class="knob-container">
+                            <div class="knob-wrapper" id="knobSynDFB"><div class="knob-indicator"></div></div>
+                            <label>FB: <span id="lblSynDFB">45</span>%</label>
+                        </div>
+                    </div>
+                    <div class="knob-container" style="margin-top:4px;">
+                        <div class="knob-wrapper" id="knobSynDWet"><div class="knob-indicator"></div></div>
+                        <label style="color:var(--gold);">WET: <span id="lblSynDWet">35</span>%</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-</div>
 </div>
 
-<!-- Container do YouTube embutido funcional -->
-<div class="hidden-yt">
-    <div id="ytPlayerA"></div>
-    <div id="ytPlayerB"></div>
 </div>
 
-<script>
-    /* O callback da API do YouTube precisa existir ANTES do widgetapi ser baixado (evita o "não toca nada") */
-    window.onYouTubeIframeAPIReady = function () {
-        window.__ytApiReady = true;
-        if (typeof initYouTubePlayers === 'function') initYouTubePlayers();
-    };
-</script>
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
     /* O MOTOR DE ÁUDIO JS ESTÁ EXATAMENTE IGUAL PARA NÃO QUEBRAR NADA */
     let audioCtx = null;
-    let deckA = { buffer: null, source: null, gain: null, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, type: 'file' };
-    let deckB = { buffer: null, source: null, gain: null, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, type: 'file' };
-
-    let ytPlayerA = null, ytPlayerB = null;
-    let ytReadyA = false, ytReadyB = false;
+    let deckA = { buffer: null, source: null, gain: null, panner: null, pan: 0, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, type: 'file' };
+    let deckB = { buffer: null, source: null, gain: null, panner: null, pan: 0, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, type: 'file' };
 
     let crossGainA, crossGainB, masterGain, filterA, filterB;
+    let bassBoostNode = null;
+    let bassBoostActive = false;
+    const BASS_BOOST_DB = 12;
     let fSubLP, fBassHP, fBassLP, fLMHP, fLMLP, fHMHP, fHMLP, fHighHP;
     let gSub, gBass, gLM, gHM, gHigh;
     let isoVal = { sub: 1.0, bass: 1.0, lm: 1.0, hm: 1.0, high: 1.0 };
@@ -948,7 +1422,7 @@
     let killState = { sub: false, bass: false, lm: false, hm: false, high: false };
     let onlySubActive = false, onlyMidHighActive = false, onlyHighActive = false;
 
-    let masterAnalyser;
+    let masterAnalyserL, masterAnalyserR, masterSplitter;
 
     let masterDelayNode, masterFBNode, masterWetGainNode, masterFilterNode, masterDelaySum, masterDryGain;
     let masterDelayParams = { dTime: 0.375, dFB: 0.4, dWet: 0.0 };
@@ -957,7 +1431,7 @@
     let sirenDelayNode, sirenFBNode, sirenWetGainNode, sirenFilterNode;
     let isSirenActive = false;
 
-    let sirenParams = { pitch: 440, rate: 3.0, vol: 0.4, dTime: 0.375, dFB: 0.4, dWet: 0.3 };
+    let sirenParams = { pitch: 440, rate: 3.0, vol: 0.08, dTime: 0.375, dFB: 0.4, dWet: 0.3 };
     let savedSirenRate = 3.0, isSweepActive = false, sweepInterval = null;
 
     /* ===== SYNARE / SPACE DRUM (tambor analogico com delay proprio) ===== */
@@ -1044,8 +1518,28 @@
             let synNoiseData = synNoiseBuf.getChannelData(0);
             for (let i = 0; i < synNoiseData.length; i++) synNoiseData[i] = Math.random() * 2 - 1;
 
-            masterAnalyser = audioCtx.createAnalyser(); masterAnalyser.fftSize = 64;
-            masterGain.connect(masterAnalyser); masterAnalyser.connect(audioCtx.destination);
+            /* VU ESTEREO: o master vai direto para a saida; em paralelo, um divisor
+               separa L e R e cada canal tem o seu proprio analisador.
+               IMPORTANTE: o Firefox so processa o AnalyserNode se ele tiver um
+               caminho ate a saida - por isso os dois vao para um gain MUDO (0). */
+            masterSplitter = audioCtx.createChannelSplitter(2);
+            masterAnalyserL = audioCtx.createAnalyser(); masterAnalyserL.fftSize = 64;
+            masterAnalyserR = audioCtx.createAnalyser(); masterAnalyserR.fftSize = 64;
+            const vuSinkMudo = audioCtx.createGain(); vuSinkMudo.gain.value = 0;
+            /* BASS BOOST: low-shelf real antes da saída. +12 dB abaixo de 110 Hz.
+               Ligado depois do masterGain, então os VU medem o som com o boost aplicado. */
+            bassBoostNode = audioCtx.createBiquadFilter();
+            bassBoostNode.type = 'lowshelf';
+            bassBoostNode.frequency.value = 110;
+            bassBoostNode.gain.value = 0;
+            masterGain.connect(bassBoostNode);
+            bassBoostNode.connect(audioCtx.destination);
+            bassBoostNode.connect(masterSplitter);
+            masterSplitter.connect(masterAnalyserL, 0);
+            masterSplitter.connect(masterAnalyserR, 1);
+            masterAnalyserL.connect(vuSinkMudo);
+            masterAnalyserR.connect(vuSinkMudo);
+            vuSinkMudo.connect(audioCtx.destination);
 
             updateCrossfader(50); updateCrossover(); trackVUs();
         }
@@ -1053,7 +1547,7 @@
     }
 
     /* ===== CONTROLE DE TEMA E MODO DE FUNDO ===== */
-    const THEME_CLASSES = ['theme-dub', 'theme-mustard', 'theme-benidub', 'theme-diy', 'theme-acapulco', 'theme-dj', 'theme-vintage', 'theme-mpc'];
+    const THEME_CLASSES = ['theme-dub', 'theme-mustard', 'theme-benidub', 'theme-diy', 'theme-acapulco', 'theme-dj', 'theme-vintage', 'theme-mpc', 'theme-rasta', 'theme-water', 'theme-lava', 'theme-cosmic'];
 
     function setTheme(themeName) {
         if (!THEME_CLASSES.includes(themeName)) return;
@@ -1079,16 +1573,29 @@
         if (b) { b.classList.toggle('active', !desligado); b.innerText = desligado ? '📐 3D: OFF' : '📐 3D: ON'; }
     }
 
-    /* ===== MÓDULOS OPCIONAIS (show/hide) =====
+    /* ===== MODOS DO PAINEL =====
+       RACK (padrao): os pedais ficam LADO A LADO numa faixa horizontal.
+       DUB MIXER: os pedais ficam UM EMBAIXO DO OUTRO — a interface exatamente
+       como sempre foi. O modo so mexe na faixa dos pedais, nada mais. */
+    function setModo(modo) {
+        let dub = (modo === 'dubmixer');
+        document.body.classList.toggle('modo-dubmixer', dub);
+        document.body.classList.toggle('modo-rack', !dub);
+        let r = document.getElementById('btnModoRack'), d = document.getElementById('btnModoDub');
+        if (r) { r.classList.toggle('active', !dub); r.setAttribute('aria-pressed', String(!dub)); }
+        if (d) { d.classList.toggle('active', dub); d.setAttribute('aria-pressed', String(dub)); }
+    }
+
+    /* ===== PEDAIS OPCIONAIS (show/hide) =====
        O DJ escolhe o que quer em cima da mesa: escondendo o que não vai usar
        o gabinete fica mais curto e a tela mais limpa. */
-    const MODULOS = {
+    const PEDAIS = {
         siren:  { el: 'modSiren',  btn: 'btnModSiren',  nome: 'SIREN GENERATOR & PRESETS' },
         synare: { el: 'modSynare', btn: 'btnModSynare', nome: 'SYNARE / SPACE DRUM' }
     };
 
-    function toggleModulo(chave) {
-        let m = MODULOS[chave]; if (!m) return;
+    function togglePedal(chave) {
+        let m = PEDAIS[chave]; if (!m) return;
         let el = document.getElementById(m.el); if (!el) return;
         let ocultar = (el.style.display !== 'none');
 
@@ -1110,176 +1617,38 @@
 
     /* Aplica o modo compacto quando tem algum equipamento oculto */
     function atualizarMesaCompacta() {
-        let algumOculto = Object.keys(MODULOS).some(c => {
-            let e = document.getElementById(MODULOS[c].el);
+        let algumOculto = Object.keys(PEDAIS).some(c => {
+            let e = document.getElementById(PEDAIS[c].el);
             return e && e.style.display === 'none';
         });
         document.body.classList.toggle('mesa-compacta', algumOculto);
     }
 
+    /* Sincroniza a barra Pedais com o estado REAL do HTML.
+       Serve para um pedal poder NASCER OCULTO pelo próprio HTML — assim ele
+       não "pisca" na tela antes do JS rodar. O SYNARE começa oculto: é um
+       pedal de uso pontual e não precisa ocupar a mesa toda vez que abre. */
+    function sincronizarPedais() {
+        Object.keys(PEDAIS).forEach(chave => {
+            let m = PEDAIS[chave];
+            let el = document.getElementById(m.el); if (!el) return;
+            let visivel = el.style.display !== 'none';
+            let b = document.getElementById(m.btn);
+            if (b) {
+                b.classList.toggle('active', visivel);
+                b.setAttribute('aria-pressed', String(visivel));
+                b.title = (visivel ? 'Ocultar ' : 'Mostrar ') + m.nome;
+            }
+        });
+        atualizarMesaCompacta();
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         setBgMode('night');
-        /* Aviso bem visível quando o arquivo é aberto direto do disco (YouTube não toca em file://) */
-        if (isLocalFilePage()) { let a = document.getElementById('avisoFile'); if (a) a.style.display = 'block'; }
+        /* Acerta a barra de pedais e o modo compacto com o estado que veio do HTML
+           (o SYNARE já vem oculto) */
+        sincronizarPedais();
     });
-
-    /* ===== YOUTUBE IFRAME API (com avisos visíveis e espera pelo player) ===== */
-    function ytApiAvailable() { return !!(window.YT && window.YT.Player); }
-
-    function ytSetStatus(deckID, msg, color) {
-        let el = document.getElementById('ytStatus' + deckID);
-        if (!el) return;
-        el.innerText = msg;
-        el.title = msg;
-        el.style.color = color || '#93c5fd';
-    }
-
-    function ytPlayerFor(deckID) { return (deckID === 'A') ? ytPlayerA : ytPlayerB; }
-    function ytIsReady(deckID) { return (deckID === 'A') ? ytReadyA : ytReadyB; }
-
-    function ytVideoTitle(deckID) {
-        try {
-            let player = ytPlayerFor(deckID);
-            let data = player && player.getVideoData ? player.getVideoData() : null;
-            return (data && data.title) ? data.title : 'vídeo do YouTube';
-        } catch (e) { return 'vídeo do YouTube'; }
-    }
-
-    /* O áudio de um iframe do YouTube não pode entrar no Web Audio (cross-origin),
-       então o volume do canal controla o volume do próprio player. */
-    /* O YouTube NÃO funciona quando o arquivo é aberto direto do disco (file://):
-       a página fica com origem "null" e o player responde com erro 153.
-       Avisamos o usuário com instruções em vez de falhar em silêncio. */
-    function isLocalFilePage() { return location.protocol === 'file:'; }
-
-    function ytExplainLocalFile(deckID) {
-        if (!isLocalFilePage()) return false;
-        ytSetStatus(deckID, 'YouTube exige abrir pelo atalho "Dub Mixer (com YouTube).bat" ou por http://localhost. Arquivo aberto direto (file://) não toca.', '#fbbf24');
-        return true;
-    }
-
-    function ytApplyVolume(deckID) {
-        if (!ytIsReady(deckID)) return;
-        let player = ytPlayerFor(deckID);
-        let deck = (deckID === 'A') ? deckA : deckB;
-        if (player && typeof player.setVolume === 'function') {
-            try { player.setVolume(Math.round(deck.vol * 100)); } catch (e) {}
-        }
-    }
-
-    function initYouTubePlayers() {
-        if (!ytApiAvailable() || ytPlayerA || ytPlayerB) return ytApiAvailable();
-        let playerVars = { autoplay: 0, controls: 0, enablejsapi: 1, playsinline: 1, rel: 0 };
-        /* Em file:// o origin é "null" e o player recusa comandos; só enviamos em http(s) */
-        if (location.protocol === 'http:' || location.protocol === 'https:') playerVars.origin = location.origin;
-
-        let makeEvents = (deckID) => ({
-            onReady: () => {
-                if (deckID === 'A') ytReadyA = true; else ytReadyB = true;
-                if (ytExplainLocalFile(deckID)) return;
-                ytSetStatus(deckID, 'YouTube pronto. Cole o link e clique em CARREGAR YT.');
-                ytApplyVolume(deckID);
-            },
-            onStateChange: (e) => {
-                if (!window.YT) return;
-                if (e.data === YT.PlayerState.PLAYING) ytSetStatus(deckID, '▶ Tocando: ' + ytVideoTitle(deckID), '#86efac');
-                else if (e.data === YT.PlayerState.PAUSED) ytSetStatus(deckID, '⏸ Pausado', '#f59e0b');
-                else if (e.data === YT.PlayerState.BUFFERING) ytSetStatus(deckID, 'Carregando vídeo…', '#93c5fd');
-                else if (e.data === YT.PlayerState.ENDED) ytSetStatus(deckID, 'Fim do vídeo.', '#93c5fd');
-            },
-            onError: (e) => {
-                if (e.data === 153 && ytExplainLocalFile(deckID)) return;
-                let msgs = { 2: 'Link inválido. Confira se copiou o link completo.', 5: 'Erro de HTML5 no player.', 100: 'Vídeo não encontrado, privado ou removido.', 101: 'O dono deste vídeo bloqueou tocar fora do YouTube — escolha outro vídeo.', 150: 'O dono deste vídeo bloqueou tocar fora do YouTube — escolha outro vídeo.' };
-                ytSetStatus(deckID, 'Erro do YouTube: ' + (msgs[e.data] || ('código ' + e.data)), '#f87171');
-            }
-        });
-
-        ytPlayerA = new YT.Player('ytPlayerA', { height: '200', width: '200', playerVars: playerVars, events: makeEvents('A') });
-        ytPlayerB = new YT.Player('ytPlayerB', { height: '200', width: '200', playerVars: playerVars, events: makeEvents('B') });
-        return true;
-    }
-
-    /* Rede de segurança: se o callback da API não disparar, tentamos criar os players de novo */
-    (function ytInitFallback() {
-        if (window.__ytApiReady) initYouTubePlayers();
-        if (initYouTubePlayers()) return;
-        let tries = 0;
-        let timer = setInterval(() => {
-            if (initYouTubePlayers()) { clearInterval(timer); return; }
-            if (++tries > 80) {
-                clearInterval(timer);
-                if (!ytApiAvailable()) {
-                    ytSetStatus('A', 'API do YouTube não carregou (sem internet ou bloqueada).', '#f87171');
-                    ytSetStatus('B', 'API do YouTube não carregou (sem internet ou bloqueada).', '#f87171');
-                }
-            }
-        }, 250);
-    })();
-
-    function withYTPlayer(deckID, cb) {
-        if (ytPlayerFor(deckID) && ytIsReady(deckID)) { cb(ytPlayerFor(deckID)); return true; }
-        ytSetStatus(deckID, 'Preparando o player do YouTube…');
-        let tries = 0;
-        let timer = setInterval(() => {
-            if (ytPlayerFor(deckID) && ytIsReady(deckID)) { clearInterval(timer); cb(ytPlayerFor(deckID)); }
-            else if (++tries > 60) { clearInterval(timer); ytSetStatus(deckID, 'Player do YouTube indisponível.', '#f87171'); }
-        }, 250);
-        return false;
-    }
-
-    function switchSource(deckID, type) {
-        let isA = (deckID === 'A');
-        document.getElementById(isA ? 'sourceFileA' : 'sourceFileB').style.display = (type === 'file') ? 'block' : 'none';
-        document.getElementById(isA ? 'sourceYoutubeA' : 'sourceYoutubeB').style.display = (type === 'youtube') ? 'block' : 'none';
-        if(isA) deckA.type = type; else deckB.type = type;
-        if (type === 'youtube') { if (ytExplainLocalFile(deckID)) return; if (!ytIsReady(deckID)) ytSetStatus(deckID, 'Preparando o player do YouTube…'); }
-    }
-
-    function extractYTID(url) { let match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|watch\?v=|watch\?.+&v=))([\w-]{11})/); return match ? match[1] : (url.length === 11 ? url : null); }
-
-    /* Abre o vídeo atual numa aba do YouTube (útil quando o dono bloqueia a incorporação) */
-    function openYtInTab(deckID) {
-        let raw = (document.getElementById(deckID === 'A' ? 'ytInputA' : 'ytInputB').value || '').trim();
-        let id = extractYTID(raw);
-        window.open(id ? 'https://www.youtube.com/watch?v=' + id : 'https://www.youtube.com', '_blank', 'noopener');
-    }
-
-    /* Carrega um vídeo de teste (incorporação liberada) para conferir se o YouTube está funcionando */
-    function loadTestYT(deckID) {
-        document.getElementById(deckID === 'A' ? 'ytInputA' : 'ytInputB').value = 'aqz-KE-bpKQ';
-        loadYouTube(deckID);
-    }
-
-    function loadYouTube(deckID) {
-        if (ytExplainLocalFile(deckID)) return;
-        unlockAudioContext();
-        let inputVal = document.getElementById(deckID === 'A' ? 'ytInputA' : 'ytInputB').value;
-        let videoId = extractYTID(inputVal.trim());
-        if (!videoId) { ytSetStatus(deckID, 'Link ou ID inválido.', '#f87171'); return; }
-        ytSetStatus(deckID, 'Carregando vídeo…');
-        withYTPlayer(deckID, (player) => {
-            try {
-                player.loadVideoById(videoId);
-                ytApplyVolume(deckID);
-            } catch (e) {
-                ytSetStatus(deckID, 'Falha ao carregar o vídeo.', '#f87171');
-            }
-        });
-    }
-
-    function toggleYTPlay(deckID) {
-        unlockAudioContext();
-        withYTPlayer(deckID, (player) => {
-            let state = (typeof player.getPlayerState === 'function') ? player.getPlayerState() : -1;
-            if (window.YT && state === YT.PlayerState.PLAYING) player.pauseVideo(); else player.playVideo();
-        });
-    }
-
-    function stopYT(deckID) {
-        let player = ytPlayerFor(deckID);
-        if (player && typeof player.stopVideo === 'function') { try { player.stopVideo(); } catch (e) {} }
-        ytSetStatus(deckID, 'Parado.');
-    }
 
     document.getElementById('fileA').addEventListener('change', e => loadFile(e.target.files[0], 'A'));
     document.getElementById('fileB').addEventListener('change', e => loadFile(e.target.files[0], 'B'));
@@ -1291,7 +1660,7 @@
         reader.onload = evt => {
             audioCtx.decodeAudioData(evt.target.result, buffer => {
                 if (deckID === 'A') deckA.buffer = buffer; if (deckID === 'B') deckB.buffer = buffer;
-                statusEl.innerText = file.name; statusEl.title = file.name; statusEl.style.color = "#86efac";
+                statusEl.innerText = file.name; statusEl.title = file.name; statusEl.style.color = "var(--status-ok)";
             });
         };
         reader.readAsArrayBuffer(file);
@@ -1299,7 +1668,6 @@
 
     function togglePlay(deckID) {
         let deck = (deckID === 'A') ? deckA : deckB;
-        if (deck.type === 'youtube') { toggleYTPlay(deckID); return; }
         unlockAudioContext(); if (!deck.buffer) return;
         if (deck.isPlaying) { deck.source.stop(); deck.pauseOffset += audioCtx.currentTime - deck.startTime; deck.isPlaying = false; }
         else { playDeckFrom(deckID, deck.pauseOffset); }
@@ -1309,7 +1677,9 @@
         let deck = (deckID === 'A') ? deckA : deckB; if (!deck.buffer) return;
         if (deck.isPlaying && deck.source) { try { deck.source.stop(); } catch(e) {} deck.isPlaying = false; }
         deck.source = audioCtx.createBufferSource(); deck.source.buffer = deck.buffer; deck.gain = audioCtx.createGain(); deck.gain.gain.value = deck.vol;
-        deck.source.connect(deck.gain); deck.gain.connect(deckID === 'A' ? crossGainA : crossGainB);
+        /* PAN: um StereoPanner por deck, entre o volume e o crossfader. */
+        deck.panner = audioCtx.createStereoPanner(); deck.panner.pan.value = deck.pan;
+        deck.source.connect(deck.gain); deck.gain.connect(deck.panner); deck.panner.connect(deckID === 'A' ? crossGainA : crossGainB);
         deck.pauseOffset = offset % deck.buffer.duration; deck.startTime = audioCtx.currentTime; deck.source.start(0, deck.pauseOffset); deck.isPlaying = true; trackProgress(deckID);
     }
 
@@ -1322,7 +1692,6 @@
 
     function stopDeck(deckID) {
         let deck = (deckID === 'A') ? deckA : deckB;
-        if (deck.type === 'youtube') { stopYT(deckID); return; }
         if (deck.isPlaying && deck.source) { try { deck.source.stop(); } catch(e) {} deck.isPlaying = false; }
         deck.pauseOffset = 0; document.getElementById('prog' + deckID).value = 0;
     }
@@ -1336,7 +1705,7 @@
 
     function triggerNeedlePop(deckID) {
         unlockAudioContext(); let deck = (deckID === 'A') ? deckA : deckB; let now = audioCtx.currentTime;
-        if (deck.type === 'youtube') stopYT(deckID); else stopDeck(deckID);
+        stopDeck(deckID);
         let bufferSize = audioCtx.sampleRate * 0.08; let buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate); let data = buffer.getChannelData(0);
         for (let i = 0; i < bufferSize; i++) { data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.025)); }
         let noise = audioCtx.createBufferSource(); noise.buffer = buffer; let filt = audioCtx.createBiquadFilter(); filt.type = 'lowpass'; filt.frequency.value = 1200;
@@ -1400,6 +1769,15 @@
     function toggleOnlySub() { onlySubActive = !onlySubActive; onlyMidHighActive = false; onlyHighActive = false; document.getElementById('btnOnlySub').classList.toggle('active', onlySubActive); document.getElementById('btnOnlyMidHigh').classList.remove('active'); document.getElementById('btnOnlyHigh').classList.remove('active'); updateCrossover(); }
     function toggleOnlyMidHigh() { onlyMidHighActive = !onlyMidHighActive; onlySubActive = false; onlyHighActive = false; document.getElementById('btnOnlyMidHigh').classList.toggle('active', onlyMidHighActive); document.getElementById('btnOnlySub').classList.remove('active'); document.getElementById('btnOnlyHigh').classList.remove('active'); updateCrossover(); }
     function toggleOnlyHigh() { onlyHighActive = !onlyHighActive; onlySubActive = false; onlyMidHighActive = false; document.getElementById('btnOnlyHigh').classList.toggle('active', onlyHighActive); document.getElementById('btnOnlySub').classList.remove('active'); document.getElementById('btnOnlyMidHigh').classList.remove('active'); updateCrossover(); }
+
+    /* BASS BOOST: chaveia o ganho do low-shelf do master (0 dB <-> +12 dB) */
+    function toggleBassBoost() {
+        unlockAudioContext();
+        bassBoostActive = !bassBoostActive;
+        if (bassBoostNode) bassBoostNode.gain.value = bassBoostActive ? BASS_BOOST_DB : 0;
+        const b = document.getElementById('btnBassBoost');
+        if (b) { b.classList.toggle('active', bassBoostActive); b.setAttribute('aria-pressed', bassBoostActive ? 'true' : 'false'); }
+    }
     function toggleKill(band) { killState[band] = !killState[band]; let btnID = 'kill' + band.charAt(0).toUpperCase() + band.slice(1); if(band === 'lm') btnID = 'killLm'; if(band === 'hm') btnID = 'killHm'; document.getElementById(btnID).classList.toggle('active', killState[band]); updateCrossover(); }
 
     function loadPreset() {
@@ -1412,7 +1790,7 @@
 
     function toggleSirenBtn() { unlockAudioContext(); if (isSirenActive) stopSiren(); else startSiren(); }
     function startSiren() {
-        stopSiren(); isSirenActive = true; let btn = document.getElementById('btnSiren'); if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); btn.innerText = "🚨"; btn.title = "Parar sirene"; }
+        stopSiren(); isSirenActive = true; let btn = document.getElementById('btnSiren'); if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); btn.title = "Parar sirene"; }
         let id = document.getElementById('sPreset').value; let p = sirenPresets[id];
         sirenOsc = audioCtx.createOscillator(); sirenOsc.type = p.wave; sirenOsc.frequency.setValueAtTime(sirenParams.pitch, audioCtx.currentTime);
         sirenLfo = audioCtx.createOscillator(); sirenLfo.type = 'sine'; sirenLfo.frequency.setValueAtTime(sirenParams.rate, audioCtx.currentTime);
@@ -1423,7 +1801,7 @@
         sirenOsc.start(); sirenLfo.start();
     }
     function stopSiren() {
-        if (!isSirenActive) return; isSirenActive = false; let btn = document.getElementById('btnSiren'); if (btn) { btn.classList.remove('active'); btn.setAttribute('aria-pressed', 'false'); btn.innerText = "🚨"; btn.title = "Disparar sirene"; }
+        if (!isSirenActive) return; isSirenActive = false; let btn = document.getElementById('btnSiren'); if (btn) { btn.classList.remove('active'); btn.setAttribute('aria-pressed', 'false'); btn.title = "Disparar sirene"; }
         if (sirenOsc) { try { sirenOsc.stop(); sirenOsc.disconnect(); } catch(e) {} sirenOsc = null; }
         if (sirenLfo) { try { sirenLfo.stop(); sirenLfo.disconnect(); } catch(e) {} sirenLfo = null; }
     }
@@ -1493,13 +1871,14 @@
     }
 
     function trackVUs() {
-        if (masterAnalyser) {
-            let masterLevel = updateLeds('ledsMaster', masterAnalyser);
-            let needle = document.getElementById('analogNeedleMaster');
-            if (needle) {
-                let angle = -45 + (masterLevel * 90); // Animação agulha -45deg a +45deg
-                needle.style.transform = `rotate(${angle}deg)`;
-            }
+        if (masterAnalyserL && masterAnalyserR) {
+            /* Dois medidores independentes: L e R */
+            const nivelL = updateLeds('ledsMasterL', masterAnalyserL);
+            const nivelR = updateLeds('ledsMasterR', masterAnalyserR);
+            const agulhaL = document.getElementById('analogNeedleMasterL');
+            const agulhaR = document.getElementById('analogNeedleMasterR');
+            if (agulhaL) agulhaL.style.transform = `rotate(${-45 + (nivelL * 90)}deg)`;
+            if (agulhaR) agulhaR.style.transform = `rotate(${-45 + (nivelR * 90)}deg)`;
         }
         if (analSub) updateLeds('ledsSub', analSub); if (analBass) updateLeds('ledsBass', analBass); if (analLM) updateLeds('ledsLM', analLM); if (analHM) updateLeds('ledsHM', analHM); if (analHigh) updateLeds('ledsHigh', analHigh);
         requestAnimationFrame(trackVUs);
@@ -1526,14 +1905,24 @@
     }
 
     let knobs = {};
+
+    /* Texto do PAN: "C" no centro, "L 40" / "R 40" fora do centro */
+    function rotuloPan(p) {
+        const v = Math.round(Math.abs(p) * 100);
+        if (v < 5) return 'C';
+        return (p < 0 ? 'L' : 'R') + ' ' + v;
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         knobs['knobVolA'] = new Knob('knobVolA', 1.0, val => { deckA.vol = val; if (deckA.gain) deckA.gain.gain.value = val; document.getElementById('lblVolA').innerText = Math.round(val * 100); ytApplyVolume('A'); });
         knobs['knobSweepA'] = new Knob('knobSweepA', 1.0, val => { deckA.cutoff = 100 + (val * 19900); if (filterA) filterA.frequency.value = deckA.cutoff; });
+        knobs['knobPanA'] = new Knob('knobPanA', 0.5, val => { deckA.pan = (val * 2) - 1; if (deckA.panner) deckA.panner.pan.value = deckA.pan; document.getElementById('lblPanA').innerText = rotuloPan(deckA.pan); });
         knobs['knobVolB'] = new Knob('knobVolB', 1.0, val => { deckB.vol = val; if (deckB.gain) deckB.gain.gain.value = val; document.getElementById('lblVolB').innerText = Math.round(val * 100); ytApplyVolume('B'); });
         knobs['knobSweepB'] = new Knob('knobSweepB', 1.0, val => { deckB.cutoff = 100 + (val * 19900); if (filterB) filterB.frequency.value = deckB.cutoff; });
+        knobs['knobPanB'] = new Knob('knobPanB', 0.5, val => { deckB.pan = (val * 2) - 1; if (deckB.panner) deckB.panner.pan.value = deckB.pan; document.getElementById('lblPanB').innerText = rotuloPan(deckB.pan); });
         knobs['knobSirenPitch'] = new Knob('knobSirenPitch', (440-50)/1450, val => { sirenParams.pitch = 50 + (val * 1450); if (isSirenActive && sirenOsc) sirenOsc.frequency.setValueAtTime(sirenParams.pitch, audioCtx.currentTime); });
         knobs['knobSirenRate'] = new Knob('knobSirenRate', (3.0-0.01)/24.99, val => { sirenParams.rate = 0.01 + (val * 24.99); if (!isSweepActive) savedSirenRate = sirenParams.rate; document.getElementById('lblSirenRate').innerText = sirenParams.rate.toFixed(2); if (isSirenActive && sirenLfo) sirenLfo.frequency.setValueAtTime(sirenParams.rate, audioCtx.currentTime); });
-        knobs['knobSirenVol'] = new Knob('knobSirenVol', 0.4, val => { sirenParams.vol = val; document.getElementById('lblSirenVol').innerText = Math.round(val * 100); if (isSirenActive && sirenGain) sirenGain.gain.setValueAtTime(sirenParams.vol, audioCtx.currentTime); });
+        knobs['knobSirenVol'] = new Knob('knobSirenVol', 0.08, val => { sirenParams.vol = val; document.getElementById('lblSirenVol').innerText = Math.round(val * 100); if (isSirenActive && sirenGain) sirenGain.gain.setValueAtTime(sirenParams.vol, audioCtx.currentTime); });
         knobs['knobSirenDTime'] = new Knob('knobSirenDTime', (0.375-0.05)/1.15, val => { sirenParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblSDTime').innerText = sirenParams.dTime.toFixed(3); if (sirenDelayNode) sirenDelayNode.delayTime.value = sirenParams.dTime; });
         knobs['knobSirenDFB'] = new Knob('knobSirenDFB', 0.4 / 0.9, val => { sirenParams.dFB = val * 0.9; document.getElementById('lblSDFB').innerText = Math.round(sirenParams.dFB * 100); if (sirenFBNode) sirenFBNode.gain.value = sirenParams.dFB; });
         knobs['knobSirenDWet'] = new Knob('knobSirenDWet', 0.3, val => { sirenParams.dWet = val; document.getElementById('lblSDWet').innerText = Math.round(val * 100); if (sirenWetGainNode) sirenWetGainNode.gain.value = val; });
@@ -1558,6 +1947,221 @@
         knobs['knobSynDFB'] = new Knob('knobSynDFB', 0.45/0.9, val => { synParams.dFB = val * 0.9; document.getElementById('lblSynDFB').innerText = Math.round(synParams.dFB * 100); if (synFBNode) synFBNode.gain.value = synParams.dFB; });
         knobs['knobSynDWet'] = new Knob('knobSynDWet', 0.35, val => { synParams.dWet = val; document.getElementById('lblSynDWet').innerText = Math.round(val * 100); if (synWetGainNode) synWetGainNode.gain.value = val; });
     });
+
+    /* ===================== GRAVAR MIXAGEM + CONVERTER ===================== */
+
+    function ioStatus(msg, cor) {
+        const el = document.getElementById('ioStatus');
+        if (el) { el.textContent = msg || ''; el.style.color = cor || 'var(--status-info)'; }
+    }
+
+    function carimbo() {
+        const d = new Date(), p = n => String(n).padStart(2, '0');
+        return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + '_' + p(d.getHours()) + p(d.getMinutes()) + p(d.getSeconds());
+    }
+
+    function baixarBlob(blob, nome) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = nome;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+    }
+
+    /* ---------- GRAVAR: captura a saída master em tempo real ---------- */
+    let recDest = null, recRecorder = null, recChunks = [], recInicio = 0, recTimer = null;
+
+    function toggleGravacao() {
+        unlockAudioContext();
+        const btn = document.getElementById('btnRecord');
+        const lbl = document.getElementById('recLabel');
+
+        if (recRecorder && recRecorder.state === 'recording') { recRecorder.stop(); return; }
+        if (!audioCtx || !bassBoostNode) { ioStatus('Toque um PLAY primeiro para ligar o áudio.', 'var(--status-warn)'); return; }
+        if (typeof MediaRecorder === 'undefined') { ioStatus('Este navegador não suporta gravação.', 'var(--status-err)'); return; }
+
+        // Deriva o master para um destino de gravação (mesmo ponto que vai para os alto-falantes)
+        if (!recDest) { recDest = audioCtx.createMediaStreamDestination(); bassBoostNode.connect(recDest); }
+
+        const tipos = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'];
+        const tipo = tipos.find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+        try { recRecorder = new MediaRecorder(recDest.stream, tipo ? { mimeType: tipo } : undefined); }
+        catch (e) { ioStatus('Não foi possível iniciar a gravação.', 'var(--status-err)'); return; }
+
+        recChunks = [];
+        recRecorder.ondataavailable = e => { if (e.data && e.data.size) recChunks.push(e.data); };
+        recRecorder.onstop = () => {
+            if (recTimer) { clearInterval(recTimer); recTimer = null; }
+            const ext = tipo.indexOf('ogg') >= 0 ? 'ogg' : (tipo.indexOf('mp4') >= 0 ? 'm4a' : 'webm');
+            const seg = Math.round((Date.now() - recInicio) / 1000);
+            if (recChunks.length) {
+                baixarBlob(new Blob(recChunks, { type: tipo || 'audio/webm' }), 'dub-mix-' + carimbo() + '.' + ext);
+                ioStatus('Gravação salva (' + seg + 's) na pasta de downloads.', 'var(--status-ok)');
+            } else {
+                ioStatus('Gravação vazia — nada foi capturado.', 'var(--status-warn)');
+            }
+            recChunks = [];
+            if (btn) { btn.classList.remove('gravando'); btn.setAttribute('aria-pressed', 'false'); }
+            if (lbl) lbl.textContent = 'GRAVAR MIX';
+        };
+
+        recInicio = Date.now();
+        recRecorder.start(250);
+        if (btn) { btn.classList.add('gravando'); btn.setAttribute('aria-pressed', 'true'); }
+        ioStatus('Gravando a saída master…', 'var(--status-err)');
+        if (recTimer) clearInterval(recTimer);
+        recTimer = setInterval(() => {
+            const s = Math.floor((Date.now() - recInicio) / 1000);
+            if (lbl) lbl.textContent = 'GRAVANDO ' + String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+        }, 250);
+    }
+
+    /* ---------- CONVERTER: renderiza a música com os ajustes atuais num WAV ---------- */
+
+    function ganhosDasBandas() {
+        if (onlySubActive) return { sub: isoVal.sub, bass: 0, lm: 0, hm: 0, high: 0 };
+        if (onlyMidHighActive) return { sub: 0, bass: 0, lm: 0, hm: killState.hm ? 0 : isoVal.hm, high: killState.high ? 0 : isoVal.high };
+        if (onlyHighActive) return { sub: 0, bass: 0, lm: 0, hm: 0, high: killState.high ? 0 : isoVal.high };
+        return { sub: killState.sub ? 0 : isoVal.sub, bass: killState.bass ? 0 : isoVal.bass, lm: killState.lm ? 0 : isoVal.lm, hm: killState.hm ? 0 : isoVal.hm, high: killState.high ? 0 : isoVal.high };
+    }
+
+    function wavDoBuffer(buffer) {
+        const nCh = buffer.numberOfChannels, len = buffer.length, sr = buffer.sampleRate;
+        const bytes = 44 + len * nCh * 2;
+        const dv = new DataView(new ArrayBuffer(bytes));
+        const txt = (o, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(o + i, s.charCodeAt(i)); };
+        txt(0, 'RIFF'); dv.setUint32(4, bytes - 8, true); txt(8, 'WAVE');
+        txt(12, 'fmt '); dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, nCh, true);
+        dv.setUint32(24, sr, true); dv.setUint32(28, sr * nCh * 2, true); dv.setUint16(32, nCh * 2, true); dv.setUint16(34, 16, true);
+        txt(36, 'data'); dv.setUint32(40, len * nCh * 2, true);
+        const canais = []; for (let c = 0; c < nCh; c++) canais.push(buffer.getChannelData(c));
+        let o = 44;
+        for (let i = 0; i < len; i++) {
+            for (let c = 0; c < nCh; c++) {
+                let s = Math.max(-1, Math.min(1, canais[c][i]));
+                dv.setInt16(o, s < 0 ? s * 0x8000 : s * 0x7FFF, true); o += 2;
+            }
+        }
+        return new Blob([dv.buffer], { type: 'audio/wav' });
+    }
+
+    async function converterMusica() {
+        const btn = document.getElementById('btnConvert');
+        const decks = [['A', deckA], ['B', deckB]].filter(par => par[1].buffer);
+        if (!decks.length) { ioStatus('Carregue um arquivo em CH1 ou CH2 antes de converter.', 'var(--status-warn)'); return; }
+        if (typeof OfflineAudioContext === 'undefined') { ioStatus('Este navegador não suporta a conversão.', 'var(--status-err)'); return; }
+
+        if (btn) btn.disabled = true;
+        ioStatus('Convertendo com os parâmetros atuais…', 'var(--status-info)');
+
+        try {
+            const dur = Math.max(...decks.map(par => par[1].buffer.duration));
+            const sr = 44100;
+            const off = new OfflineAudioContext(2, Math.max(1, Math.ceil(dur * sr)), sr);
+
+            // --- deck(s) -> volume -> pan -> crossfader -> filtro (CUTOFF) ---
+            const mixSum = off.createGain();
+            const val = crossfaderVal / 100;
+            decks.forEach(par => {
+                const id = par[0], d = par[1];
+                const src = off.createBufferSource(); src.buffer = d.buffer;
+                const g = off.createGain(); g.gain.value = d.vol;
+                const pan = off.createStereoPanner(); pan.pan.value = d.pan;
+                const xg = off.createGain(); xg.gain.value = (id === 'A') ? Math.cos(val * 0.5 * Math.PI) : Math.sin(val * 0.5 * Math.PI);
+                const lp = off.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = d.cutoff;
+                src.connect(g); g.connect(pan); pan.connect(xg); xg.connect(lp); lp.connect(mixSum);
+                src.start(0);
+            });
+
+            // --- crossover 5 vias + isolator (mesmas frequências do mixer) ---
+            const g = ganhosDasBandas();
+            const midHigh = off.createGain();
+            const mg = off.createGain();
+            const bandas = [
+                { hp: 0, lp: 80, ganho: g.sub, destino: mg },
+                { hp: 80, lp: 250, ganho: g.bass, destino: mg },
+                { hp: 250, lp: 1200, ganho: g.lm, destino: midHigh },
+                { hp: 1200, lp: 5000, ganho: g.hm, destino: midHigh },
+                { hp: 5000, lp: 0, ganho: g.high, destino: midHigh }
+            ];
+            bandas.forEach(b => {
+                let no = mixSum;
+                if (b.hp > 0) { const f = off.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = b.hp; no.connect(f); no = f; }
+                if (b.lp > 0) { const f = off.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = b.lp; no.connect(f); no = f; }
+                const gg = off.createGain(); gg.gain.value = b.ganho; no.connect(gg); gg.connect(b.destino);
+            });
+
+            // --- MASTER TAPE DELAY (só mid/high; graves passam direto) ---
+            const dry = off.createGain(); dry.gain.value = 1.0;
+            const dly = off.createDelay(5.0); dly.delayTime.value = masterDelayParams.dTime;
+            const fb = off.createGain(); fb.gain.value = masterDelayParams.dFB;
+            const wet = off.createGain(); wet.gain.value = masterDelayParams.dWet;
+            const flt = off.createBiquadFilter(); flt.type = 'lowpass'; flt.frequency.value = 3000;
+            const dsum = off.createGain();
+            midHigh.connect(dry); midHigh.connect(dly); dly.connect(flt);
+            flt.connect(fb); fb.connect(dly); flt.connect(wet);
+            dry.connect(dsum); wet.connect(dsum); dsum.connect(mg);
+
+            // --- BASS BOOST antes da saída ---
+            const boost = off.createBiquadFilter();
+            boost.type = 'lowshelf'; boost.frequency.value = 110;
+            boost.gain.value = bassBoostActive ? BASS_BOOST_DB : 0;
+            mg.connect(boost); boost.connect(off.destination);
+
+            const renderizado = await off.startRendering();
+            baixarBlob(wavDoBuffer(renderizado), 'dub-convertido-' + carimbo() + '.wav');
+            ioStatus('Pronto: WAV de ' + dur.toFixed(1) + 's com os seus ajustes.', 'var(--status-ok)');
+        } catch (e) {
+            ioStatus('Falha ao converter: ' + (e && e.message ? e.message : e), 'var(--status-err)');
+        } finally {
+            if (btn) btn.disabled = false;
+        }
+    }
+
+
+    /* ===================== TOOLBAR AUTO-HIDE =====================
+       Rolando pra baixo a toolbar sobe e some.
+       Ela volta quando: a rolagem sobe, a página volta pro topo,
+       ou o mouse é trazido de volta pra faixa superior da janela. */
+    (function toolbarAutoHide() {
+        const LIMIAR_TOPO = 150;  // até aqui ela nunca some
+        const MARGEM = 6;         // diferença mínima de rolagem pra contar como "rolando"
+        const ZONA_TOPO = 30;     // altura (px) da faixa que o mouse reaparece a toolbar
+        let ultimoY = window.scrollY || 0;
+        let escondida = false;
+        let pendente = false;
+
+        function aplicar(estado) {
+            if (estado === escondida) return;
+            escondida = estado;
+            document.body.classList.toggle('toolbar-hidden', estado);
+        }
+
+        window.addEventListener('scroll', () => {
+            if (pendente) return;
+            pendente = true;
+            requestAnimationFrame(() => {
+                pendente = false;
+                const y = window.scrollY || 0;
+                const delta = y - ultimoY;
+                ultimoY = y;
+                if (y <= LIMIAR_TOPO) aplicar(false);        // no topo: sempre visível
+                else if (delta > MARGEM) aplicar(true);      // descendo: some
+                else if (delta < -MARGEM) aplicar(false);    // subindo: volta
+            });
+        }, { passive: true });
+
+        // Seta do mouse de volta lá em cima -> mostra
+        window.addEventListener('pointermove', ev => {
+            if (ev.clientY <= ZONA_TOPO) aplicar(false);
+        }, { passive: true });
+
+        // Evita estado preso se a janela for redimensionada/rotacionada
+        window.addEventListener('resize', () => {
+            ultimoY = window.scrollY || 0;
+            if ((window.scrollY || 0) <= LIMIAR_TOPO) aplicar(false);
+        }, { passive: true });
+    })();
 </script>
 
 </body>

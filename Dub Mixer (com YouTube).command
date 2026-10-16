@@ -2,11 +2,10 @@
 # ================================================================
 #  DUB MIXER (macOS) - clique duas vezes aqui no Finder
 #
-#  Abre o mixer por um servidor local (http://localhost), porque o
-#  YouTube nao aceita tocar numa pagina aberta direto do disco.
+#  Abre o mixer por um servidor local (http://localhost).
 #
 #  A janela do Terminal precisa ficar aberta enquanto voce usa o
-#  mixer - e ela que mantem o servidor (e o YouTube) no ar.
+#  mixer - e ela que mantem o servidor no ar.
 # ================================================================
 
 cd "$(dirname "$0")" || exit 1

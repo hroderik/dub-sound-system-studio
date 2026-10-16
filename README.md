@@ -4,7 +4,7 @@
 
 Preamp de 2 canais + crossover analógico de 5 vias + delay de fita + gerador de sirene
 + pedal Synare/Space Drum — tudo rodando no navegador, sem instalar nada, sem conta,
-sem internet (exceto se você quiser tocar YouTube).
+sem internet. (O YouTube foi removido: a mesa toca apenas arquivos locais.)
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 [![Um arquivo só](https://img.shields.io/badge/arquivo%20%C3%BAnico-index.html-success.svg)](index.html)
@@ -21,8 +21,8 @@ sem internet (exceto se você quiser tocar YouTube).
 - [Como rodar (Windows / Linux / macOS / celular)](#-como-rodar)
 - [⚠️ O aviso do YouTube (leia antes de reclamar)](#️-o-aviso-do-youtube)
 - [Funções — o que a mesa faz](#-funções--o-que-a-mesa-faz)
-- [Referência completa dos 28 knobs](#-referência-completa-dos-28-knobs)
-- [Módulos opcionais (mostrar / ocultar)](#-módulos-opcionais-mostrar--ocultar)
+- [Referência completa dos 30 knobs](#-referência-completa-dos-30-knobs)
+- [Pedais opcionais (mostrar / ocultar)](#-pedais-opcionais-mostrar--ocultar)
 - [Temas visuais](#-temas-visuais)
 - [Compatibilidade testada](#-compatibilidade-testada)
 - [Estrutura do projeto](#-estrutura-do-projeto)
@@ -79,16 +79,22 @@ Não é um formulário com sliders — é um gabinete.
 ### Windows (jeito fácil)
 
 1. Baixe o repositório (botão verde **Code → Download ZIP**) e descompacte.
-2. Clique duas vezes em **`Dub Mixer (com YouTube).bat`**.
-3. Vai abrir uma janelinha preta (é o servidor local — **deixe aberta**) e o navegador
-   abrirá o mixer já tocando YouTube.
+2. Abra um terminal na pasta e rode:
+   ```
+   python serve.py
+   ```
+   (ou clique duas vezes em `dub-mixer.sh` se tiver Git Bash/WSL.)
+3. Abra o navegador em **http://127.0.0.1:8712/index.html**.
 
 Precisa do **Python** instalado ([python.org](https://www.python.org/downloads/)),
-marcando *"Add python.exe to PATH"* na instalação. O `.bat` procura o Python sozinho
-(Python 3.9 a 3.12 ou o comando `py`).
+marcando *"Add python.exe to PATH"* na instalação.
 
-> O `.bat` espera o servidor responder antes de abrir o navegador — sem página em branco.
-> Se o Firefox estiver instalado, abre nele; senão, no navegador padrão.
+> **O `serve.py`** (e não `python -m http.server`) é usado de propósito: ele manda
+> `Cache-Control: no-store`, então o navegador nunca serve uma **versão antiga** na mesma
+> URL. Sem isso, parece que "as mudanças não pegaram" quando na verdade é só cache.
+> Se a tela ainda estiver estranha, um `Ctrl+Shift+R` resolve.
+
+> Nota: a mesa agora toca apenas **arquivos locais** (YouTube removido).
 
 ### Linux
 
@@ -127,48 +133,33 @@ Clique duas vezes em `index.html`. **Tudo funciona, menos o YouTube** (veja abai
 
 ---
 
-## ⚠️ O aviso do YouTube
-
-**O YouTube não toca quando você abre o arquivo direto do disco (`file://`).**
-Isso não é bug nem limitação do app — é o próprio YouTube: ele exige que a página
-venha de um endereço `http://` ou `https://`. De `file://` a origem é "opaca" e o
-player recusa (erro 153).
-
-Por isso o app **avisa na cara** quando você abre errado, com uma faixa amarela no topo:
-*"Você abriu o arquivo direto do disco — o YouTube NÃO vai tocar assim."*
-
-![Aviso file://](docs/img/mesa-3d-off.png)
-
-Para o YouTube funcionar, use **um dos três**: o `.bat` (Windows), o `dub-mixer.sh`
-(Linux/macOS) ou o **GitHub Pages**. Os seus arquivos de áudio do PC funcionam sempre,
-em qualquer caso.
-
-### Erros do YouTube e o que significam
-
-| O que aparece | Significado | Solução |
-|---|---|---|
-| **Erro 153** | Página aberta via `file://` | Abra pelo launcher / GitHub Pages |
-| **Erro 101 / 150** | O **dono do vídeo proibiu** tocar fora do YouTube | Escolha outro vídeo (um *lyric video*, por exemplo) |
-| **Vídeo não encontrado** | Link/ID errado | Cole o link completo ou só o ID de 11 caracteres |
-| Tela preta, sem erro | Alguns vídeos bloqueiam incorpração silenciosamente | Use **🎬 VÍDEO DE TESTE** (código `aqz-KE-bpKQ`) |
-
-Cada deck tem dois botões para isso:
-- **🔗 ABRIR NO YOUTUBE** — abre o vídeo em uma aba nova, direto no YouTube (funciona sempre).
-- **🎬 VÍDEO DE TESTE** — carrega um vídeo que sabidamente permite incorporação.
-
-> Dica de gravadora: clipes oficiais de grandes gravadoras costumam bloquear incorporação.
-> Prefira *lyric videos*, *dub versions* ou uploads de canais independentes.
-
----
-
 ## 🎛️ Funções — o que a mesa faz
+
+### ✨ Novidades recentes
+
+- **BASS BOOST** — botão on/off ao lado de ONLY HIGH; reforço de +12 dB abaixo de 110 Hz
+  (low-shelf real no master).
+- **GRAVAR MIX** — captura a saída do master em tempo real (`.webm`/`.ogg`/`.m4a`).
+- **CONVERTER** — renderiza a música offline e exporta WAV 16-bit/44,1 kHz/estéreo com
+  todos os seus ajustes.
+- **X-FADER na torre central**, logo abaixo do MASTER OUT.
+- **VOL movido para dentro do EQ & FILTERS** (ordem VOL → PAN → CUTOFF) nos dois canais.
+- **Toolbar auto-hide** — rola pra baixo e ela some; volta ao rolar pra cima ou com o
+  mouse no topo.
+- **3D desativado por padrão** (botão 📐 3D: OFF).
+- **Modo RACK / DUB MIXER** — seletor ao lado do tema: pedais lado a lado (RACK) ou
+  um embaixo do outro (DUB MIXER).
+- **SIREN e CROSSOVER como módulos de rack 19"** fora do gabinete, com orelhas e
+  parafusos; o CROSSOVER é um modelo diferente (anodizado preto/azul).
+- **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
+- **MASTER TAPE DELAY embutido na caixa do CROSSOVER** (uma caixa só, sem vão).
+- **Volume da sirene em 8 %** por padrão.
+- **VU estéreo real** (L/R) com ponteiro analógico.
+- **YouTube removido** — a mesa toca apenas arquivos locais.
 
 ### 🎚️ Canal 1 e Canal 2 (decks)
 
-Cada canal aceita **duas fontes**, escolhidas por botão:
-
-- **ARQUIVO** — carrega MP3/WAV/OGG do seu computador (`Estúdio → Escolher arquivo`).
-- **YOUTUBE** — cole o link (ou o ID) e mande tocar. O áudio do YouTube sai pelo deck.
+Cada canal aceita **arquivos locais** (MP3/WAV/OGG/M4A — o que o navegador suportar).
 
 Controles por canal:
 
@@ -181,9 +172,7 @@ Controles por canal:
 | **LED + VU** | Nível do canal, acende com o som |
 | **Barra de progresso** | Posição da faixa |
 
-> O volume do YouTube usa `player.setVolume()` da API oficial — o áudio do `<iframe>`
-> não entra no grafo Web Audio (limitação de segurança do navegador). Já os arquivos
-> locais passam **todos** pelos filtros, crossover e delays.
+> Os arquivos locais passam **todos** pelos filtros, crossover e delays.
 
 ### 🔀 Crossover de 5 vias + kills + only
 
@@ -217,6 +206,21 @@ Fader cruzado entre os canais, com curso real e porcentagem lida no visor
 capa com o mouse **ou com o dedo** (funciona nos dois navegadores).
 **Clique duplo volta para o centro (50/50)**.
 
+### 🔊 MASTER OUT — VU estéreo
+
+O master tem **dois VU meters**, um por lado (**L** e **R**) — o som que sai de verdade,
+não uma estimativa. Cada lado tem:
+
+- **Torre de 12 LEDs** (verde → âmbar → vermelho) — acende com o som.
+- **VU analógico de ponteiro** — o medidor com agulha que acompanha o ritmo.
+
+Por dentro: o som sai do `masterGain` direto para o `AudioContext.destination`, e o
+**mesmo sinal** passa em paralelo por um `ChannelSplitter` de 2 vias para os dois
+`AnalyserNode` (L e R). Por isso, ao jogar o **PAN** de um canal para o lado, você vê
+os dois VUs se desequilibrarem.
+
+![Master VU estéreo](docs/img/master-vu-estereo.png)
+
 ### 📼 Master Tape Delay
 
 Delay **da música** (depois do crossover e antes do master), com 3 knobs:
@@ -244,13 +248,14 @@ Controles: **PITCH** (50–1500 Hz), **RATE** (0,01–25 Hz), **VOL SIRENE**,
 e um **🚨 delay exclusivo só da sirene** (TIME / FB / WET).
 
 Dois **push buttons redondos metálicos** ficam embaixo dos controles, com o rótulo
-**embaixo do botão** (não dentro — o botão tem só o emoji). Ambos são **on/off com
+**embaixo do botão**. O botão em si é **liso, sem nada escrito dentro** — de propósito:
+no meio do set o dedo não cobre o nome, e a cor já diz tudo. Ambos são **on/off com
 um clique**:
 
 | Botão | O que faz |
 |---|---|
-| **🚨 SIRENE** | Dispara a sirene. Clique de novo e ela para |
-| **🎚️ SWEEP** | Abaixa o **RATE** gradualmente (a sirene vai desacelerando até o mínimo). Clique de novo e o RATE volta ao valor anterior |
+| **SIRENE** | Dispara a sirene. Clique de novo e ela para |
+| **SWEEP** | Abaixa o **RATE** gradualmente (a sirene vai desacelerando até o mínimo). Clique de novo e o RATE volta ao valor anterior |
 
 Os dois são **cinza quando desligados e vermelhos quando ligados** (com um brilho
 vermelho no aro), igual equipamento de verdade — no modo 3D dá para ver a cor
@@ -282,16 +287,16 @@ que se desconecta sozinha (sem vazamento de áudio).
 
 | Grupo | O que faz |
 |---|---|
-| **🎛️ Tema** | 8 visuais de equipamento (veja [Temas](#-temas-visuais)) |
+| **🎛️ Tema** | 12 visuais de equipamento (veja [Temas](#-temas-visuais)) |
 | **☀️ Claro / 🌙 Noturno** | Fundo da página |
 | **📐 3D: ON/OFF** | Liga/desliga a inclinação 3D do gabinete (modo plano e nítido) |
-| **🧩 Módulos** | Mostra/oculta a SIRENE e o SYNARE |
+| **🎛️ Pedais** | Mostra/oculta a SIRENE e o SYNARE |
 
 ![Barra de ferramentas](docs/img/toolbar.png)
 
 ---
 
-## 🎚️ Referência completa dos 28 knobs
+## 🎚️ Referência completa dos 30 knobs
 
 Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 **Duplo clique** volta ao valor de fábrica. O valor aparece ao lado do nome.
@@ -302,8 +307,16 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 |---|---|---|---|
 | `knobVolA` | VOL CH1 | 0–100 % | 100 % |
 | `knobSweepA` | CUTOFF (CH1) | 100 Hz – 20 kHz | 20 kHz (aberto) |
+| `knobPanA` | PAN (CH1) | L 100 – C – R 100 | C (centro) |
 | `knobVolB` | VOL CH2 | 0–100 % | 100 % |
 | `knobSweepB` | CUTOFF (CH2) | 100 Hz – 20 kHz | 20 kHz (aberto) |
+| `knobPanB` | PAN (CH2) | L 100 – C – R 100 | C (centro) |
+
+> O **PAN** fica ao lado do **CUTOFF** em cada canal. Ele é um `StereoPannerNode`
+> criado a cada play. Vale para **arquivos** — o áudio do YouTube não passa pelo
+> Web Audio, então o PAN não o afeta.
+
+![CUTOFF + PAN](docs/img/eq-cutoff-pan.png)
 
 ### Crossover — ganho por banda
 
@@ -354,26 +367,31 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 
 ---
 
-## 🧩 Módulos opcionais (mostrar / ocultar)
+## 🎛️ Pedais opcionais (mostrar / ocultar)
 
-Nem todo mundo usa tudo. Na barra **🧩 Módulos** você liga e desliga:
+Nem todo mundo usa tudo. Na barra **🎛️ Pedais** você liga e desliga:
 
 - **🚨 SIRENE** — o bloco *SIREN GENERATOR & PRESETS*
 - **🥁 SYNARE** — o pedal completo
 
+> **O SYNARE já vem oculto** quando o app abre. É um pedal de uso pontual (você
+> dispara e pronto), então a mesa abre mais enxuta — e um clique em **🥁 SYNARE**
+> traz o pedal de volta. Se preferir que ele apareça sempre, é só deixar o botão
+> ligado: o app lembra do estado enquanto a página está aberta.
+
 Quando você oculta, acontecem três coisas:
 
 1. O equipamento **sai de cima da mesa**.
-2. A mesa entra em **modo compacto**: fica ~**670 px mais curta** e ~**89 px mais estreita**.
-3. Segurança: se a sirene estiver **soando** e você ocultar o módulo, ela **para sozinha**
+2. A mesa entra em **modo compacto**: fica ~**686 px mais curta** e ~**86 px mais estreita**.
+3. Segurança: se a sirene estiver **soando** e você ocultar o pedal, ela **para sozinha**
    (nunca fica um som fantasma sem controle na tela).
 
 | Estado | Altura do gabinete |
 |---|---|
-| Tudo visível | 1819 px |
-| Só o Synare oculto | 1393 px |
-| Só a sirene oculta | 1533 px |
-| **Os dois ocultos** | **1149 px** |
+| Tudo visível | 1815 px |
+| **Só o Synare oculto** (como o app **abre**) | **1394 px** |
+| Só a sirene oculta | 1508 px |
+| Os dois ocultos | 1129 px |
 
 ![Mesa compacta](docs/img/mesa-compacta.png)
 
@@ -381,7 +399,7 @@ Quando você oculta, acontecem três coisas:
 
 ## 🎨 Temas visuais
 
-Oito visuais de equipamento, trocados na barra de ferramentas. O tema muda o material
+Doze visuais de equipamento, trocados na barra de ferramentas. O tema muda o material
 do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
 
 | # | Tema | Visual |
@@ -394,8 +412,19 @@ do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
 | 6 | **DJ Mixer** | Painel escuro de DJ |
 | 7 | **Vintage Conservado** | Mesa antiga, madeira envelhecida |
 | 8 | **MPC Clássica** | Cinza com vermelho Akai |
+| 9 | **Rastafari** | Verde, ouro e vermelho (LED master) |
+| 10 | **King Tubby's Water** | Azul água (VU analógico) |
+| 11 | **Volcano Lava** | Laranja sobre basalto (LED master) |
+| 12 | **Cosmic Dub** | Violeta espacial (VU analógico) |
 
 Combine com o fundo **☀️ Claro** ou **🌙 Noturno**, e com **📐 3D ON/OFF**.
+
+> Nos temas de **painel claro** (Mustard, DIY, Acapulco, Vintage, MPC) as cores de
+> status — verde do arquivo carregado, azul de aviso, âmbar e vermelho de erro — são
+> trocadas por tons **escuros**, senão o texto sumiria no fundo claro.
+
+![Tema Rastafari](docs/img/tema-rasta.png)
+![Tema Cosmic Dub](docs/img/tema-cosmic.png)
 
 ---
 
@@ -419,7 +448,7 @@ O que é verificado em cada rodada:
   fader 58 px, fonte *Share Tech Mono*, transformação 3D presente.
 - **Arraste de knob por mouse e por toque** funciona (inclusive em Chrome, e depois da
   página ser rolada).
-- **Show/hide de módulos** funciona por toque e por clique.
+- **Show/hide de pedais** funciona por toque e por clique.
 - **Áudio real**: impacto do Synare, cauda do delay a ~1,3 s, kills e onlys mudando o
   espectro, sirene acesa/apagada, PLAY/PAUSE do YouTube.
 - **Zero erros de JavaScript.**
@@ -431,9 +460,9 @@ O que é verificado em cada rodada:
 ```
 dub-sound-system-studio/
 │
-├── index.html                         ← O APP INTEIRO (um arquivo só, ~100 KB)
+├── index.html                         ← O APP INTEIRO (um arquivo só, ~117 KB)
 │
-├── Dub Mixer (com YouTube).bat        ← Launcher Windows (duplo clique)
+├── serve.py                           ← servidor local SEM cache (nunca serve "versão velha")
 ├── dub-mixer.sh                       ← Launcher Linux / macOS
 ├── Dub Mixer (com YouTube).command    ← Launcher macOS (duplo clique no Finder)
 │
@@ -571,7 +600,7 @@ madeira com knobs de verdade. O documento traz o **BOM com preços**, o
 esquemático em blocos, o roteiro do **PCB no KiCad** e as **fases** — sendo a
 primeira "um canal de ponta a ponta", para não comprar tudo e não montar nada.
 
-> Os **28 knobs desta tela são a especificação do hardware**: cada potenciômetro
+> Os **30 knobs desta tela são a especificação do hardware**: cada potenciômetro
 > físico tem um controle equivalente aqui, com a mesma faixa de valores.
 
 ### Ordem sugerida
@@ -591,9 +620,12 @@ Ideias já mapeadas, em ordem de utilidade:
 
 ### Áudio
 
-- [ ] **Gravação da saída** — botão REC gravando o master em `.webm`/`.wav` (via
-      `MediaStreamDestination`), pra você levar o dub direto pra DAW ou postar.
-- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 28 knobs +
+- [x] **Gravação da saída** — botão REC gravando o master em `.webm`/`.ogg`/`.m4a`
+      (via `MediaStreamDestination`), pra você levar o dub direto pra DAW ou postar.
+- [x] **CONVERTER** — renderiza a música offline (WAV 16-bit/44,1 kHz/estéreo) com
+      todos os seus ajustes (VOL, PAN, CUTOFF, crossfader, isolator, kills, onlys,
+      master tape delay, BASS BOOST).
+- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 30 knobs +
       kills + xfader em um "snapshot" (ex.: "Steppa", "Roots", "Digital").
 - [ ] **Botão de pânico / reset geral** — volta tudo ao padrão de uma vez.
 - [ ] **Delay com sincronia de tempo** — travar o TIME em BPM (1/4, 1/8 pontuado, etc.).
@@ -627,12 +659,6 @@ Ideias já mapeadas, em ordem de utilidade:
 
 ## ❓ Perguntas frequentes
 
-**O YouTube não toca. O que faço?**
-Você abriu o arquivo direto do disco. Use o `.bat`, o `dub-mixer.sh` ou o
-[GitHub Pages](https://hroderik.github.io/dub-sound-system-studio/). Se já está em
-`http://` e não toca, é o erro 101/150 — o dono do vídeo bloqueou incorporação;
-escolha outro.
-
 **Preciso instalar alguma coisa?**
 Só o **Python** (para o servidor local que faz o YouTube funcionar). O app em si não
 instala nada. No GitHub Pages nem o Python é necessário.
@@ -650,10 +676,11 @@ Sim, o canal 1 e o canal 2 tocam arquivos locais (MP3, WAV, OGG, M4A — o que o
 navegador suportar). Elas passam por todos os filtros e delays.
 
 **Por que o botão da sirene não tem texto dentro?**
-Por escolha de design: no meio do set você quer acertar o botão sem ler. O botão tem
-só o **🚨** (o mesmo vale para o 🎚️ do sweep) e o **rótulo fica embaixo** dele, como
-num equipamento de verdade — o dedo não cobre o nome. Os dois são **on/off com um
-clique** e mudam de **cinza para vermelho** quando ligados.
+Por escolha de design: no meio do set você quer acertar o botão sem ler. O botão é um
+**círculo metálico liso, sem nada escrito dentro** (nem emoji) e o **rótulo fica embaixo**
+dele, como num equipamento de verdade — o dedo não cobre o nome. Vale para o botão da
+sirene e para o do sweep. Os dois são **on/off com um clique** e mudam de **cinza para
+vermelho** quando ligados.
 
 **Como faço um drop de dub clássico?**
 1. Toque a música com o baixo presente.
@@ -663,7 +690,7 @@ clique** e mudam de **cinza para vermelho** quando ligados.
 
 **O valor aparece errado / travou.**
 Duplo clique no knob volta ao padrão de fábrica. Se a sirene ficar soando, clique no
-🚨 de novo ou oculte o módulo 🚨 SIRENE (ela para sozinha).
+**push button** de novo ou oculte o pedal **SIRENE** (ela para sozinha).
 
 **Posso usar comercialmente?**
 O código é MIT (veja [Licença](#-licença-e-créditos)). Respeite os direitos das músicas
@@ -689,8 +716,6 @@ Créditos e inspirações:
 - **[Web Audio API](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API)** —
   toda a engine de áudio.
 - **Share Tech Mono** — a fonte do painel (Google Fonts, licença SIL OFL).
-- **[YouTube IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)** —
-  reprodução dos vídeos.
 
 ---
 
