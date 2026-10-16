@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ================================================================
 #  Dub Mixer - abre o mixer por um servidor local (http://localhost)
-#  (O servidor local ainda e usado para evitar cache e para servir a pagina.)
+#  (Util para evitar cache e servir para o celular na mesma Wi-Fi.)
 #
 #  Funciona no Linux e no macOS. Este script:
 #    1) sobe o servidor, 2) ESPERA ele responder,
@@ -15,8 +15,7 @@ set -u
 PORT=8712
 PAGINA=index.html
 URL="http://127.0.0.1:${PORT}/${PAGINA}"
-# O "?v=..." so serve para furar cache de navegador (caso um servidor antigo
-# ainda esteja no ar). O serve.py ja manda "no-store" em tudo.
+# O "?v=..." so serve para furar cache de navegador.
 URL_ABRIR="${URL}?v=$(date +%s 2>/dev/null || echo 0)"
 
 # --- vai para a pasta do script (funciona tambem com ./caminho/dub-mixer.sh) ---
@@ -51,13 +50,8 @@ fi
 
 # ---------- sobe o servidor em segundo plano ----------
 if [ "$ABRE_SOZINHO" = "0" ]; then
-    if [ -f "./serve.py" ]; then
-        echo "  Iniciando servidor (serve.py, sem cache) na porta $PORT ..."
-        "$PYEXE" ./serve.py "$PORT" >/dev/null 2>&1 &
-    else
-        echo "  Iniciando servidor com: $PYEXE -m http.server $PORT --bind 127.0.0.1"
-        "$PYEXE" -m http.server "$PORT" --bind 127.0.0.1 >/dev/null 2>&1 &
-    fi
+    echo "  Iniciando servidor com: $PYEXE -m http.server $PORT --bind 127.0.0.1"
+    "$PYEXE" -m http.server "$PORT" --bind 127.0.0.1 >/dev/null 2>&1 &
     SERVIDOR_PID=$!
 
     # ---------- espera o servidor responder antes de abrir o navegador ----------

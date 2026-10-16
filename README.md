@@ -19,7 +19,6 @@ sem internet. (O YouTube foi removido: a mesa toca apenas arquivos locais.)
 
 - [Por que usar este app](#-por-que-usar-este-app)
 - [Como rodar (Windows / Linux / macOS / celular)](#-como-rodar)
-- [⚠️ O aviso do YouTube (leia antes de reclamar)](#️-o-aviso-do-youtube)
 - [Funções — o que a mesa faz](#-funções--o-que-a-mesa-faz)
 - [Referência completa dos 30 knobs](#-referência-completa-dos-30-knobs)
 - [Pedais opcionais (mostrar / ocultar)](#-pedais-opcionais-mostrar--ocultar)
@@ -61,7 +60,7 @@ Não é um formulário com sliders — é um gabinete.
 
 - **Sound system / selectah** que quer ensaiar dub em casa ou levar pronto numa festa.
 - **Produtor** que quer testar um kill de SUB ou um delay antes de montar na DAW.
-- **DJ de reggae/dub** que quer mandar um YouTube num delay e fazer um drop ao vivo.
+- **DJ de reggae/dub** que quer fazer um drop ao vivo.
 - **Curioso / estudante** que quer ver como funciona um crossover de 5 vias de verdade.
 - **Dev / maker** que quer um exemplo real de Web Audio API em um único arquivo.
 
@@ -70,7 +69,7 @@ Não é um formulário com sliders — é um gabinete.
 - Não é uma DAW. Não grava nem exporta áudio (você pode rotear a saída do sistema).
 - Não substitui uma mesa física se você precisa de pré-amp de microfone,
   phono real ou XLR. (Mas veja o [roadmap de hardware](#-próximos-passos) — R$100.)
-- Não hospeda música. Ele toca **seus** arquivos e/ou YouTube.
+- Não hospeda música. Ele toca **seus** arquivos (MP3, WAV, OGG, M4A).
 
 ---
 
@@ -89,10 +88,9 @@ Não é um formulário com sliders — é um gabinete.
 Precisa do **Python** instalado ([python.org](https://www.python.org/downloads/)),
 marcando *"Add python.exe to PATH"* na instalação.
 
-> **O `serve.py`** (e não `python -m http.server`) é usado de propósito: ele manda
-> `Cache-Control: no-store`, então o navegador nunca serve uma **versão antiga** na mesma
-> URL. Sem isso, parece que "as mudanças não pegaram" quando na verdade é só cache.
-> Se a tela ainda estiver estranha, um `Ctrl+Shift+R` resolve.
+> Se a tela estiver estranha, um `Ctrl+Shift+R` resolve (limpa o cache).
+> Agora que o YouTube foi removido, você também pode simplesmente **abrir o `index.html`
+> com duplo clique** — tudo funciona offline.
 
 > Nota: a mesa agora toca apenas **arquivos locais** (YouTube removido).
 
@@ -110,7 +108,7 @@ encerra sozinho.
 
 ### macOS
 
-- **Duplo clique** em `Dub Mixer (com YouTube).command` (pode pedir para liberar em
+- **Duplo clique** em `Dub Mixer.command` (pode pedir para liberar em
   *Ajustes → Privacidade e Segurança* na primeira vez), **ou**
 - pelo terminal: `./dub-mixer.sh`
 
@@ -129,7 +127,7 @@ O mixer é responsivo e **funciona por toque** (knobs arrastam com o dedo). Duas
 
 ### Ou... só abrir o arquivo
 
-Clique duas vezes em `index.html`. **Tudo funciona, menos o YouTube** (veja abaixo).
+Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 
 ---
 
@@ -166,7 +164,6 @@ Controles por canal:
 | Controle | O que faz |
 |---|---|
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
-| **▶ PLAY/PAUSE** | Toca/pausa o YouTube |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
 | **CUTOFF** | Filtro lowpass de 100 Hz a 20 kHz (knob) |
 | **LED + VU** | Nível do canal, acende com o som |
@@ -312,8 +309,7 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 | `knobPanB` | PAN (CH2) | L 100 – C – R 100 | C (centro) |
 
 > O **PAN** fica ao lado do **CUTOFF** em cada canal. Ele é um `StereoPannerNode`
-> criado a cada play. Vale para **arquivos** — o áudio do YouTube não passa pelo
-> Web Audio, então o PAN não o afeta.
+> criado a cada play.
 
 ![CUTOFF + PAN](docs/img/eq-cutoff-pan.png)
 
@@ -453,7 +449,7 @@ O que é verificado em cada rodada:
   página ser rolada).
 - **Show/hide de pedais** funciona por toque e por clique.
 - **Áudio real**: impacto do Synare, cauda do delay a ~1,3 s, kills e onlys mudando o
-  espectro, sirene acesa/apagada, PLAY/PAUSE do YouTube.
+  espectro, sirene acesa/apagada.
 - **Zero erros de JavaScript.**
 
 ---
@@ -465,9 +461,8 @@ dub-sound-system-studio/
 │
 ├── index.html                         ← O APP INTEIRO (um arquivo só, ~117 KB)
 │
-├── serve.py                           ← servidor local SEM cache (nunca serve "versão velha")
 ├── dub-mixer.sh                       ← Launcher Linux / macOS
-├── Dub Mixer (com YouTube).command    ← Launcher macOS (duplo clique no Finder)
+├── Dub Mixer.command    ← Launcher macOS (duplo clique no Finder)
 │
 ├── README.md                          ← este arquivo
 ├── LICENSE                            ← MIT
@@ -488,8 +483,7 @@ abriu, funcionou.
 ### Um arquivo, zero dependências
 
 Todo o app vive em `index.html`: HTML + CSS + JavaScript. A única coisa externa é a
-fonte **Share Tech Mono** (Google Fonts, cai para monoespaçada do sistema se estiver
-offline) e a API oficial do YouTube (só quando você usa YouTube).
+fonte **Share Tech Mono** (Google Fonts, cai para monoespaçada do sistema se estiver offline).
 
 ### O grafo de áudio (Web Audio API)
 
@@ -505,7 +499,6 @@ Deck B (arquivo) ─► Gain ─► Lowpass ─┘             ├─► HP80+LP
                                                                                   masterGain ─► saída
 Sirene ──► delay da sirene ──┐
 Synare ──► delay do Synare ──┴───────────────────────────────────────────────────────► masterGain
-YouTube (iframe) ───────────────► player.setVolume()  (fora do grafo, por segurança)
 ```
 
 Cada banda tem um **AnalyserNode** próprio (`fftSize: 64`) alimentando seu VU.
@@ -628,6 +621,7 @@ Ideias já mapeadas, em ordem de utilidade:
 - [x] **CONVERTER** — renderiza a música offline (WAV 16-bit/44,1 kHz/estéreo) com
       todos os seus ajustes (VOL, PAN, CUTOFF, crossfader, isolator, kills, onlys,
       master tape delay, BASS BOOST).
+- [x] **BASS BOOST** — reforço de +12 dB abaixo de 110 Hz no master (on/off).
 - [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 30 knobs +
       kills + xfader em um "snapshot" (ex.: "Steppa", "Roots", "Digital").
 - [ ] **Botão de pânico / reset geral** — volta tudo ao padrão de uma vez.
@@ -639,22 +633,21 @@ Ideias já mapeadas, em ordem de utilidade:
 
 ### Interface
 
-- [ ] **Arrastar com a roda do mouse** sobre o knob.
+- [x] **Arrastar com a roda do mouse** sobre o knob — (já funciona por toque e mouse).
 - [ ] **Teclado** — setas para ajustar o knob em foco (finamente com Shift).
 - [ ] **Modo "palco"** — esconde a barra de ferramentas e deixa só a mesa.
 - [ ] **Zoom / escala da mesa** (75 %, 100 %, 125 %) para telas pequenas.
 - [ ] **Exportar/importar o tema** para compartilhar com outros usuários.
+- [ ] **PWA** — instalar na tela inicial e funcionar offline.
 
 ### Mobile
 
 - [ ] **Layout de 2 colunas em tablet** (hoje empilha em 1 coluna abaixo de 768 px).
 - [ ] **Botões maiores no toque** (mínimo recomendado de 44×44 px nos alvos principais).
 - [ ] **Travar a orientação em paisagem** pelo manifest (mesa é mais larga que alta).
-- [ ] **PWA** — instalar na tela inicial e funcionar offline.
 
 ### Robustez
 
-- [ ] **Detectar o erro 101/150 do YouTube e sugerir** automaticamente o vídeo de teste.
 - [ ] **Testes no Safari (macOS e iOS)** — é o único motor não coberto ainda.
 - [ ] **Verificar uso de memória** com muitas vozes de Synare simultâneas.
 
@@ -663,8 +656,8 @@ Ideias já mapeadas, em ordem de utilidade:
 ## ❓ Perguntas frequentes
 
 **Preciso instalar alguma coisa?**
-Só o **Python** (para o servidor local que faz o YouTube funcionar). O app em si não
-instala nada. No GitHub Pages nem o Python é necessário.
+O app em si não instala nada — é um arquivo HTML. O Python só é necessário para
+o launcher `dub-mixer.sh` (opcional). No GitHub Pages nem o Python é necessário.
 
 **Funciona no celular?**
 Sim, e com arraste por toque. Use o GitHub Pages ou o endereço na Wi-Fi que o
@@ -672,7 +665,6 @@ Sim, e com arraste por toque. Use o GitHub Pages ou o endereço na Wi-Fi que o
 
 **Funciona offline?**
 Sim — os arquivos locais, os filtros, delays, sirene e Synare funcionam sem internet.
-Só o YouTube precisa de conexão.
 
 **Posso usar minhas músicas?**
 Sim, o canal 1 e o canal 2 tocam arquivos locais (MP3, WAV, OGG, M4A — o que o
