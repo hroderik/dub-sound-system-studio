@@ -213,8 +213,9 @@ Para cada banda você tem:
 ### ↔️ X-FADER
 
 Fader cruzado entre os canais, com curso real e porcentagem lida no visor
-(`X-FADER: CH 1 [ 82% ] CH 2`). Clique em qualquer ponto da pista ou arraste a capa.
-Posição central = 50/50.
+(`X-FADER: CH 1 [ 82% ] CH 2`). Clique em qualquer ponto da pista ou arraste a
+capa com o mouse **ou com o dedo** (funciona nos dois navegadores).
+**Clique duplo volta para o centro (50/50)**.
 
 ### 📼 Master Tape Delay
 
@@ -494,7 +495,7 @@ o botão do Synare que não acumula.
 `window.location.protocol === 'file:'` → o app mostra a faixa amarela de aviso
 automaticamente e explica o que fazer. É o único jeito honesto de tratar isso.
 
-### Duas correções que valem registro
+### Quatro correções que valem registro
 
 **1. O "gabinete 3D" quebrava o clique no Chrome.**
 O gabinete usa `perspective` + `transform: rotateX()` + `transform-style: preserve-3d`.
@@ -509,6 +510,22 @@ correção, dois navegadores.
 Efeitos de hover/active com `transform` ou `filter` em elementos dentro do gabinete 3D
 faziam o Firefox desenhar "bordas invisíveis" em volta de cada elemento e quebravam o
 `mousedown`/`mouseup`. Agora o feedback de clique é feito com `box-shadow` e cor.
+
+**3. O X-FADER só funcionava no Firefox.**
+O mesmo problema do item 1, um nível abaixo: o arraste era escutado no **cap** (a
+peça que corre na pista), e no Chrome o `pointerdown` era entregue à **pista**. O
+resultado era silencioso e cruel — o **clique** na pista funcionava (então parecia
+tudo bem), mas **arrastar a capa não fazia nada**. Agora o arraste é escutado na
+pista e o clique duplo (que volta ao centro) também: um só lugar, os dois
+navegadores.
+
+**4. O arraste do X-FADER criava uma seleção de texto.**
+Ao arrastar o fader, o navegador começava a selecionar o texto do rótulo acima
+(`X-FADER: CH 1 [ 82% ] CH 2`). Dentro do gabinete 3D essa faixa de seleção era
+projetada e aparecia como uma **borda fantasma**. A seção do X-FADER agora tem
+`user-select: none`, e o `border-style: inset` da pista virou `solid`: o "inset"
+faz o navegador desenhar um bisel claro/escuro que, rasterizado dentro do 3D, vira
+uma linha de borda visível.
 
 ### Acessibilidade
 
