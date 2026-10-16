@@ -232,8 +232,8 @@ impl Flanger {
         for i in 0..input.len() {
             self.lfo_phase += lfo_inc;
             if self.lfo_phase > 2.0 * std::f32::consts::PI { self.lfo_phase -= 2.0 * std::f32::consts::PI; }
-            let mod = (0.5 + 0.5 * self.lfo_phase.sin()) * self.depth;
-            let delay = base_delay + (mod * (self.max_delay - base_delay) as f32) as usize;
+            let modulation = (0.5 + 0.5 * self.lfo_phase.sin()) * self.depth;
+            let delay = base_delay + (modulation * (self.max_delay - base_delay) as f32) as usize;
             let mut read_pos = self.write_pos as isize - delay as isize;
             if read_pos < 0 { read_pos += (self.max_delay + 1) as isize; }
             let delayed = self.buffer[read_pos as usize];
