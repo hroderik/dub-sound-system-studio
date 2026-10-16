@@ -45,11 +45,11 @@ rust/
   comandos Tauri (`process_tape_delay`).
 - O kernel C (`dsp/tape_delay.c`) é o mesmo algoritmo, portável para WASM.
 
-## Próximos passos
+## Status
 
-1. Implementar os demais kernels (reverb de placa/mola, phaser, flanger, sub, auto-wah).
-2. Ligar os knobs do frontend aos comandos Tauri (soft takeover).
-3. Adicionar separação de stems (htdemucs via ONNX Runtime).
-4. Suporte a controlador MIDI físico (Web MIDI no frontend já funciona; nativo via
-   midir/cpal).
-5. Empacotar e publicar (inspirado no make-app.sh do DubStemMix).
+- [x] 6 kernels DSP implementados em Rust: TapeDelay, SpringReverb, Phaser, Flanger, SubBoost, AutoWah.
+- [x] Comandos Tauri expostos: process_tape_delay, process_spring_reverb, process_phaser, process_flanger, process_sub, process_autowah.
+- [ ] Ligar os knobs do frontend aos comandos Tauri (soft takeover).
+- [ ] Adicionar separação de stems (htdemucs via ONNX Runtime).
+- [ ] Suporte a controlador MIDI físico (midir/cpal).
+- [ ] Empacotar e publicar (inspirado no make-app.sh do DubStemMix).
