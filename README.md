@@ -289,7 +289,6 @@ que se desconecta sozinha (sem vazamento de áudio).
 |---|---|
 | **🎛️ Tema** | 12 visuais de equipamento (veja [Temas](#-temas-visuais)) |
 | **☀️ Claro / 🌙 Noturno** | Fundo da página |
-| **📐 3D: ON/OFF** | Liga/desliga a inclinação 3D do gabinete (modo plano e nítido) |
 | **🎛️ Pedais** | Mostra/oculta a SIRENE e o SYNARE |
 
 ![Barra de ferramentas](docs/img/toolbar.png)
@@ -421,7 +420,7 @@ do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
 | 15 | **SSL 4000** | Grafite + azul (channel strip) |
 | 16 | **Tube Preamp** | Valvulado, warm, dourado |
 
-Combine com o fundo **☀️ Claro** ou **🌙 Noturno**, e com **📐 3D ON/OFF**.
+Combine com o fundo **☀️ Claro** ou **🌙 Noturno**.
 
 > Nos temas de **painel claro** (Mustard, DIY, Acapulco, Vintage, MPC) as cores de
 > status — verde do arquivo carregado, azul de aviso, âmbar e vermelho de erro — são

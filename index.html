@@ -530,14 +530,7 @@
             background: var(--bg-body); color: var(--text-color); font-family: 'Share Tech Mono', ui-monospace, 'Courier New', monospace; margin: 0; padding: 18px 10px 42px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; min-height: 100dvh; box-sizing: border-box; -webkit-font-smoothing: antialiased; transition: background 0.35s ease, color 0.35s ease;
         }
 
-        /* Palco que dá a perspectiva de gabinete (mantém o 3D sem criar rolagem lateral) */
-        .chassis-stage { width: 100%; max-width: 100%; display: flex; justify-content: center; perspective: 1200px; }
-
-        /* ===== MODO SEM 3D (opcional, pelo botao "3D" na barra) =====
-           Mesa perfeitamente plana e nitida: some qualquer emenda/anti-aliasing das bordas. */
-        body.sem-3d .chassis-stage { perspective: none; }
-        body.sem-3d .mixer-chassis { transform: none; transform-style: flat; }
-        body.sem-3d .knob-wrapper { transform: none; }
+        .chassis-stage { width: 100%; max-width: 100%; display: flex; justify-content: center; }
 
         /* ===== MESA COMPACTA (DJ escondeu equipamentos na barra) =====
            Menos equipamento na tela = gabinete realmente menor e mais curto. */
@@ -610,7 +603,6 @@
                 var(--metal-panel);
             border: 4px solid var(--border-outer); border-radius: 14px; padding: 22px 18px; max-width: min(1560px, 100%); width: 100%; box-sizing: border-box;
             box-shadow: 0 30px 60px rgba(0,0,0,0.95), 0 6px 14px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.12), inset 0 -4px 10px rgba(0,0,0,0.9); position: relative;
-            transform: rotateX(1.5deg); transform-style: preserve-3d;
             border-left: 26px solid; border-left-image: var(--wood-left) 1;
             border-right: 26px solid; border-right-image: var(--wood-right) 1;
             transition: background 0.3s ease, border-color 0.3s ease;
@@ -966,7 +958,7 @@
         .btn-solo.active { background: var(--gold); color: var(--on-gold); opacity: 1; }
 
         .knob-container { display: flex; flex-direction: column; align-items: center; margin: 6px 0; position: relative; touch-action: none; }
-        .knob-wrapper { position: relative; width: 44px; height: 44px; border-radius: 50%; background: var(--knob-base); border: 2px solid var(--knob-border); box-shadow: 0 6px 14px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.6), inset 0 3px 4px rgba(255,255,255,0.4), inset 0 -4px 6px rgba(0,0,0,0.6); cursor: pointer; touch-action: none; display: flex; align-items: center; justify-content: center; transform: translateZ(4px); transition: box-shadow 0.1s ease, background 0.3s ease; z-index: 2; }
+        .knob-wrapper { position: relative; width: 44px; height: 44px; border-radius: 50%; background: var(--knob-base); border: 2px solid var(--knob-border); box-shadow: 0 6px 14px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.6), inset 0 3px 4px rgba(255,255,255,0.4), inset 0 -4px 6px rgba(0,0,0,0.6); cursor: pointer; touch-action: none; display: flex; align-items: center; justify-content: center; transition: box-shadow 0.1s ease, background 0.3s ease; z-index: 2; }
         .knob-wrapper:active { box-shadow: 0 3px 6px rgba(0,0,0,0.9), inset 0 3px 6px rgba(0,0,0,0.6); }
         .knob-indicator { position: absolute; top: 4px; width: 3px; height: 14px; background: var(--knob-indicator); border-radius: 1px; transition: background 0.3s ease; }
 
@@ -1114,7 +1106,7 @@
         #statusA, #statusB { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.6rem; margin: 2px 0; }
     </style>
 </head>
-<body class="theme-dub bg-night sem-3d modo-rack">
+<body class="theme-dub bg-night modo-rack">
 
 <div class="toolbar">
     <div class="toolbar-group">
@@ -1146,9 +1138,6 @@
         <button type="button" id="bgLightBtn" onclick="setBgMode('light')">☀️ Claro</button>
         <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
     </div>
-    <div class="segmented" role="group" aria-label="Efeito 3D do gabinete">
-        <button type="button" id="btn3D" onclick="toggle3D()" title="Liga/desliga a inclinação 3D do gabinete">📐 3D: OFF</button>
-    </div>
     <div class="toolbar-group">
         <span class="toolbar-label">Pedais</span>
         <div class="segmented" role="group" aria-label="Mostrar ou ocultar pedais">
@@ -1158,8 +1147,6 @@
     </div>
 </div>
 
-<!-- O "palco" segura a perspectiva 3D; o gabinete fica dentro.
-     (perspectiva no <body> fazia o Firefox calcular ~10% de rolagem horizontal a mais) -->
 <div class="chassis-stage">
 <div class="mixer-chassis">
     <div class="mixer-header">
@@ -1749,13 +1736,6 @@
         let lightBtn = document.getElementById('bgLightBtn'), nightBtn = document.getElementById('bgNightBtn');
         if (lightBtn) lightBtn.classList.toggle('active', isLight);
         if (nightBtn) nightBtn.classList.toggle('active', !isLight);
-    }
-
-    /* Liga/desliga a inclinação 3D do gabinete (mesa plana e nítida quando desligado) */
-    function toggle3D() {
-        let desligado = document.body.classList.toggle('sem-3d');
-        let b = document.getElementById('btn3D');
-        if (b) { b.classList.toggle('active', !desligado); b.innerText = desligado ? '📐 3D: OFF' : '📐 3D: ON'; }
     }
 
     /* ===== MODOS DO PAINEL =====
