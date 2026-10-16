@@ -2,6 +2,11 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dub Mixer Sound System - Pro Edition</title>
     <!-- Fonte técnica da mesa (com fallback para monoespaçada do sistema se estiver offline) -->
@@ -1134,6 +1139,9 @@
         <button type="button" id="btnModoRack" class="active" aria-pressed="true" onclick="setModo('rack')" title="Pedais lado a lado numa faixa horizontal">📻 RACK</button>
         <button type="button" id="btnModoDub" aria-pressed="false" onclick="setModo('dubmixer')" title="Pedais um embaixo do outro, exatamente como sempre foi">🎛️ DUB MIXER</button>
     </div>
+    <div class="segmented" role="group" aria-label="MIDI">
+        <button type="button" id="btnMidi" onclick="toggleMidi()" title="Liga/desliga controle MIDI (soft takeover)">🎹 MIDI: OFF</button>
+    </div>
     <div class="segmented" role="group" aria-label="Modo de fundo">
         <button type="button" id="bgLightBtn" onclick="setBgMode('light')">☀️ Claro</button>
         <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
@@ -1490,6 +1498,10 @@
                     <div class="knob-wrapper" id="knobMasterDWet"><div class="knob-indicator"></div></div>
                     <label style="color:var(--gold);">WET: <span id="lblMDWet">0</span>%</label>
                 </div>
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobMasterReverb"><div class="knob-indicator"></div></div>
+                    <label style="color:var(--gold);">REVERB: <span id="lblMDReverb">0</span>%</label>
+                </div>
             </div>
         </div>
         </div><!-- /.rack-face -->
@@ -1597,7 +1609,9 @@
     let masterAnalyserL, masterAnalyserR, masterSplitter;
 
     let masterDelayNode, masterFBNode, masterWetGainNode, masterFilterNode, masterDelaySum, masterDryGain;
+    let masterReverbNode = null, masterReverbWet = null;
     let masterDelayParams = { dTime: 0.375, dFB: 0.4, dWet: 0.0 };
+    let masterReverbParams = { wet: 0.0 };
 
     let sirenOsc = null, sirenLfo = null, sirenLfoGain = null, sirenGain = null;
     let sirenDelayNode, sirenFBNode, sirenWetGainNode, sirenFilterNode;
@@ -1623,6 +1637,28 @@
         9: { pitch: 350, rate: 0.5, wave: 'sine' },
         10: { pitch: 250, rate: 0.1, wave: 'triangle' }
     };
+
+
+    /* Impulso de reverb de mola (spring): decaimento exponencial com resonancias metalicas */
+    function createSpringReverbIR(ctx, dur, decay) {
+        dur = dur || 1.8; decay = decay || 4.0;
+        const sr = ctx.sampleRate; const len = Math.floor(sr * dur);
+        const buf = ctx.createBuffer(2, len, sr);
+        for (let ch = 0; ch < 2; ch++) {
+            const data = buf.getChannelData(ch);
+            for (let i = 0; i < len; i++) {
+                const t = i / sr;
+                const env = Math.exp(-t * decay);
+                // resonancias de mola (comb)
+                let r = 0;
+                r += Math.sin(2 * Math.PI * 37 * t) * 0.3;
+                r += Math.sin(2 * Math.PI * 73 * t) * 0.2;
+                r += Math.sin(2 * Math.PI * 113 * t) * 0.15;
+                data[i] = ((Math.random() * 2 - 1) * 0.6 + r) * env;
+            }
+        }
+        return buf;
+    }
 
     function unlockAudioContext() {
         if (!audioCtx) {
@@ -1667,6 +1703,10 @@
             midHighSum.connect(masterDryGain); midHighSum.connect(masterDelayNode); masterDelayNode.connect(masterFilterNode);
             masterFilterNode.connect(masterFBNode); masterFBNode.connect(masterDelayNode); masterFilterNode.connect(masterWetGainNode);
             masterDryGain.connect(masterDelaySum); masterWetGainNode.connect(masterDelaySum); masterDelaySum.connect(masterGain);
+            /* REVERB DE MOLA: convolver em paralelo, depois do delay da musica */
+            masterReverbNode = audioCtx.createConvolver(); masterReverbNode.buffer = createSpringReverbIR(audioCtx);
+            masterReverbWet = audioCtx.createGain(); masterReverbWet.gain.value = masterReverbParams.wet;
+            masterDelaySum.connect(masterReverbNode); masterReverbNode.connect(masterReverbWet); masterReverbWet.connect(masterGain);
 
             sirenDelayNode = audioCtx.createDelay(5.0); sirenDelayNode.delayTime.value = sirenParams.dTime;
             sirenFBNode = audioCtx.createGain(); sirenFBNode.gain.value = sirenParams.dFB;
@@ -2119,6 +2159,7 @@
         knobs['knobMasterDTime'] = new Knob('knobMasterDTime', (0.375-0.05)/1.15, val => { masterDelayParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblMDTime').innerText = masterDelayParams.dTime.toFixed(3); if (masterDelayNode) masterDelayNode.delayTime.value = masterDelayParams.dTime; });
         knobs['knobMasterDFB'] = new Knob('knobMasterDFB', 0.4 / 0.9, val => { masterDelayParams.dFB = val * 0.9; document.getElementById('lblMDFB').innerText = Math.round(masterDelayParams.dFB * 100); if (masterFBNode) masterFBNode.gain.value = masterDelayParams.dFB; });
         knobs['knobMasterDWet'] = new Knob('knobMasterDWet', 0.0, val => { masterDelayParams.dWet = val; document.getElementById('lblMDWet').innerText = Math.round(val * 100); if (masterWetGainNode) masterWetGainNode.gain.value = val; });
+        knobs['knobMasterReverb'] = new Knob('knobMasterReverb', 0.0, val => { masterReverbParams.wet = val; document.getElementById('lblMDReverb').innerText = Math.round(val * 100); if (masterReverbWet) masterReverbWet.gain.value = val; });
         knobs['knobIsoSub'] = new Knob('knobIsoSub', 0.5, val => { isoVal.sub = val * 2; updateCrossover(); });
         knobs['knobIsoBass'] = new Knob('knobIsoBass', 0.5, val => { isoVal.bass = val * 2; updateCrossover(); });
         knobs['knobIsoLM'] = new Knob('knobIsoLM', 0.5, val => { isoVal.lm = val * 2; updateCrossover(); });
@@ -2290,7 +2331,12 @@
             const dsum = off.createGain();
             midHigh.connect(dry); midHigh.connect(dly); dly.connect(flt);
             flt.connect(fb); fb.connect(dly); flt.connect(wet);
-            dry.connect(dsum); wet.connect(dsum); dsum.connect(mg);
+            dry.connect(dsum); wet.connect(dsum);
+            // --- REVERB DE MOLA (em paralelo, depois do delay) ---
+            const revNode = off.createConvolver(); revNode.buffer = createSpringReverbIR(off);
+            const revWet = off.createGain(); revWet.gain.value = masterReverbParams.wet;
+            dsum.connect(revNode); revNode.connect(revWet); revWet.connect(mg);
+            dsum.connect(mg);
 
             // --- BASS BOOST antes da saída ---
             const boost = off.createBiquadFilter();
@@ -2351,8 +2397,70 @@
             ultimoY = window.scrollY || 0;
             if ((window.scrollY || 0) <= LIMIAR_TOPO) aplicar(false);
         }, { passive: true });
+
+
+    /* ===== MIDI (Web MIDI API, soft takeover) =====
+       Mapeia CCs para knobs. Soft takeover: o knob so muda quando o valor MIDI
+       cruza o valor atual do software. */
+    const MIDI_CC_MAP = {
+        1: 'knobVolA', 2: 'knobVolB',
+        3: 'knobIsoSub', 4: 'knobIsoBass', 5: 'knobIsoLM', 6: 'knobIsoHM', 7: 'knobIsoHigh',
+        8: 'knobMasterDWet', 9: 'knobMasterReverb', 10: 'knobMasterDTime', 11: 'knobMasterDFB',
+        12: 'knobSirenVol', 13: 'knobSynVol',
+        14: 'knobSirenPitch', 15: 'knobSirenRate',
+        16: 'knobSynTune', 17: 'knobSynDecay',
+    };
+    let midiAccess = null, midiEnabled = false;
+    const midiLast = {};   // cc -> ultimo valor MIDI (0..127)
+    const midiSoft = {};   // cc -> ultimo valor de software (0..1) quando aplicado
+    async function toggleMidi() {
+        let btn = document.getElementById('btnMidi');
+        if (!midiEnabled) {
+            if (!navigator.requestMIDIAccess) { alert('Web MIDI não suportado neste navegador.'); return; }
+            try {
+                midiAccess = await navigator.requestMIDIAccess({ sysex: false });
+                midiAccess.inputs.forEach(inp => inp.onmidimessage = onMidiMessage);
+                midiAccess.onstatechange = () => midiAccess.inputs.forEach(inp => inp.onmidimessage = onMidiMessage);
+                midiEnabled = true;
+                if (btn) { btn.innerText = '🎹 MIDI: ON'; btn.classList.add('active'); }
+            } catch (e) { alert('Não foi possível acessar MIDI: ' + e.message); }
+        } else {
+            if (midiAccess) midiAccess.inputs.forEach(inp => inp.onmidimessage = null);
+            midiEnabled = false;
+            if (btn) { btn.innerText = '🎹 MIDI: OFF'; btn.classList.remove('active'); }
+        }
+    }
+    function onMidiMessage(e) {
+        if (!e.data || e.data.length < 3) return;
+        const status = e.data[0] & 0xf0;
+        if (status !== 0xb0) return; // control change
+        const cc = e.data[1], val = e.data[2] / 127;
+        const knobId = MIDI_CC_MAP[cc];
+        if (!knobId || !knobs[knobId]) return;
+        const k = knobs[knobId];
+        // soft takeover
+        if (midiSoft[cc] === undefined) { midiSoft[cc] = k.value; }
+        const lastMidi = midiLast[cc];
+        midiLast[cc] = val;
+        if (lastMidi === undefined) return; // primeiro evento: so registra
+        // cruza quando a direcao muda em relacao ao valor de software
+        const crossed = (val >= midiSoft[cc] && lastMidi < midiSoft[cc]) ||
+                        (val <= midiSoft[cc] && lastMidi > midiSoft[cc]) ||
+                        Math.abs(val - midiSoft[cc]) < 0.02;
+        if (crossed) {
+            k.setValue(val);
+            midiSoft[cc] = val;
+        }
+    }
     })();
 </script>
 
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        });
+    }
+</script>
 </body>
 </html>
