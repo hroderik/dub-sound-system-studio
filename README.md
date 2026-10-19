@@ -191,7 +191,7 @@ Controles por canal:
 |---|---|
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
 | **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco |
-| **🔄 DISCO REVERSO** | Backspin: como o dedo do DJ puxando o disco — a música toca ao contrário por ~1 s e depois volta de onde parou |
+| **🔄 DISCO REVERSO** | Backspin liga/desliga: aperta e a música **fica voltando** (ao contrário) até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
 | **FILTER bipolar** | Um só knob: centro = 0 (tudo aberto); esquerda fecha o LOWPASS (100 Hz – 20 kHz), direita sobe o HIGHPASS (20 Hz – 20 kHz) |
 | **LED + VU** | Nível do canal, acende com o som |
