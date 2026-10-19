@@ -1216,7 +1216,7 @@
                     <progress id="progA" value="0" max="100" onclick="seekAudio(event, 'A')"></progress>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('A')">📀 TIRAR AGULHA</button>
-                        <button id="btnReversoA" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('A')" title="Backspin 0.5x: puxa o disco pra trás — a música fica voltando em 0,5x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
+                        <button id="btnReversoA" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('A')" title="Backspin 1.2x: puxa o disco pra trás — a música fica voltando em 1,2x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
                     </div>
                 </div>
 
@@ -1339,7 +1339,7 @@
                     <progress id="progB" value="0" max="100" onclick="seekAudio(event, 'B')"></progress>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('B')">📀 TIRAR AGULHA</button>
-                        <button id="btnReversoB" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('B')" title="Backspin 0.5x: puxa o disco pra trás — a música fica voltando em 0,5x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
+                        <button id="btnReversoB" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('B')" title="Backspin 1.2x: puxa o disco pra trás — a música fica voltando em 1,2x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
                     </div>
                 </div>
 
@@ -2124,7 +2124,7 @@
         deck.gain = audioCtx.createGain(); deck.gain.gain.value = deck.vol;
         deck.panner = audioCtx.createStereoPanner(); deck.panner.pan.value = deck.pan;
         spin.connect(deck.gain); deck.gain.connect(deck.panner); deck.panner.connect(deckID === 'A' ? crossGainA : crossGainB);
-        spin.playbackRate.value = 0.5; /* reverso em 0,5x (pedido do usuário) */
+        spin.playbackRate.value = 1.2; /* reverso em 1,2x (pedido do usuário) */
         /* SOM DO DISCO ARRANHANDO: ruído da agulha raspando junto com o reverso */
         if (!deck.rasgoBuffer) {
             let rb = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
@@ -2144,7 +2144,7 @@
         let inicioRev = deck.bufferReverso.duration - pos;
         if (inicioRev > deck.bufferReverso.duration - 0.001) inicioRev = deck.bufferReverso.duration - 0.001;
         if (inicioRev < 0) inicioRev = 0;
-        deck.girandoRev = { t: now, pos: pos, rate: 0.5 };
+        deck.girandoRev = { t: now, pos: pos, rate: 1.2 };
         spin.onended = () => {
             /* Chegou no começo da música: a agulha para lá */
             if (deck.girandoRev && deck.source === spin) {
