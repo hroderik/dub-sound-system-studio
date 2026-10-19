@@ -165,8 +165,9 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **💥 TREMEDEIRA** — botão no crossover: **só o movimento físico** — todas as caixas
   (gabinete e racks) tremem junto com os graves, em tempo real, seguindo o nível de
   SUB + BASS. O áudio não muda em nada: sem boost, sem distorção e sem rumor grave.
-- **TIRAR AGULHA corrigido** — o pop do disco agora entra no eco pelo painel: com ECHO VOLUME
-  em 0 % a música volta seca, sem delay forçado.
+- **TIRAR AGULHA com eco próprio** — o pop do disco sai com um eco de **40 %** de wet,
+  no tempo (REPEAT RATE/MODE) e na INTENSIDADE do SPACE ECHO; o ECHO VOLUME continua
+  valendo só para a música (nada de delay forçado na volta).
 - **BASS BOOST** — botão on/off, o 5º da fileira; reforço de +12 dB abaixo de 110 Hz
   (low-shelf real no master).
 - **GRAVAR MIX** — captura a saída do master em tempo real (`.webm`/`.ogg`/`.m4a`).
@@ -208,7 +209,7 @@ Controles por canal:
 | Controle | O que faz |
 |---|---|
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
-| **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco |
+| **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco — o pop já sai com o eco próprio fixo em 40 % (no tempo e INTENSIDADE do SPACE ECHO) |
 | **🔄 DISCO REVERSO** | Backspin liga/desliga em **1,2x** com o **som do disco arranhando** junto: Aperta e a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
 | **FILTER bipolar** | Um só knob: centro = 0 (tudo aberto); esquerda fecha o LOWPASS (100 Hz – 20 kHz), direita sobe o HIGHPASS (20 Hz – 20 kHz) |

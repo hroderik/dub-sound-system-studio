@@ -1786,6 +1786,9 @@
     let masterDelayNode, masterFBNode, masterWetGainNode, masterFilterNode, masterDelaySum, masterDryGain;
     let masterInGain = null, masterToneBass = null, masterToneTreble = null;
     let masterReverbNode = null, masterReverbWet = null;
+    /* Eco do pop do TIRAR AGULHA: caminho próprio, com wet fixo em 40% */
+    let popEchoDelay = null, popEchoFB = null, popEchoFilter = null, popEchoWet = null;
+    const POP_ECHO_WET = 0.40;
     let masterDelayParams = { dTime: 0.375, dFB: 0.4, dDry: 1.0, dWet: 0.0 };
     let masterReverbParams = { wet: 0.0 };
 
@@ -1890,6 +1893,14 @@
             masterFilterNode.connect(masterFBNode); masterFBNode.connect(masterDelayNode);
             masterFilterNode.connect(masterToneBass); masterToneBass.connect(masterToneTreble); masterToneTreble.connect(masterWetGainNode);
             masterDryGain.connect(masterDelaySum); masterWetGainNode.connect(masterDelaySum); masterDelaySum.connect(masterGain);
+            /* ECHO DO TIRAR AGULHA: o pop do disco tem o seu proprio eco, com wet
+               fixo em 40% — o ECHO VOLUME do painel continua valendo so' na musica. */
+            popEchoDelay = audioCtx.createDelay(5.0); popEchoDelay.delayTime.value = masterDelayParams.dTime;
+            popEchoFB = audioCtx.createGain(); popEchoFB.gain.value = masterDelayParams.dFB;
+            popEchoFilter = audioCtx.createBiquadFilter(); popEchoFilter.type = 'lowpass'; popEchoFilter.frequency.value = 3000;
+            popEchoWet = audioCtx.createGain(); popEchoWet.gain.value = POP_ECHO_WET;
+            popEchoDelay.connect(popEchoFilter); popEchoFilter.connect(popEchoFB); popEchoFB.connect(popEchoDelay);
+            popEchoFilter.connect(popEchoWet); popEchoWet.connect(masterGain);
             /* REVERB DE MOLA: convolver em paralelo, depois do delay da musica */
             masterReverbNode = audioCtx.createConvolver(); masterReverbNode.buffer = createSpringReverbIR(audioCtx);
             masterReverbWet = audioCtx.createGain(); masterReverbWet.gain.value = masterReverbParams.wet;
@@ -2410,9 +2421,10 @@
         let noise = audioCtx.createBufferSource(); noise.buffer = buffer; let filt = audioCtx.createBiquadFilter(); filt.type = 'lowpass'; filt.frequency.value = 1200;
         let g = audioCtx.createGain(); g.gain.setValueAtTime(0.8, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
         noise.connect(filt); filt.connect(g);
-        /* O pop da agulha so ecoa se o ECHO VOLUME estiver ligado (antes ele forcava
-           o eco em 20% e a musica voltava com delay mesmo com o WET em 0%) */
-        if (masterInGain) g.connect(masterInGain); else if (masterDelayNode) g.connect(masterDelayNode);
+        /* O pop do TIRAR AGULHA tem o seu proprio eco, com wet fixo em 40%: segue o
+           tempo do painel (REPEAT RATE/MODE) e a INTENSIDADE, mas nao depende do
+           ECHO VOLUME — que continua valendo so' para a musica. */
+        if (popEchoDelay) { popEchoDelay.delayTime.value = tempoEfetivoEcho(); popEchoFB.gain.value = masterDelayParams.dFB; popEchoWet.gain.value = POP_ECHO_WET; g.connect(popEchoDelay); }
         if (masterDryGain) g.connect(masterDryGain); g.connect(masterGain);
         noise.start(now);
     }
