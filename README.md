@@ -254,6 +254,8 @@ Get-FileHash .\setup.exe -Algorithm MD5
 
 O hash calculado tem que bater com a linha do arquivo nos `*SUMS.txt`. Se não bater, não instale: baixe de novo da página oficial de releases.
 
+> Nos anexos da release o GitHub troca espaços por pontos no nome do arquivo (ex.: `DUB.MIXER.Sound.System_0.1.0_x64-setup.exe`). Os `*SUMS.txt` já usam os nomes como eles ficam para download.
+
 ## Segurança e privacidade
 
 - **100 % offline** — a fonte e o ícone estão embutidos no arquivo; o app não faz *nenhum* request externo, não tem telemetria e toca apenas arquivos que você escolhe.
