@@ -15,7 +15,7 @@ A versão web já faz o som. O que ela **nunca** vai fazer:
 
 | Limite da versão web | O que o hardware resolve |
 |---|---|
-| Só toca arquivo/YouTube — **não tem entrada de áudio** | Jack de entrada: você pluga o celular, o mic, a guitarra, o dubplate |
+| Só toca arquivo — **não tem entrada de áudio** | Jack de entrada: você pluga o celular, o mic, a guitarra, o dubplate |
 | Latência e *jitter* do navegador + sistema operacional | O sinal passa por um circuito: atraso é o do capacitor, não o do agendador do SO |
 | Depende de computador ligado, navegador, servidor local | Liga na tomada. Sem tela, sem atualização, sem `localhost` |
 | Não dá para levar para o paredão / a festa sem um notebook | Cabe numa caixa de madeira, roda na bateria de 9 V |

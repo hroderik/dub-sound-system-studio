@@ -748,18 +748,17 @@
         .pedal-h-body { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: start; }
         .pedal-h-controls { min-width: 0; }
         .pedal-h-switch { display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: flex-start; padding-top: 4px; }
-        /* ===== FAIXA DOS PEDAIS: RACK (lado a lado) x DUB MIXER (um embaixo do outro) =====
+        /* ===== FAIXA DOS PEDAIS: RACK (lado a lado) =====
            Em flex, um pedal sozinho visivel ocupa a largura toda (nada de metade vazia).
            O gap + margin-bottom reproduzem exatamente o espacamento de antes. */
         .pedais-faixa { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
         .pedais-faixa > * { flex: 1 1 0; min-width: 0; margin-bottom: 0; }
-        body.modo-dubmixer .pedais-faixa { flex-direction: column; }
         @media (max-width: 720px) { .pedais-faixa { flex-direction: column; } }
 
         /* ===== MÓDULO DE RACK 19" (SIREN GENERATOR) =====
            Chapa metálica de largura total, com orelhas de fixação e parafusos dos
            dois lados. Só box-shadow/gradientes (nada de transform/filter). */
-        /* Base (modo DUB MIXER): caixa normal e compacta, sem chapa de rack */
+        /* Caixa base (fallback, sem chapa de rack) */
         .section-box.rack-unit {
             border-radius: 8px; padding: 10px 12px;
             background: var(--section-bg); border: 1px solid var(--border-metal);
@@ -774,55 +773,9 @@
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), inset 0 -1px 0 rgba(0,0,0,0.9),
                         inset 0 0 26px rgba(0,0,0,0.55), 0 9px 20px rgba(0,0,0,0.62);
         }
-        body.modo-dubmixer .rack-ear { display: none; }
-        body.modo-dubmixer .rack-face { padding: 0; }
         /* Texto legivel nas caixas de rack (que tem fundo escuro) em qualquer tema */
         body.modo-rack .section-box.rack-unit { --text-color: #e4e4e7; --gold: #e8c46a; }
         body.modo-rack .section-box.rack-unit.rack-unit-2 { --gold: #93c5fd; }
-        body.modo-dubmixer .rack-brand { display: none; }
-        body.modo-dubmixer .rack-externo { margin: 8px auto 0; }
-        body.modo-dubmixer .synare-externo { margin: 8px auto 0; }
-        body.modo-dubmixer .synare-unit { padding: 8px 10px; }
-        body.modo-dubmixer .synare-pad { width: 100px; height: 100px; font-size: 0.75rem; }
-        body.modo-dubmixer .synare-title { font-size: 0.85rem; }
-        /* ===== MODO DUB MIXER: compacto (estilo dubbox) =====
-           Knobs menores, gaps apertados, tudo numa caixa so. */
-        body.modo-dubmixer .mixer-chassis { padding: 8px 6px; }
-        body.modo-dubmixer .mixer-header { margin-bottom: 6px; padding: 4px; }
-        body.modo-dubmixer .mixer-header h2 { font-size: 0.9rem; }
-        body.modo-dubmixer .mixer-grid { gap: 8px; }
-        /* DUB MIXER: caixa unica e baixa (estilo dubbox) — canais em cima, torre embaixo */
-        body.modo-dubmixer .mixer-grid {
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-            grid-template-rows: auto auto;
-            align-items: start;
-        }
-        body.modo-dubmixer .mixer-grid > :nth-child(1) { grid-column: 1; grid-row: 1; }
-        body.modo-dubmixer .mixer-grid > :nth-child(2) { grid-column: 1 / 3; grid-row: 2; }
-        body.modo-dubmixer .mixer-grid > :nth-child(3) { grid-column: 2; grid-row: 1; }
-        body.modo-dubmixer .center-tower {
-            display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px;
-            padding: 6px 8px;
-        }
-        body.modo-dubmixer .master-tower { flex-direction: row; align-items: center; gap: 8px; padding: 6px 8px; }
-        body.modo-dubmixer .vu-pair { margin: 0; }
-        body.modo-dubmixer .knob-wrapper { width: 34px; height: 34px; border-width: 1px; }
-        body.modo-dubmixer .knob-indicator { top: 3px; width: 2px; height: 11px; }
-        body.modo-dubmixer .knob-container label { font-size: 0.5rem; }
-        body.modo-dubmixer .section-box { padding: 6px 8px; margin-bottom: 6px; }
-        body.modo-dubmixer .band-box { padding: 4px 2px; }
-        body.modo-dubmixer .led-tower { margin: 4px 0; padding: 2px 3px; gap: 1px; }
-        body.modo-dubmixer .led { width: 10px; height: 4px; }
-        body.modo-dubmixer .crossover-grid { gap: 3px; }
-        body.modo-dubmixer .knob-col .knob-container { gap: 4px; }
-        body.modo-dubmixer #dubmixer-slot { padding: 6px 8px 8px; }
-        body.modo-dubmixer .tape-delay-box { padding: 5px; margin-top: 5px; }
-        body.modo-dubmixer .tape-delay-box h5 { font-size: 0.5rem; margin-bottom: 3px; }
-        body.modo-dubmixer .master-tape-dentro { margin-top: 5px; padding: 4px 6px 5px; }
-        body.modo-dubmixer .synare-pad { width: 88px; height: 88px; }
-        body.modo-dubmixer .synare-body { gap: 10px; }
-        body.modo-dubmixer .synare-grid { gap: 6px 4px; }
-        body.modo-dubmixer .vu-pair { gap: 10px; margin: 4px 0 0; }
         /* Orelhas de rack (onde entram os parafusos de fixação) */
         .rack-ear {
             flex: 0 0 36px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
@@ -970,10 +923,14 @@
         .knob-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; justify-items: center; }
         /* Uma unica linha com dois knobs (ex.: CUTOFF + PAN) */
         .knob-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; justify-items: center; align-items: start; }
-        /* Tres knobs na mesma linha (VOL + PAN + CUTOFF no EQ & FILTERS) */
+        /* Tres knobs na mesma linha (VOL + PAN + LOWPASS no EQ & FILTERS) */
         .knob-row-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }
         .knob-row-3 .knob-container { margin: 6px 0 2px; min-width: 0; width: 100%; }
         .knob-row-3 label { font-size: 0.5rem; letter-spacing: -0.2px; line-height: 1.25; text-align: center; max-width: 100%; overflow-wrap: break-word; }
+        /* Quatro knobs na mesma linha (VOL + PAN + LOWPASS + HIGHPASS no EQ & FILTERS) */
+        .knob-row-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2px; }
+        .knob-row-4 .knob-container { margin: 6px 0 2px; min-width: 0; width: 100%; }
+        .knob-row-4 label { font-size: 0.5rem; letter-spacing: -0.2px; line-height: 1.25; text-align: center; max-width: 100%; overflow-wrap: break-word; }
         /* Lista VERTICAL de knobs (knob a esquerda, rótulo a direita) — usada no MASTER TAPE DELAY */
         .knob-col { display: flex; flex-direction: column; gap: 9px; }
         .knob-col .knob-container { flex-direction: row; align-items: center; justify-content: flex-start; gap: 8px; margin: 0; }
@@ -1002,94 +959,120 @@
            Agora sao DOIS medidores (estereo): um para o canal L e um para o R. */
         #ledsMasterL, #ledsMasterR { display: var(--master-led-display); }
 
-        /* VU METER ANALÓGICO REDONDO (galvanômetro de estúdio) */
+        /* ===== VU ANALÓGICO RETANGULAR (estilo o VU clássico de estúdio) =====
+           Janela retangular com moldura preta e mostrador laranja retroiluminado.
+           O ponteiro pivota embaixo (como num VU de verdade) e a escala sobe em arco,
+           com os números legíveis. A luz interna brilha mais conforme o SUB. */
         .analog-vu-meter {
             display: var(--master-analog-display);
             position: relative;
-            width: 168px; height: 168px;
+            width: 150px; height: 90px;
             box-sizing: border-box;
-            border: 7px solid #15171b;            /* bezel escuro */
-            border-radius: 50%;
+            border: 8px solid #0e1013;              /* moldura preta da janela */
+            border-radius: 4px;
             overflow: hidden;
             background:
-                radial-gradient(circle closest-side at 50% 20%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 44%),
-                radial-gradient(circle closest-side at 50% 50%, #fdf9ef 0%, #f4ecd8 52%, #e3d7b7 76%, #ccbc96 100%);
+                radial-gradient(120% 95% at 50% 115%, rgba(255,214,130, calc(0.16 + var(--vu-glow) * 0.5)) 0%, rgba(255,214,130,0) 62%),
+                linear-gradient(180deg, #f7b544 0%, #f0982a 46%, #d97f14 100%);
             box-shadow:
-                0 0 0 2px #474d58,
-                0 0 0 4px #101216,
-                0 12px 20px rgba(0,0,0,0.72),
-                inset 0 0 16px rgba(120,96,48,0.45);
+                0 0 0 2px #4a5058,                  /* aro externo cromado */
+                0 0 0 3px #14171b,
+                0 10px 18px rgba(0,0,0,0.65),
+                inset 0 0 0 2px rgba(126,84,20,0.6),
+                inset 0 0 26px rgba(255,196,96, calc(0.22 + var(--vu-glow) * 0.55));
             margin: 6px 0;
         }
-        /* marca VU impressa no mostrador */
+        /* marca VU impressa no mostrador (canto inferior direito, como no VU de estúdio) */
         .analog-vu-meter::before {
             content: 'VU';
-            position: absolute; bottom: 16%; left: 50%; transform: translateX(-50%);
-            font-family: 'Arial', sans-serif; font-size: 11px; font-weight: 700; color: #23262b;
-            letter-spacing: 2px; opacity: 0.8; z-index: 5;
+            position: absolute; right: 7px; bottom: 5px;
+            font-family: 'Arial', sans-serif; font-size: 11px; font-weight: 700; color: #3a2405;
+            letter-spacing: 1px; opacity: 0.85; z-index: 5;
         }
-        /* Setor de ticks: recortado em ±45° em torno do topo (o resto do círculo fica limpo) */
-        .vu-ticks { position: absolute; inset: 0; border-radius: 50%; pointer-events: none; clip-path: polygon(50% 50%, 0 0, 100% 0); }
-        .vu-ticks::before, .vu-ticks::after { content: ''; position: absolute; inset: 0; border-radius: 50%; clip-path: polygon(50% 50%, 0 0, 100% 0); }
+        /* Setor de ticks: só a metade de cima (o resto da janela fica limpo).
+           O pino fica a 7px da borda de baixo, então a cunha usa essa origem. */
+        .vu-ticks { position: absolute; inset: 0; pointer-events: none; clip-path: polygon(50% calc(100% - 7px), 0 0, 100% 0); }
+        .vu-ticks::before, .vu-ticks::after { content: ''; position: absolute; inset: 0; clip-path: polygon(50% calc(100% - 7px), 0 0, 100% 0); }
         /* Divisões menores */
         .vu-ticks::before {
-            background: repeating-conic-gradient(from -46deg, #191c21 0deg 0.7deg, transparent 0.7deg 4.5deg);
-            -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 72%, #000 72% 84%, transparent 84%);
-                    mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 72%, #000 72% 84%, transparent 84%);
+            background: repeating-conic-gradient(from -47deg, #1a1206 0deg 0.8deg, transparent 0.8deg 4.7deg);
+            -webkit-mask: radial-gradient(circle at 50% calc(100% - 7px), transparent 0 55px, #000 55px 62px, transparent 62px);
+                    mask: radial-gradient(circle at 50% calc(100% - 7px), transparent 0 55px, #000 55px 62px, transparent 62px);
         }
-        /* Divisões maiores, nas 7 marcas numeradas */
+        /* Divisões maiores, nas marcas numeradas */
         .vu-ticks::after {
-            background: conic-gradient(from -46deg,
-                #0f1114 2deg 3.7deg,   transparent 3.7deg 15deg,
-                #0f1114 15deg 16.7deg, transparent 16.7deg 28deg,
-                #0f1114 28deg 29.7deg, transparent 29.7deg 40deg,
-                #0f1114 40deg 41.7deg, transparent 41.7deg 62deg,
-                #0f1114 62deg 63.7deg, transparent 63.7deg 74deg,
-                #0f1114 74deg 75.7deg, transparent 75.7deg 87deg,
-                #0f1114 87deg 88.7deg, transparent 88.7deg 90deg);
-            -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 66%, #000 66% 84%, transparent 84%);
-                    mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 66%, #000 66% 84%, transparent 84%);
+            background: conic-gradient(from -47deg,
+                #1a1206 4deg 6deg,    transparent 6deg 19deg,
+                #1a1206 19deg 21deg,  transparent 21deg 34deg,
+                #1a1206 34deg 36deg,  transparent 36deg 48deg,
+                #1a1206 48deg 50deg,  transparent 50deg 63deg,
+                #1a1206 63deg 65deg,  transparent 65deg 79deg,
+                #1a1206 79deg 81deg,  transparent 81deg 360deg);
+            -webkit-mask: radial-gradient(circle at 50% calc(100% - 7px), transparent 0 51px, #000 51px 62px, transparent 62px);
+                    mask: radial-gradient(circle at 50% calc(100% - 7px), transparent 0 51px, #000 51px 62px, transparent 62px);
         }
         /* Faixa vermelha: de 0 VU até +3 VU */
         .vu-redzone {
-            position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
-            background: conic-gradient(from -46deg, transparent 0deg 62deg, #cf2020 62deg 87deg, transparent 87deg 360deg);
-            -webkit-mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 84%, #000 84% 91%, transparent 91%);
-                    mask: radial-gradient(circle closest-side at 50% 50%, transparent 0 84%, #000 84% 91%, transparent 91%);
+            position: absolute; inset: 0; pointer-events: none;
+            background: conic-gradient(from -47deg, transparent 0deg 64deg, #c81e1e 64deg 80deg, transparent 80deg 360deg);
+            -webkit-mask: radial-gradient(circle at 50% calc(100% - 7px), transparent 0 62px, #000 62px 66px, transparent 66px);
+                    mask: radial-gradient(circle at 50% calc(100% - 7px), transparent 0 62px, #000 62px 66px, transparent 66px);
         }
-        /* Números da escala (posicionados por ângulo via --a) */
+        /* Números da escala: posicionados em arco a 48px do pino (ângulo via --a) */
         .vu-nums { position: absolute; inset: 0; pointer-events: none; }
         .vu-nums span {
-            position: absolute; left: 50%; top: 50%; white-space: nowrap;
-            font-family: 'Arial', sans-serif; font-size: 6px; font-weight: 700; color: #14161a;
-            transform: translate(-50%, -50%) rotate(var(--a)) translateY(-50px) rotate(calc(-1 * var(--a)));
+            position: absolute; left: 50%; bottom: 7px; white-space: nowrap;
+            font-family: 'Arial', sans-serif; font-size: 7px; font-weight: 700; color: #241703;
+            transform: translate(-50%, 50%) rotate(var(--a)) translateY(-48px) rotate(calc(-1 * var(--a)));
         }
-        /* Ponteiro: fino, girando em torno do centro do mostrador */
+        /* Ponteiro: fino, girando em torno do pino embaixo (como num VU de verdade) */
         .analog-needle {
-            position: absolute; bottom: 50%; left: 50%;
-            width: 2px; height: 40%; margin-left: -1px;
-            background: #14161a;
+            position: absolute; bottom: 7px; left: 50%;
+            width: 2.5px; height: 63px; margin-left: -1.25px;
+            background: #171008;
             transform-origin: 50% 100%;
             transform: rotate(-45deg);
             transition: transform 0.06s linear;
             z-index: 6;
         }
-        /* Eixo central cromado */
+        /* Eixo central cromado (no pino, embaixo) */
         .vu-hub {
-            position: absolute; left: 50%; top: 50%; width: 15px; height: 15px; margin: -7.5px 0 0 -7.5px; border-radius: 50%;
+            position: absolute; left: 50%; bottom: 7px; width: 15px; height: 15px; margin: 0 0 -7.5px -7.5px; border-radius: 50%;
             background: radial-gradient(circle at 35% 30%, #7b828d, #23262c 65%, #0d0f12 100%);
             box-shadow: 0 1px 3px rgba(0,0,0,0.85), inset 0 1px 1px rgba(255,255,255,0.35);
             z-index: 8; pointer-events: none;
         }
         /* Reflexo de vidro sobre o mostrador */
         .vu-glass {
-            position: absolute; inset: 0; border-radius: 50%; pointer-events: none; z-index: 9;
-            background: linear-gradient(158deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.10) 34%, rgba(255,255,255,0) 52%);
+            position: absolute; inset: 0; pointer-events: none; z-index: 9;
+            background: linear-gradient(160deg, rgba(255,255,255,0.40) 0%, rgba(255,255,255,0.08) 36%, rgba(255,255,255,0) 54%);
         }
         /* MASTER ESTEREO: par de VU (L e R) lado a lado na torre central */
-        .vu-pair { display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 14px; margin: 6px 0 2px; }
+        .vu-pair { display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 18px; margin: 6px 0 2px; --vu-glow: 0.22; }
         .vu-channel { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .vu-label { font-size: 0.56rem; font-weight: 700; letter-spacing: 1px; color: var(--gold); opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.8); }
+        /* ===== PLACA DE ALUMÍNIO DOS VUs (só quando o tema usa o VU analógico) =====
+           Placa cinza com 4 parafusos nos cantos e o texto ANALOG VU METER, como na foto. */
+        body.vu-analog-ativo .vu-pair {
+            position: relative;
+            background:
+                radial-gradient(circle 5px at 12px 12px, #f4f5f6 0 1.6px, #b9bdc2 1.6px 3.2px, #83888f 3.2px 4.6px, transparent 4.6px),
+                radial-gradient(circle 5px at calc(100% - 12px) 12px, #f4f5f6 0 1.6px, #b9bdc2 1.6px 3.2px, #83888f 3.2px 4.6px, transparent 4.6px),
+                radial-gradient(circle 5px at 12px calc(100% - 12px), #f4f5f6 0 1.6px, #b9bdc2 1.6px 3.2px, #83888f 3.2px 4.6px, transparent 4.6px),
+                radial-gradient(circle 5px at calc(100% - 12px) calc(100% - 12px), #f4f5f6 0 1.6px, #b9bdc2 1.6px 3.2px, #83888f 3.2px 4.6px, transparent 4.6px),
+                radial-gradient(130% 150% at 18% 0%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 55%),
+                linear-gradient(180deg, #dcdde0 0%, #bfc2c7 46%, #a2a7ae 100%);
+            border: 1px solid #83888f; border-radius: 10px;
+            padding: 14px 12px 22px; gap: 18px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -2px 8px rgba(0,0,0,0.22), 0 10px 20px rgba(0,0,0,0.5);
+        }
+        body.vu-analog-ativo .vu-pair::after {
+            content: 'ANALOG VU METER';
+            position: absolute; right: 12px; bottom: 5px;
+            font-family: 'Arial', sans-serif; font-size: 0.52rem; font-weight: 700;
+            letter-spacing: 2px; color: #3a3f45;
+        }
+        body.vu-analog-ativo .vu-label { color: #3a3f45; opacity: 1; text-shadow: none; letter-spacing: 2px; }
 
         /* user-select: none -> arrastar o fader nao seleciona o texto do rotulo.
            Sem isso, o arraste iniciava uma selecao e o Firefox desenhava a faixa
@@ -1109,6 +1092,79 @@
         input[type="file"] { width: 100%; max-width: 100%; box-sizing: border-box; font-size: 0.6rem; padding: 4px; color: var(--input-text); background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 5px; font-family: 'Share Tech Mono', ui-monospace, monospace; }
         input[type="file"]::file-selector-button { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.58rem; font-weight: 700; padding: 4px 8px; margin-right: 6px; border-radius: 4px; border: 2px solid var(--btn-border); background: var(--btn-bg); color: var(--btn-text); cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15); }
         #statusA, #statusB { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.6rem; margin: 2px 0; }
+
+        /* ===== MODO EDICAO: reordenar os modulos externos (sirene, crossover, synare) =====
+           A barra de cada modulo so aparece com o modo ligado; as setas ▲▼ trocam a ordem.
+           A ordem fica salva no navegador. */
+        .modulo-barra {
+            display: none; align-items: center; justify-content: center; gap: 10px;
+            margin: 0 0 6px; padding: 5px 10px;
+            border: 1px dashed var(--gold); border-radius: 6px;
+            background: rgba(0,0,0,0.35);
+            font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.6rem;
+            letter-spacing: 1.5px; color: var(--gold); font-weight: 700;
+        }
+        body.modo-edicao .modulo-barra { display: flex; }
+        .modulo-btn {
+            font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.72rem; line-height: 1;
+            padding: 5px 12px; border-radius: 5px; cursor: pointer;
+            border: 2px solid var(--btn-border); background: var(--btn-bg); color: var(--btn-text);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+        .modulo-btn:active { transform: translateY(1px); }
+        .modulo-btn[disabled] { opacity: 0.25; cursor: default; }
+        body.modo-edicao #modulosExternos > .rack-externo,
+        body.modo-edicao #modulosExternos > .synare-externo {
+            outline: 2px dashed rgba(243,198,83,0.55); outline-offset: 4px; border-radius: 10px;
+        }
+
+        /* ===== ABA PREAMP: visual do pré-amp analógico clássico =====
+           Sobrepõe o tema escolhido: painel preto fosco, texto branco, filetes
+           brancos finos, knobs creme e o isolator com knobs coloridos.
+           É só visual — todas as funções continuam iguais. */
+        body.look-preamp {
+            --bg-body: #0a0b0d;
+            --wood-left: linear-gradient(135deg, #1a1a1e 0%, #0e0e11 100%);
+            --wood-right: linear-gradient(135deg, #0e0e11 0%, #08080a 100%);
+            --metal-panel: linear-gradient(180deg, #17181c 0%, #0d0e11 100%);
+            --border-outer: #000;
+            --border-metal: #4a4c55;
+            --gold: #f4f1e8;
+            --section-bg: linear-gradient(145deg, #16171b, #0d0e11);
+            --text-color: #f4f1e8;
+            --sub-text: #b9b6ad;
+            --surface: rgba(255,255,255,0.06);
+            --surface-strong: rgba(0,0,0,0.35);
+            --hairline: rgba(255,255,255,0.18);
+            --btn-bg: linear-gradient(180deg, #2e2f36 0%, #191a1f 100%);
+            --btn-text: #f4f1e8;
+            --btn-border: rgba(255,255,255,0.22);
+            --input-bg: rgba(0,0,0,0.4);
+            --input-text: #f4f1e8;
+            --input-border: rgba(255,255,255,0.2);
+            --on-gold: #101114;
+            --toolbar-bg: rgba(12,12,15,0.85);
+            --toolbar-text: #f4f1e8;
+            --toolbar-border: rgba(255,255,255,0.24);
+            --screw-color: rgba(255,255,255,0.3);
+            --status-ok: #e8e5da;
+            --status-info: #cfd6e6;
+            --status-warn: #e9c980;
+            --status-err: #f29b9b;
+            --knob-base: radial-gradient(circle at 35% 32%, #ffffff 0%, #ece8dc 40%, #d2ccba 74%, #b5ae9b 100%);
+            --knob-border: #2e2f35;
+            --knob-indicator: #1c1c20;
+        }
+        /* Isolator com knobs coloridos, como nos pré-amps de dub */
+        body.look-preamp #knobIsoSub  { background: radial-gradient(circle at 35% 32%, #ff8f8f 0%, #c02020 100%); border-color: #7f1414; --knob-indicator: #fff; }
+        body.look-preamp #knobIsoBass { background: radial-gradient(circle at 35% 32%, #f2c14e 0%, #a16207 100%); border-color: #6b4208; --knob-indicator: #241503; }
+        body.look-preamp #knobIsoLM   { background: radial-gradient(circle at 35% 32%, #7fdd90 0%, #15803d 100%); border-color: #0f4a26; --knob-indicator: #06210d; }
+        body.look-preamp #knobIsoHM   { background: radial-gradient(circle at 35% 32%, #86c0f8 0%, #1d4ed8 100%); border-color: #16357e; --knob-indicator: #fff; }
+        body.look-preamp #knobIsoHigh { background: radial-gradient(circle at 35% 32%, #cfa2ff 0%, #7e22ce 100%); border-color: #4c1580; --knob-indicator: #fff; }
+        /* Filetes brancos finos nos painéis, como no pré-amp preto */
+        body.look-preamp .mixer-chassis { border: 1px solid #5a5c66; }
+        body.look-preamp .section-box { border-color: #45474f; }
+        body.look-preamp .section-box h4 { letter-spacing: 2px; }
     </style>
 </head>
 <body class="theme-dub bg-light modo-rack">
@@ -1135,10 +1191,6 @@
             <option value="theme-tube">16. Tube Preamp (Valvulado)</option>
         </select>
     </div>
-    <div class="segmented" role="group" aria-label="Modo do painel">
-        <button type="button" id="btnModoRack" class="active" aria-pressed="true" onclick="setModo('rack')" title="Pedais lado a lado numa faixa horizontal">📻 RACK</button>
-        <button type="button" id="btnModoDub" aria-pressed="false" onclick="setModo('dubmixer')" title="Pedais um embaixo do outro, exatamente como sempre foi">🎛️ DUB MIXER</button>
-    </div>
     <div class="segmented" role="group" aria-label="MIDI">
         <button type="button" id="btnMidi" onclick="toggleMidi()" title="Liga/desliga controle MIDI (soft takeover)">🎹 MIDI: OFF</button>
     </div>
@@ -1146,6 +1198,12 @@
     <div class="segmented" role="group" aria-label="Modo de fundo">
         <button type="button" id="bgLightBtn" onclick="setBgMode('light')">☀️ Claro</button>
         <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
+    </div>
+    <div class="segmented" role="group" aria-label="Edição dos módulos">
+        <button type="button" id="btnEditar" onclick="toggleEdicao()" title="Liga o modo edição: mover os módulos (sirene, crossover, synare) na ordem que você quiser" aria-pressed="false">✥ EDITAR</button>
+    </div>
+    <div class="segmented" role="group" aria-label="Visual preamp">
+        <button type="button" id="btnPreamp" onclick="togglePreamp()" title="Visual do pré-amp analógico clássico: painel preto, texto branco e knobs creme (não muda nenhuma função)" aria-pressed="false">🎛 PREAMP</button>
     </div>
     <div class="toolbar-group">
         <span class="toolbar-label">Pedais</span>
@@ -1187,7 +1245,7 @@
             </div>
             <div class="section-box">
                 <h4>EQ & FILTERS</h4>
-                <div class="knob-row knob-row-3">
+                <div class="knob-row knob-row-4">
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobVolA"><div class="knob-indicator"></div></div>
                         <label>VOL CH1: <span id="lblVolA">100</span>%</label>
@@ -1198,7 +1256,11 @@
                     </div>
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobSweepA"><div class="knob-indicator"></div></div>
-                        <label>CUTOFF</label>
+                        <label>LOWPASS</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobHpA"><div class="knob-indicator"></div></div>
+                        <label>HIGHPASS</label>
                     </div>
                 </div>
             </div>
@@ -1221,19 +1283,18 @@
                             <div class="vu-ticks"></div>
                             <div class="vu-redzone"></div>
                             <div class="vu-nums">
-                                <span style="--a:-44deg">-20</span>
-                                <span style="--a:-31deg">-10</span>
-                                <span style="--a:-18deg">-5</span>
-                                <span style="--a:-6deg">-3</span>
-                                <span style="--a:16deg">0</span>
-                                <span style="--a:28deg">+2</span>
-                                <span style="--a:41deg">+3</span>
+                                <span style="--a:-42deg">-20</span>
+                                <span style="--a:-27deg">-10</span>
+                                <span style="--a:-12deg">-5</span>
+                                <span style="--a:2deg">-3</span>
+                                <span style="--a:17deg">0</span>
+                                <span style="--a:33deg">+3</span>
                             </div>
                             <div class="analog-needle" id="analogNeedleMasterL"></div>
                             <div class="vu-hub"></div>
                             <div class="vu-glass"></div>
                         </div>
-                        <span class="vu-label">L</span>
+                        <span class="vu-label">L METER</span>
                     </div>
                     <div class="vu-channel">
                         <div class="led-tower" id="ledsMasterR" style="height: 110px;">
@@ -1245,19 +1306,18 @@
                             <div class="vu-ticks"></div>
                             <div class="vu-redzone"></div>
                             <div class="vu-nums">
-                                <span style="--a:-44deg">-20</span>
-                                <span style="--a:-31deg">-10</span>
-                                <span style="--a:-18deg">-5</span>
-                                <span style="--a:-6deg">-3</span>
-                                <span style="--a:16deg">0</span>
-                                <span style="--a:28deg">+2</span>
-                                <span style="--a:41deg">+3</span>
+                                <span style="--a:-42deg">-20</span>
+                                <span style="--a:-27deg">-10</span>
+                                <span style="--a:-12deg">-5</span>
+                                <span style="--a:2deg">-3</span>
+                                <span style="--a:17deg">0</span>
+                                <span style="--a:33deg">+3</span>
                             </div>
                             <div class="analog-needle" id="analogNeedleMasterR"></div>
                             <div class="vu-hub"></div>
                             <div class="vu-glass"></div>
                         </div>
-                        <span class="vu-label">R</span>
+                        <span class="vu-label">R METER</span>
                     </div>
                 </div>
             </div>
@@ -1267,7 +1327,7 @@
                 <button type="button" id="btnRecord" class="btn-io" onclick="toggleGravacao()" title="Grava a saída master (o som que está saindo) em arquivo de áudio" aria-pressed="false">
                     <span class="io-dot"></span><span id="recLabel">GRAVAR MIX</span>
                 </button>
-                <button type="button" id="btnConvert" class="btn-io" onclick="converterMusica()" title="Gera um WAV da música carregada já com VOL, PAN, CUTOFF, CROSSOVER, DELAY e BASS BOOST que você ajustou">
+                <button type="button" id="btnConvert" class="btn-io" onclick="converterMusica()" title="Gera um WAV da música carregada já com VOL, PAN, LOWPASS/HIGHPASS, CROSSOVER, DELAY e BASS BOOST que você ajustou">
                     ⬇ CONVERTER
                 </button>
             </div>
@@ -1309,7 +1369,7 @@
             </div>
             <div class="section-box">
                 <h4>EQ & FILTERS</h4>
-                <div class="knob-row knob-row-3">
+                <div class="knob-row knob-row-4">
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobVolB"><div class="knob-indicator"></div></div>
                         <label>VOL CH2: <span id="lblVolB">100</span>%</label>
@@ -1320,7 +1380,11 @@
                     </div>
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobSweepB"><div class="knob-indicator"></div></div>
-                        <label>CUTOFF</label>
+                        <label>LOWPASS</label>
+                    </div>
+                    <div class="knob-container">
+                        <div class="knob-wrapper" id="knobHpB"><div class="knob-indicator"></div></div>
+                        <label>HIGHPASS</label>
                     </div>
                 </div>
             </div>
@@ -1333,14 +1397,15 @@
 
 </div>
 
-    <!-- Slot para o modo DUB MIXER: sirene/crossover/synare voltam para dentro do gabinete -->
-    <div id="dubmixer-slot" style="display: none; padding: 8px 12px 12px; border-top: 1px dashed var(--border-metal);"></div>
-
 </div>
 
-<!-- ===== SIREN GENERATOR — MÓDULO DE RACK 19" (fora do dub mixer, embaixo dele) =====
+<!-- ===== MODULOS EXTERNOS: racks moviveis no MODO EDICAO (ordem escolhida pelo usuario) ===== -->
+<div id="modulosExternos">
+
+<!-- ===== SIREN GENERATOR — MÓDULO DE RACK 19" (fora do gabinete, embaixo dele) =====
      Largura alinhada ao gabinete, como um equipamento de rack separado sobre a mesa. -->
 <div class="rack-externo" id="rack-siren-slot">
+    <div class="modulo-barra"><span class="modulo-nome">🚨 SIRENE</span><button type="button" class="modulo-btn" onclick="moverModulo('rack-siren-slot',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('rack-siren-slot',1)" title="Mover para baixo">▼</button></div>
     <div class="section-box rack-unit" id="modSiren" style="display: none;">
         <div class="rack-ear" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
 
@@ -1413,9 +1478,12 @@
 
         <div class="rack-ear dir" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
     </div>
-<!-- ===== CROSSOVER 5-WAY — MÓDULO DE RACK 19" (fora do dub mixer, embaixo dele) =====
+</div><!-- /#rack-siren-slot -->
+
+<!-- ===== CROSSOVER 5-WAY — MÓDULO DE RACK 19" (fora do gabinete, embaixo dele) =====
      Mesmo estilo de rack separado, modelo diferente da sirene. -->
 <div class="rack-externo" id="rack-crossover-slot">
+    <div class="modulo-barra"><span class="modulo-nome">🎚️ CROSSOVER</span><button type="button" class="modulo-btn" onclick="moverModulo('rack-crossover-slot',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('rack-crossover-slot',1)" title="Mover para baixo">▼</button></div>
 <!-- CROSSOVER 5-WAY ANALÓGICO COM KNOBS (Sempre Visíveis) -->
     <div class="section-box rack-unit rack-unit-2" id="modCrossover" style="margin-top: 8px;">
         <div class="rack-ear" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
@@ -1496,6 +1564,10 @@
                     <label>FB: <span id="lblMDFB">40</span>%</label>
                 </div>
                 <div class="knob-container">
+                    <div class="knob-wrapper" id="knobMasterDDry"><div class="knob-indicator"></div></div>
+                    <label>DRY: <span id="lblMDDry">100</span>%</label>
+                </div>
+                <div class="knob-container">
                     <div class="knob-wrapper" id="knobMasterDWet"><div class="knob-indicator"></div></div>
                     <label style="color:var(--gold);">WET: <span id="lblMDWet">0</span>%</label>
                 </div>
@@ -1515,6 +1587,7 @@
      Visual inspirado no Space Drum original: corpo escuro, pad circular de trigger
      grande à esquerda e os controles à direita. -->
 <div class="synare-externo" id="rack-synare-slot">
+    <div class="modulo-barra"><span class="modulo-nome">🥁 SYNARE</span><button type="button" class="modulo-btn" onclick="moverModulo('rack-synare-slot',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('rack-synare-slot',1)" title="Mover para baixo">▼</button></div>
     <div class="synare-unit" id="modSynare" style="display: none;">
         <div class="synare-brand">
             <span class="synare-led"></span>
@@ -1561,7 +1634,7 @@
                     </div>
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobSynVol"><div class="knob-indicator"></div></div>
-                        <label style="color:var(--gold);">VOL: <span id="lblSynVol">70</span>%</label>
+                        <label style="color:var(--gold);">VOL: <span id="lblSynVol">40</span>%</label>
                     </div>
                 </div>
 
@@ -1587,15 +1660,15 @@
     </div>
 </div>
 
-</div>
+</div><!-- /#modulosExternos -->
 
 <script>
     /* O MOTOR DE ÁUDIO JS ESTÁ EXATAMENTE IGUAL PARA NÃO QUEBRAR NADA */
     let audioCtx = null;
-    let deckA = { buffer: null, source: null, gain: null, panner: null, pan: 0, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, type: 'file' };
-    let deckB = { buffer: null, source: null, gain: null, panner: null, pan: 0, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, type: 'file' };
+    let deckA = { buffer: null, source: null, gain: null, panner: null, pan: 0, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, hp: 20, type: 'file' };
+    let deckB = { buffer: null, source: null, gain: null, panner: null, pan: 0, isPlaying: false, startTime: 0, pauseOffset: 0, vol: 1.0, cutoff: 20000, hp: 20, type: 'file' };
 
-    let crossGainA, crossGainB, masterGain, filterA, filterB;
+    let crossGainA, crossGainB, masterGain, filterA, filterB, hpA, hpB;
     let bassBoostNode = null;
     let bassBoostActive = false;
     const BASS_BOOST_DB = 12;
@@ -1611,7 +1684,7 @@
 
     let masterDelayNode, masterFBNode, masterWetGainNode, masterFilterNode, masterDelaySum, masterDryGain;
     let masterReverbNode = null, masterReverbWet = null;
-    let masterDelayParams = { dTime: 0.375, dFB: 0.4, dWet: 0.0 };
+    let masterDelayParams = { dTime: 0.375, dFB: 0.4, dDry: 1.0, dWet: 0.0 };
     let masterReverbParams = { wet: 0.0 };
 
     let sirenOsc = null, sirenLfo = null, sirenLfoGain = null, sirenGain = null;
@@ -1624,7 +1697,7 @@
     /* ===== SYNARE / SPACE DRUM (tambor analogico com delay proprio) ===== */
     let synDelayNode, synFBNode, synWetGainNode, synFilterNode;
     let synNoiseBuf = null;
-    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.7, dTime: 0.30, dFB: 0.45, dWet: 0.35 };
+    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.4, dTime: 0.30, dFB: 0.45, dWet: 0.35 };
 
     const sirenPresets = {
         1: { pitch: 900, rate: 12.0, wave: 'sawtooth' },
@@ -1668,10 +1741,14 @@
             crossGainA = audioCtx.createGain(); crossGainB = audioCtx.createGain(); masterGain = audioCtx.createGain();
             filterA = audioCtx.createBiquadFilter(); filterA.type = 'lowpass'; filterA.frequency.value = deckA.cutoff;
             filterB = audioCtx.createBiquadFilter(); filterB.type = 'lowpass'; filterB.frequency.value = deckB.cutoff;
+            /* HIGHPASS por canal, logo apos o LOWPASS (knob a direita do lowpass) */
+            hpA = audioCtx.createBiquadFilter(); hpA.type = 'highpass'; hpA.frequency.value = deckA.hp;
+            hpB = audioCtx.createBiquadFilter(); hpB.type = 'highpass'; hpB.frequency.value = deckB.hp;
 
             crossGainA.connect(filterA); crossGainB.connect(filterB);
+            filterA.connect(hpA); filterB.connect(hpB);
 
-            let mixerSum = audioCtx.createGain(); filterA.connect(mixerSum); filterB.connect(mixerSum);
+            let mixerSum = audioCtx.createGain(); hpA.connect(mixerSum); hpB.connect(mixerSum);
             crossoverSum = audioCtx.createGain();
 
             fSubLP = audioCtx.createBiquadFilter(); fSubLP.type = 'lowpass'; fSubLP.frequency.value = 80;
@@ -1699,7 +1776,7 @@
             masterFBNode = audioCtx.createGain(); masterFBNode.gain.value = masterDelayParams.dFB;
             masterWetGainNode = audioCtx.createGain(); masterWetGainNode.gain.value = masterDelayParams.dWet;
             masterFilterNode = audioCtx.createBiquadFilter(); masterFilterNode.type = 'lowpass'; masterFilterNode.frequency.value = 3000;
-            masterDryGain = audioCtx.createGain(); masterDryGain.gain.value = 1.0; masterDelaySum = audioCtx.createGain();
+            masterDryGain = audioCtx.createGain(); masterDryGain.gain.value = masterDelayParams.dDry; masterDelaySum = audioCtx.createGain();
 
             midHighSum.connect(masterDryGain); midHighSum.connect(masterDelayNode); masterDelayNode.connect(masterFilterNode);
             masterFilterNode.connect(masterFBNode); masterFBNode.connect(masterDelayNode); masterFilterNode.connect(masterWetGainNode);
@@ -1768,6 +1845,14 @@
         document.body.classList.add(themeName);
         let sel = document.getElementById('themeSelect');
         if (sel && sel.value !== themeName) sel.value = themeName;
+        atualizarClasseVu();
+    }
+
+    /* Sabe se o tema atual mostra o VU analógico (para a placa de alumínio entrar em cena) */
+    function atualizarClasseVu() {
+        let m = document.querySelector('.analog-vu-meter');
+        if (!m) return;
+        document.body.classList.toggle('vu-analog-ativo', getComputedStyle(m).display !== 'none');
     }
 
     function setBgMode(mode) {
@@ -1777,44 +1862,6 @@
         let lightBtn = document.getElementById('bgLightBtn'), nightBtn = document.getElementById('bgNightBtn');
         if (lightBtn) lightBtn.classList.toggle('active', isLight);
         if (nightBtn) nightBtn.classList.toggle('active', !isLight);
-    }
-
-    /* ===== MODOS DO PAINEL =====
-       RACK (padrao): os pedais ficam LADO A LADO numa faixa horizontal.
-       DUB MIXER: os pedais ficam UM EMBAIXO DO OUTRO — a interface exatamente
-       como sempre foi. O modo so mexe na faixa dos pedais, nada mais. */
-    function setModo(modo) {
-        let dub = (modo === 'dubmixer');
-        document.body.classList.toggle('modo-dubmixer', dub);
-        document.body.classList.toggle('modo-rack', !dub);
-        let r = document.getElementById('btnModoRack'), d = document.getElementById('btnModoDub');
-        if (r) { r.classList.toggle('active', !dub); r.setAttribute('aria-pressed', String(!dub)); }
-        if (d) { d.classList.toggle('active', dub); d.setAttribute('aria-pressed', String(dub)); }
-
-        /* Move os modulos (sirene, crossover, synare) entre o gabinete (modo DUB MIXER,
-           tudo numa caixa so) e os racks externos (modo RACK). */
-        let slot = document.getElementById('dubmixer-slot');
-        let siren = document.getElementById('modSiren');
-        let cross = document.getElementById('modCrossover') || document.querySelector('.section-box.rack-unit.rack-unit-2');
-        let synare = document.getElementById('modSynare');
-        let rSiren = document.getElementById('rack-siren-slot');
-        let rCross = document.getElementById('rack-crossover-slot');
-        let rSynare = document.getElementById('rack-synare-slot');
-        if (dub) {
-            if (slot) { slot.style.display = '';
-                if (siren) slot.appendChild(siren);
-                if (cross) slot.appendChild(cross);
-                if (synare) slot.appendChild(synare);
-            }
-            if (rSiren) rSiren.style.display = 'none';
-            if (rCross) rCross.style.display = 'none';
-            if (rSynare) rSynare.style.display = 'none';
-        } else {
-            if (slot) slot.style.display = 'none';
-            if (rSiren) { rSiren.style.display = ''; if (siren) rSiren.appendChild(siren); }
-            if (rCross) { rCross.style.display = ''; if (cross) rCross.appendChild(cross); }
-            if (rSynare) { rSynare.style.display = ''; if (synare) rSynare.appendChild(synare); }
-        }
     }
 
     /* ===== PONTE TAURI (versao executavel) =====
@@ -1884,11 +1931,84 @@
         atualizarMesaCompacta();
     }
 
+    /* ===== MODO EDICAO: mover os modulos na ordem que quiser =====
+       Botao na barra (ao lado do Claro/Noturno). Cada modulo ganha uma barra com
+       setas ▲▼; a ordem fica salva no navegador e volta ao abrir de novo. */
+    function toggleEdicao() {
+        let on = !document.body.classList.contains('modo-edicao');
+        document.body.classList.toggle('modo-edicao', on);
+        let b = document.getElementById('btnEditar');
+        if (b) { b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); }
+        atualizarBotoesModulos();
+    }
+    function modulosMoviveis() {
+        let cont = document.getElementById('modulosExternos');
+        if (!cont) return [];
+        return Array.from(cont.children).filter(c => c.classList && (c.classList.contains('rack-externo') || c.classList.contains('synare-externo')));
+    }
+    function moverModulo(id, dir) {
+        let cont = document.getElementById('modulosExternos'); if (!cont) return;
+        let el = document.getElementById(id); if (!el) return;
+        let lista = modulosMoviveis();
+        let i = lista.indexOf(el); if (i < 0) return;
+        let j = i + dir; if (j < 0 || j >= lista.length) return;
+        if (dir < 0) cont.insertBefore(el, lista[j]);
+        else cont.insertBefore(el, lista[j].nextSibling);
+        salvarOrdemModulos(); atualizarBotoesModulos();
+    }
+    function atualizarBotoesModulos() {
+        let lista = modulosMoviveis();
+        lista.forEach((el, i) => {
+            let botoes = el.querySelectorAll('.modulo-btn');
+            if (botoes[0]) botoes[0].disabled = (i === 0);
+            if (botoes[1]) botoes[1].disabled = (i === lista.length - 1);
+        });
+    }
+    function salvarOrdemModulos() {
+        try { localStorage.setItem('dubmixer_ordem_modulos', JSON.stringify(modulosMoviveis().map(el => el.id))); } catch (e) {}
+    }
+    function carregarOrdemModulos() {
+        try {
+            let raw = localStorage.getItem('dubmixer_ordem_modulos'); if (!raw) return;
+            let ordem = JSON.parse(raw); if (!Array.isArray(ordem)) return;
+            let cont = document.getElementById('modulosExternos'); if (!cont) return;
+            ordem.forEach(id => { let el = document.getElementById(id); if (el && el.parentElement === cont) cont.appendChild(el); });
+        } catch (e) {}
+    }
+
+    /* ===== ABA PREAMP: visual do pré-amp clássico (painel preto) =====
+       Aplica body.look-preamp por cima de qualquer tema. Só muda o visual;
+       todas as funções continuam iguais. A escolha fica salva no navegador. */
+    function togglePreamp() {
+        let on = !document.body.classList.contains('look-preamp');
+        document.body.classList.toggle('look-preamp', on);
+        let b = document.getElementById('btnPreamp');
+        if (b) { b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); }
+        try { localStorage.setItem('dubmixer_preamp', on ? '1' : '0'); } catch (e) {}
+        atualizarClasseVu();
+    }
+    function carregarPreamp() {
+        try {
+            if (localStorage.getItem('dubmixer_preamp') === '1') {
+                document.body.classList.add('look-preamp');
+                let b = document.getElementById('btnPreamp');
+                if (b) { b.classList.add('active'); b.setAttribute('aria-pressed', 'true'); }
+            }
+        } catch (e) {}
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         setBgMode('light');
         /* Acerta a barra de pedais e o modo compacto com o estado que veio do HTML
            (o SYNARE já vem oculto) */
         sincronizarPedais();
+        /* Ordem escolhida no MODO EDICAO volta ao abrir de novo */
+        carregarOrdemModulos();
+        atualizarBotoesModulos();
+        /* Visual PREAMP escolhido volta ao abrir de novo */
+        carregarPreamp();
+        /* Tema inicial define se a placa de alumínio dos VUs aparece */
+        atualizarClasseVu();
     });
 
     document.getElementById('fileA').addEventListener('change', e => loadFile(e.target.files[0], 'A'));
@@ -1957,18 +2077,26 @@
         noise.start(now);
     }
 
+    /* Descida do SWEEP, extraida em funcao propria: e usada pelo botao SWEEP e
+       tambem quando se troca de preset com o sweep ligado (antes o sweep morria
+       ao trocar de preset e so voltava apertando o botao duas vezes). */
+    function iniciarSweepDescida() {
+        if (sweepInterval) clearInterval(sweepInterval);
+        let currentRate = sirenParams.rate;
+        sweepInterval = setInterval(() => {
+            currentRate = Math.max(0.05, currentRate - 0.25); sirenParams.rate = currentRate;
+            if (knobs['knobSirenRate']) knobs['knobSirenRate'].setValue((currentRate - 0.01) / 24.99);
+            document.getElementById('lblSirenRate').innerText = currentRate.toFixed(2);
+            if (isSirenActive && sirenLfo) sirenLfo.frequency.setValueAtTime(currentRate, audioCtx.currentTime);
+            if (currentRate <= 0.05) clearInterval(sweepInterval);
+        }, 30);
+    }
+
     function toggleSweep() {
         unlockAudioContext(); isSweepActive = !isSweepActive; let btn = document.getElementById('btnSquareSweep'); if (btn) { btn.classList.toggle('active', isSweepActive); btn.setAttribute('aria-pressed', isSweepActive ? 'true' : 'false'); }
         if (sweepInterval) clearInterval(sweepInterval);
         if (isSweepActive) {
-            savedSirenRate = sirenParams.rate; let currentRate = sirenParams.rate;
-            sweepInterval = setInterval(() => {
-                currentRate = Math.max(0.05, currentRate - 0.25); sirenParams.rate = currentRate;
-                if (knobs['knobSirenRate']) knobs['knobSirenRate'].setValue((currentRate - 0.01) / 24.99);
-                document.getElementById('lblSirenRate').innerText = currentRate.toFixed(2);
-                if (isSirenActive && sirenLfo) sirenLfo.frequency.setValueAtTime(currentRate, audioCtx.currentTime);
-                if (currentRate <= 0.05) clearInterval(sweepInterval);
-            }, 30);
+            savedSirenRate = sirenParams.rate; iniciarSweepDescida();
         } else {
             let targetRate = savedSirenRate; let currentRate = sirenParams.rate;
             sweepInterval = setInterval(() => {
@@ -2023,10 +2151,12 @@
 
     function loadPreset() {
         let id = document.getElementById('sPreset').value; let p = sirenPresets[id]; sirenParams.pitch = p.pitch; sirenParams.rate = p.rate;
-        if (!isSweepActive) savedSirenRate = p.rate;
+        savedSirenRate = p.rate;
         if (knobs['knobSirenPitch']) knobs['knobSirenPitch'].setValue((p.pitch - 50) / 1450);
         if (knobs['knobSirenRate']) knobs['knobSirenRate'].setValue((p.rate - 0.01) / 24.99);
         if (isSirenActive) { stopSiren(); startSiren(); }
+        /* Com o SWEEP ligado, o sweep recomeca a partir do rate do novo preset */
+        if (isSweepActive) iniciarSweepDescida();
     }
 
     function toggleSirenBtn() { unlockAudioContext(); if (isSirenActive) stopSiren(); else startSiren(); }
@@ -2111,6 +2241,7 @@
         return level; // Retorna para animar a agulha analógica
     }
 
+    let vuPairEl = null; /* cache da placa dos VUs analógicos (luz interna via --vu-glow) */
     function trackVUs() {
         if (masterAnalyserL && masterAnalyserR) {
             /* Dois medidores independentes: L e R */
@@ -2121,7 +2252,12 @@
             if (agulhaL) agulhaL.style.transform = `rotate(${-45 + (nivelL * 90)}deg)`;
             if (agulhaR) agulhaR.style.transform = `rotate(${-45 + (nivelR * 90)}deg)`;
         }
-        if (analSub) updateLeds('ledsSub', analSub); if (analBass) updateLeds('ledsBass', analBass); if (analLM) updateLeds('ledsLM', analLM); if (analHM) updateLeds('ledsHM', analHM); if (analHigh) updateLeds('ledsHigh', analHigh);
+        let nivelSub = 0;
+        if (analSub) nivelSub = updateLeds('ledsSub', analSub);
+        if (analBass) updateLeds('ledsBass', analBass); if (analLM) updateLeds('ledsLM', analLM); if (analHM) updateLeds('ledsHM', analHM); if (analHigh) updateLeds('ledsHigh', analHigh);
+        /* Luz interna dos VUs analógicos: brilha mais conforme o SUB */
+        if (!vuPairEl) vuPairEl = document.querySelector('.vu-pair');
+        if (vuPairEl) vuPairEl.style.setProperty('--vu-glow', Math.min(1, 0.2 + nivelSub * 1.5).toFixed(3));
         requestAnimationFrame(trackVUs);
     }
 
@@ -2157,9 +2293,11 @@
     window.addEventListener('DOMContentLoaded', () => {
         knobs['knobVolA'] = new Knob('knobVolA', 1.0, val => { deckA.vol = val; if (deckA.gain) deckA.gain.gain.value = val; document.getElementById('lblVolA').innerText = Math.round(val * 100); ytApplyVolume('A'); });
         knobs['knobSweepA'] = new Knob('knobSweepA', 1.0, val => { deckA.cutoff = 100 + (val * 19900); if (filterA) filterA.frequency.value = deckA.cutoff; });
+        knobs['knobHpA'] = new Knob('knobHpA', 0.0, val => { deckA.hp = 20 * Math.pow(1000, val); if (hpA) hpA.frequency.value = deckA.hp; });
         knobs['knobPanA'] = new Knob('knobPanA', 0.5, val => { deckA.pan = (val * 2) - 1; if (deckA.panner) deckA.panner.pan.value = deckA.pan; document.getElementById('lblPanA').innerText = rotuloPan(deckA.pan); });
         knobs['knobVolB'] = new Knob('knobVolB', 1.0, val => { deckB.vol = val; if (deckB.gain) deckB.gain.gain.value = val; document.getElementById('lblVolB').innerText = Math.round(val * 100); ytApplyVolume('B'); });
         knobs['knobSweepB'] = new Knob('knobSweepB', 1.0, val => { deckB.cutoff = 100 + (val * 19900); if (filterB) filterB.frequency.value = deckB.cutoff; });
+        knobs['knobHpB'] = new Knob('knobHpB', 0.0, val => { deckB.hp = 20 * Math.pow(1000, val); if (hpB) hpB.frequency.value = deckB.hp; });
         knobs['knobPanB'] = new Knob('knobPanB', 0.5, val => { deckB.pan = (val * 2) - 1; if (deckB.panner) deckB.panner.pan.value = deckB.pan; document.getElementById('lblPanB').innerText = rotuloPan(deckB.pan); });
         knobs['knobSirenPitch'] = new Knob('knobSirenPitch', (440-50)/1450, val => { sirenParams.pitch = 50 + (val * 1450); if (isSirenActive && sirenOsc) sirenOsc.frequency.setValueAtTime(sirenParams.pitch, audioCtx.currentTime); });
         knobs['knobSirenRate'] = new Knob('knobSirenRate', (3.0-0.01)/24.99, val => { sirenParams.rate = 0.01 + (val * 24.99); if (!isSweepActive) savedSirenRate = sirenParams.rate; document.getElementById('lblSirenRate').innerText = sirenParams.rate.toFixed(2); if (isSirenActive && sirenLfo) sirenLfo.frequency.setValueAtTime(sirenParams.rate, audioCtx.currentTime); });
@@ -2169,6 +2307,7 @@
         knobs['knobSirenDWet'] = new Knob('knobSirenDWet', 0.3, val => { sirenParams.dWet = val; document.getElementById('lblSDWet').innerText = Math.round(val * 100); if (sirenWetGainNode) sirenWetGainNode.gain.value = val; });
         knobs['knobMasterDTime'] = new Knob('knobMasterDTime', (0.375-0.05)/1.15, val => { masterDelayParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblMDTime').innerText = masterDelayParams.dTime.toFixed(3); if (masterDelayNode) masterDelayNode.delayTime.value = masterDelayParams.dTime; });
         knobs['knobMasterDFB'] = new Knob('knobMasterDFB', 0.4 / 0.9, val => { masterDelayParams.dFB = val * 0.9; document.getElementById('lblMDFB').innerText = Math.round(masterDelayParams.dFB * 100); if (masterFBNode) masterFBNode.gain.value = masterDelayParams.dFB; });
+        knobs['knobMasterDDry'] = new Knob('knobMasterDDry', 1.0, val => { masterDelayParams.dDry = val; document.getElementById('lblMDDry').innerText = Math.round(val * 100); if (masterDryGain) masterDryGain.gain.value = val; });
         knobs['knobMasterDWet'] = new Knob('knobMasterDWet', 0.0, val => { masterDelayParams.dWet = val; document.getElementById('lblMDWet').innerText = Math.round(val * 100); if (masterWetGainNode) masterWetGainNode.gain.value = val; });
         knobs['knobMasterReverb'] = new Knob('knobMasterReverb', 0.0, val => { masterReverbParams.wet = val; document.getElementById('lblMDReverb').innerText = Math.round(val * 100); if (masterReverbWet) masterReverbWet.gain.value = val; });
         knobs['knobIsoSub'] = new Knob('knobIsoSub', 0.5, val => { isoVal.sub = val * 2; updateCrossover(); });
@@ -2184,7 +2323,7 @@
         knobs['knobSynTone'] = new Knob('knobSynTone', (900-100)/5900, val => { synParams.tone = 100 + (val * 5900); document.getElementById('lblSynTone').innerText = Math.round(synParams.tone); });
         knobs['knobSynNoise'] = new Knob('knobSynNoise', 0.35, val => { synParams.noise = val; document.getElementById('lblSynNoise').innerText = Math.round(val * 100); });
         knobs['knobSynSpace'] = new Knob('knobSynSpace', 0.2, val => { synParams.space = val; document.getElementById('lblSynSpace').innerText = Math.round(val * 100); });
-        knobs['knobSynVol'] = new Knob('knobSynVol', 0.7, val => { synParams.vol = val; document.getElementById('lblSynVol').innerText = Math.round(val * 100); });
+        knobs['knobSynVol'] = new Knob('knobSynVol', 0.4, val => { synParams.vol = val; document.getElementById('lblSynVol').innerText = Math.round(val * 100); });
         knobs['knobSynDTime'] = new Knob('knobSynDTime', (0.30-0.05)/1.15, val => { synParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblSynDTime').innerText = synParams.dTime.toFixed(3); if (synDelayNode) synDelayNode.delayTime.value = synParams.dTime; });
         knobs['knobSynDFB'] = new Knob('knobSynDFB', 0.45/0.9, val => { synParams.dFB = val * 0.9; document.getElementById('lblSynDFB').innerText = Math.round(synParams.dFB * 100); if (synFBNode) synFBNode.gain.value = synParams.dFB; });
         knobs['knobSynDWet'] = new Knob('knobSynDWet', 0.35, val => { synParams.dWet = val; document.getElementById('lblSynDWet').innerText = Math.round(val * 100); if (synWetGainNode) synWetGainNode.gain.value = val; });
@@ -2311,7 +2450,8 @@
                 const pan = off.createStereoPanner(); pan.pan.value = d.pan;
                 const xg = off.createGain(); xg.gain.value = (id === 'A') ? Math.cos(val * 0.5 * Math.PI) : Math.sin(val * 0.5 * Math.PI);
                 const lp = off.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = d.cutoff;
-                src.connect(g); g.connect(pan); pan.connect(xg); xg.connect(lp); lp.connect(mixSum);
+                const hp = off.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = (d.hp || 20);
+                src.connect(g); g.connect(pan); pan.connect(xg); xg.connect(lp); lp.connect(hp); hp.connect(mixSum);
                 src.start(0);
             });
 
@@ -2334,7 +2474,7 @@
             });
 
             // --- MASTER TAPE DELAY (só mid/high; graves passam direto) ---
-            const dry = off.createGain(); dry.gain.value = 1.0;
+            const dry = off.createGain(); dry.gain.value = masterDelayParams.dDry;
             const dly = off.createDelay(5.0); dly.delayTime.value = masterDelayParams.dTime;
             const fb = off.createGain(); fb.gain.value = masterDelayParams.dFB;
             const wet = off.createGain(); wet.gain.value = masterDelayParams.dWet;
@@ -2420,6 +2560,7 @@
         12: 'knobSirenVol', 13: 'knobSynVol',
         14: 'knobSirenPitch', 15: 'knobSirenRate',
         16: 'knobSynTune', 17: 'knobSynDecay',
+        18: 'knobHpA', 19: 'knobHpB', 20: 'knobMasterDDry',
     };
     let midiAccess = null, midiEnabled = false;
     const midiLast = {};   // cc -> ultimo valor MIDI (0..127)

@@ -4,7 +4,7 @@
 
 Preamp de 2 canais + crossover analógico de 5 vias + delay de fita + gerador de sirene
 + pedal Synare/Space Drum — tudo rodando no navegador, sem instalar nada, sem conta,
-sem internet. (O YouTube foi removido: a mesa toca apenas arquivos locais.)
+sem internet. A mesa toca apenas os seus arquivos locais.
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 [![Um arquivo só](https://img.shields.io/badge/arquivo%20%C3%BAnico-index.html-success.svg)](index.html)
@@ -20,7 +20,7 @@ sem internet. (O YouTube foi removido: a mesa toca apenas arquivos locais.)
 - [Por que usar este app](#-por-que-usar-este-app)
 - [Como rodar (Windows / Linux / macOS / celular)](#-como-rodar)
 - [Funções — o que a mesa faz](#-funções--o-que-a-mesa-faz)
-- [Referência completa dos 30 knobs](#-referência-completa-dos-30-knobs)
+- [Referência completa dos 34 knobs](#-referência-completa-dos-34-knobs)
 - [Pedais opcionais (mostrar / ocultar)](#-pedais-opcionais-mostrar--ocultar)
 - [Temas visuais](#-temas-visuais)
 - [Compatibilidade testada](#-compatibilidade-testada)
@@ -79,7 +79,7 @@ O projeto tem **duas frentes futuras** documentadas:
 
 - **[Versão física (hardware, R$ 100)](docs/ROADMAP-HARDWARE.md)** — mesa de dub de
   verdade que liga na tomada: crossover analógico, delay PT2399, sirene VCO, Synare
-  LM13700, tudo em chassi de madeira. **Os 30 knobs desta tela são a especificação.**
+  LM13700, tudo em chassi de madeira. **Os 34 knobs desta tela são a especificação.**
 - **Versão executável (app nativo)** — em desenvolvimento (Rust/Tauri, com DSP em
   `rust/` e `dsp/`). Roda em Linux/macOS/Windows com a mesma interface.
 
@@ -91,21 +91,18 @@ O projeto tem **duas frentes futuras** documentadas:
 ### Windows (jeito fácil)
 
 1. Baixe o repositório (botão verde **Code → Download ZIP**) e descompacte.
-2. Abra um terminal na pasta e rode:
+2. **Abra o `index.html` com duplo clique** — funciona direto (os launchers opcionais usam `dub-mixer.sh` se tiver Git Bash/WSL).
+3. Se quiser servir localmente (ex.: para o celular na mesma Wi-Fi):
    ```
-   python serve.py
+   python -m http.server 8712
    ```
-   (ou clique duas vezes em `dub-mixer.sh` se tiver Git Bash/WSL.)
-3. Abra o navegador em **http://127.0.0.1:8712/index.html**.
+   e abra **http://127.0.0.1:8712/index.html**.
 
-Precisa do **Python** instalado ([python.org](https://www.python.org/downloads/)),
-marcando *"Add python.exe to PATH"* na instalação.
+Precisa do **Python** instalado ([python.org](https://www.python.org/downloads/))
+apenas se for servir localmente (opcional).
 
 > Se a tela estiver estranha, um `Ctrl+Shift+R` resolve (limpa o cache).
-> Agora que o YouTube foi removido, você também pode simplesmente **abrir o `index.html`
-> com duplo clique** — tudo funciona offline.
-
-> Nota: a mesa agora toca apenas **arquivos locais** (YouTube removido).
+> A mesa toca apenas **arquivos locais**.
 
 ### Linux
 
@@ -136,6 +133,10 @@ O mixer é responsivo e **funciona por toque** (knobs arrastam com o dedo). Duas
 2. **Pelo GitHub Pages** (não precisa de PC ligado):
    👉 **https://hroderik.github.io/dub-sound-system-studio/**
 
+![Visual PREAMP](docs/img/preamp.png)
+
+![Modo edição](docs/img/modo-edicao.png)
+
 ![Mobile](docs/img/mobile.png)
 
 ### Ou... só abrir o arquivo
@@ -154,19 +155,24 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **CONVERTER** — renderiza a música offline e exporta WAV 16-bit/44,1 kHz/estéreo com
   todos os seus ajustes.
 - **X-FADER na torre central**, logo abaixo do MASTER OUT.
-- **VOL movido para dentro do EQ & FILTERS** (ordem VOL → PAN → CUTOFF) nos dois canais.
+- **VOL movido para dentro do EQ & FILTERS** (ordem VOL → PAN → LOWPASS → HIGHPASS) nos dois canais.
 - **Toolbar auto-hide** — rola pra baixo e ela some; volta ao rolar pra cima ou com o
   mouse no topo.
 - **3D desativado por padrão** (botão 📐 3D: OFF).
-- **Modo RACK / DUB MIXER** — seletor ao lado do tema: pedais lado a lado (RACK) ou
-  um embaixo do outro (DUB MIXER).
+- **MODO EDIÇÃO** — botão ✥ EDITAR na toolbar: cada módulo externo (SIRENE, CROSSOVER,
+  SYNARE) ganha barras com setas ▲▼ para você escolher a ordem que quiser; a ordem
+  fica salva e volta quando abrir o app de novo.
+- **Aba PREAMP** — botão 🎛 PREAMP na toolbar: aplica o visual do pré-amp analógico
+  clássico (painel preto, texto branco, knobs creme, isolator com knobs coloridos)
+  por cima de qualquer tema. Só muda o visual — nenhuma função muda.
 - **SIREN e CROSSOVER como módulos de rack 19"** fora do gabinete, com orelhas e
   parafusos; o CROSSOVER é um modelo diferente (anodizado preto/azul).
 - **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
 - **MASTER TAPE DELAY embutido na caixa do CROSSOVER** (uma caixa só, sem vão).
-- **Volume da sirene em 8 %** por padrão.
-- **VU estéreo real** (L/R) com ponteiro analógico.
-- **YouTube removido** — a mesa toca apenas arquivos locais.
+- **Volume da sirene em 40 %** por padrão.
+- **VU estéreo real** (L/R) — mostradores retangulares laranja com moldura preta, sobre placa de alumínio com parafusos ("L METER" / "R METER" / "ANALOG VU METER"); a luz interna brilha junto com o SUB.
+- **DRY no delay** — knob DRY no MASTER TAPE DELAY: mistura o sinal seco junto do eco (100 % por padrão).
+- **HIGHPASS por canal** — knob novo ao lado do LOWPASS (20 Hz a 20 kHz; em 20 Hz fica desligado).
 - **PWA** — manifest + service worker: instalável na tela inicial e funciona offline.
 - **Reverb de mola** — knob REVERB no master (depois do delay), com impulso de spring.
 - **MIDI** — botão 🎹 MIDI: ON/OFF com soft takeover (CCs mapeados para os knobs).
@@ -182,6 +188,7 @@ Controles por canal:
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
 | **CUTOFF** | Filtro lowpass de 100 Hz a 20 kHz (knob) |
+| **HIGHPASS** | Filtro highpass de 20 Hz a 20 kHz (knob; em 20 Hz fica desligado) |
 | **LED + VU** | Nível do canal, acende com o som |
 | **Barra de progresso** | Posição da faixa |
 
@@ -241,6 +248,7 @@ Delay **da música** (depois do crossover e antes do master), com 3 knobs:
 - **TIME** — 0,05 s a 1,20 s
 - **FB** — realimentação 0–90 %
 - **WET** — quanto do delay entra no master (0 % por padrão, ligue conforme o gosto)
+- **DRY** — quanto do sinal original continua junto do eco (100 % por padrão)
 
 Tem um filtro passa-baixa no caminho do delay, pra ficar aquele eco escuro de fita
 em vez de eco digital brilhante. E um **VU próprio**, mostrando que o delay está vivo.
@@ -308,7 +316,7 @@ que se desconecta sozinha (sem vazamento de áudio).
 
 ---
 
-## 🎚️ Referência completa dos 30 knobs
+## 🎚️ Referência completa dos 34 knobs
 
 Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 **Duplo clique** volta ao valor de fábrica. O valor aparece ao lado do nome.
@@ -346,6 +354,7 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 | `knobMasterDTime` | TIME | 0,05 – 1,20 s | 0,375 s |
 | `knobMasterDFB` | FB | 0–90 % | 40 % |
 | `knobMasterDWet` | WET | 0–100 % | 0 % (desligado) |
+| `knobMasterDDry` | DRY | 0–100 % | 100 % (sinal seco) |
 
 ### Siren Generator
 
@@ -475,10 +484,22 @@ O que é verificado em cada rodada:
 ```
 dub-sound-system-studio/
 │
-├── index.html                         ← O APP INTEIRO (um arquivo só, ~117 KB)
+├── index.html                         ← O APP INTEIRO (um arquivo só, ~160 KB)
+│
+├── manifest.json + sw.js              ← PWA (instalável, offline)
+├── shots.mjs                         ← helper de screenshots (dev)
+│
+├── frontend/                         ← assets web para o Tauri (index.html, sw.js, dsp/)
+├── dsp/                              ← kernels DSP (C + AudioWorklet JS)
+│   ├── tape_delay.c
+│   └── tape_delay_processor.js
+│
+├── rust/                             ← versão executável nativa (Tauri 2)
+│   ├── Cargo.toml, tauri.conf.json, build.rs
+│   └── src/ (main.rs, dsp.rs)
 │
 ├── dub-mixer.sh                       ← Launcher Linux / macOS
-├── Dub Mixer.command    ← Launcher macOS (duplo clique no Finder)
+├── Dub Mixer.command                  ← Launcher macOS (duplo clique no Finder)
 │
 ├── README.md                          ← este arquivo
 ├── LICENSE                            ← MIT
@@ -488,8 +509,9 @@ dub-sound-system-studio/
     └── img/                           ← capturas de tela
 ```
 
-**Não tem build, não tem `npm install`, não tem dependência.** Baixou o `index.html`,
-abriu, funcionou.
+**A versão web não tem build nem dependência** — baixou o `index.html`, abriu,
+funcionou. A versão executável (`rust/`) usa Rust/Tauri e requer `cargo tauri build`
+(veja o README dentro de `rust/`).
 
 ---
 
@@ -595,7 +617,7 @@ madeira com knobs de verdade. O documento traz o **BOM com preços**, o
 esquemático em blocos, o roteiro do **PCB no KiCad** e as **fases** — sendo a
 primeira "um canal de ponta a ponta", para não comprar tudo e não montar nada.
 
-> Os **30 knobs desta tela são a especificação do hardware**: cada potenciômetro
+> Os **34 knobs desta tela são a especificação do hardware**: cada potenciômetro
 > físico tem um controle equivalente aqui, com a mesma faixa de valores.
 
 ### Ordem sugerida
@@ -621,7 +643,7 @@ Ideias já mapeadas, em ordem de utilidade:
       todos os seus ajustes (VOL, PAN, CUTOFF, crossfader, isolator, kills, onlys,
       master tape delay, BASS BOOST).
 - [x] **BASS BOOST** — reforço de +12 dB abaixo de 110 Hz no master (on/off).
-- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 30 knobs +
+- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 34 knobs +
       kills + xfader em um "snapshot" (ex.: "Steppa", "Roots", "Digital").
 - [ ] **Botão de pânico / reset geral** — volta tudo ao padrão de uma vez.
 - [ ] **Delay com sincronia de tempo** — travar o TIME em BPM (1/4, 1/8 pontuado, etc.).
