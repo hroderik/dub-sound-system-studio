@@ -230,6 +230,30 @@ cargo tauri build     # Linux: .deb, .rpm e AppImage · Windows: .exe (NSIS) e .
 | Windows | `.exe` (NSIS) · `.msi` | requer toolchain MSVC |
 | macOS | `.dmg` · `.app` | requer um Mac — há workflow de CI pronto em `.github/workflows/` |
 
+## Verificação dos instaladores
+
+Cada release publica `SHA256SUMS.txt` e `MD5SUMS.txt` com os hashes de todos os artefatos. Depois de baixar, confira:
+
+```bash
+# Linux
+sha256sum -c SHA256SUMS.txt --ignore-missing
+md5sum -c MD5SUMS.txt --ignore-missing
+```
+
+```bash
+# macOS
+shasum -a 256 -c SHA256SUMS.txt
+md5 -r *.dmg   # confira com o MD5SUMS.txt
+```
+
+```powershell
+# Windows (PowerShell)
+Get-FileHash .\setup.exe -Algorithm SHA256
+Get-FileHash .\setup.exe -Algorithm MD5
+```
+
+O hash calculado tem que bater com a linha do arquivo nos `*SUMS.txt`. Se não bater, não instale: baixe de novo da página oficial de releases.
+
 ## Segurança e privacidade
 
 - **100 % offline** — a fonte e o ícone estão embutidos no arquivo; o app não faz *nenhum* request externo, não tem telemetria e toca apenas arquivos que você escolhe.
