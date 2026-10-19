@@ -20,7 +20,7 @@ sem internet. A mesa toca apenas os seus arquivos locais.
 - [Por que usar este app](#-por-que-usar-este-app)
 - [Como rodar (Windows / Linux / macOS / celular)](#-como-rodar)
 - [Funções — o que a mesa faz](#-funções--o-que-a-mesa-faz)
-- [Referência completa dos 34 knobs](#-referência-completa-dos-34-knobs)
+- [Referência completa dos 32 knobs](#-referência-completa-dos-32-knobs)
 - [Pedais opcionais (mostrar / ocultar)](#-pedais-opcionais-mostrar--ocultar)
 - [Temas visuais](#-temas-visuais)
 - [Compatibilidade testada](#-compatibilidade-testada)
@@ -79,7 +79,7 @@ O projeto tem **duas frentes futuras** documentadas:
 
 - **[Versão física (hardware, R$ 100)](docs/ROADMAP-HARDWARE.md)** — mesa de dub de
   verdade que liga na tomada: crossover analógico, delay PT2399, sirene VCO, Synare
-  LM13700, tudo em chassi de madeira. **Os 34 knobs desta tela são a especificação.**
+  LM13700, tudo em chassi de madeira. **Os 32 knobs desta tela são a especificação.**
 - **Versão executável (app nativo)** — em desenvolvimento (Rust/Tauri, com DSP em
   `rust/` e `dsp/`). Roda em Linux/macOS/Windows com a mesma interface.
 
@@ -155,7 +155,7 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **CONVERTER** — renderiza a música offline e exporta WAV 16-bit/44,1 kHz/estéreo com
   todos os seus ajustes.
 - **X-FADER na torre central**, logo abaixo do MASTER OUT.
-- **VOL movido para dentro do EQ & FILTERS** (ordem VOL → PAN → LOWPASS → HIGHPASS) nos dois canais.
+- **VOL movido para dentro do EQ & FILTERS** (ordem VOL → PAN → FILTER bipolar) nos dois canais.
 - **Toolbar auto-hide** — rola pra baixo e ela some; volta ao rolar pra cima ou com o
   mouse no topo.
 - **3D desativado por padrão** (botão 📐 3D: OFF).
@@ -163,16 +163,19 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   SYNARE) ganha barras com setas ▲▼ para você escolher a ordem que quiser; a ordem
   fica salva e volta quando abrir o app de novo.
 - **Aba PREAMP** — botão 🎛 PREAMP na toolbar: aplica o visual do pré-amp analógico
-  clássico (painel preto, texto branco, knobs creme, isolator com knobs coloridos)
-  por cima de qualquer tema. Só muda o visual — nenhuma função muda.
-- **SIREN e CROSSOVER como módulos de rack 19"** fora do gabinete, com orelhas e
-  parafusos; o CROSSOVER é um modelo diferente (anodizado preto/azul).
+  clássico **face prata**: painel de alumínio escovado com tinta preta, knobs de
+  alumínio nos canais e pretos no isolator, KILL vira chave com LED vermelho aceso,
+  botão BASS+SUB KILL, "SUB SOLO" no lugar de "ONLY SUB" e fileira de frequências
+  40HZ–16K embaixo do isolator. Só muda o visual — nenhuma função muda.
+- **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
+  parafusos e fica na mesma largura dos módulos externos (SIREN e CROSSOVER, com
+  orelhas e parafusos); o CROSSOVER é um modelo diferente (anodizado preto/azul).
 - **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
 - **MASTER TAPE DELAY embutido na caixa do CROSSOVER** (uma caixa só, sem vão).
 - **Volume da sirene em 40 %** por padrão.
-- **VU estéreo real** (L/R) — mostradores retangulares laranja com moldura preta, sobre placa de alumínio com parafusos ("L METER" / "R METER" / "ANALOG VU METER"); a luz interna brilha junto com o SUB.
+- **VU estéreo real** (L/R) — mostradores retangulares laranja com moldura preta, sobre placa de alumínio com parafusos ("L METER" / "R METER" / "ANALOG VU METER"); a luz interna brilha junto com o SUB + BASS (e apaga quando os graves levam KILL).
 - **DRY no delay** — knob DRY no MASTER TAPE DELAY: mistura o sinal seco junto do eco (100 % por padrão).
-- **HIGHPASS por canal** — knob novo ao lado do LOWPASS (20 Hz a 20 kHz; em 20 Hz fica desligado).
+- **FILTER bipolar por canal** — um só knob no lugar de LOWPASS + HIGHPASS: centro = 0 (filtros abertos); girando para a ESQUERDA fecha o LOWPASS (100 Hz – 20 kHz) e para a DIREITA sobe o HIGHPASS (20 Hz – 20 kHz). Duplo clique volta ao centro.
 - **PWA** — manifest + service worker: instalável na tela inicial e funciona offline.
 - **Reverb de mola** — knob REVERB no master (depois do delay), com impulso de spring.
 - **MIDI** — botão 🎹 MIDI: ON/OFF com soft takeover (CCs mapeados para os knobs).
@@ -187,8 +190,7 @@ Controles por canal:
 |---|---|
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
-| **CUTOFF** | Filtro lowpass de 100 Hz a 20 kHz (knob) |
-| **HIGHPASS** | Filtro highpass de 20 Hz a 20 kHz (knob; em 20 Hz fica desligado) |
+| **FILTER bipolar** | Um só knob: centro = 0 (tudo aberto); esquerda fecha o LOWPASS (100 Hz – 20 kHz), direita sobe o HIGHPASS (20 Hz – 20 kHz) |
 | **LED + VU** | Nível do canal, acende com o som |
 | **Barra de progresso** | Posição da faixa |
 
@@ -316,7 +318,7 @@ que se desconecta sozinha (sem vazamento de áudio).
 
 ---
 
-## 🎚️ Referência completa dos 34 knobs
+## 🎚️ Referência completa dos 32 knobs
 
 Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 **Duplo clique** volta ao valor de fábrica. O valor aparece ao lado do nome.
@@ -326,13 +328,13 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 | Knob | Rótulo | Faixa | Padrão |
 |---|---|---|---|
 | `knobVolA` | VOL CH1 | 0–100 % | 100 % |
-| `knobSweepA` | CUTOFF (CH1) | 100 Hz – 20 kHz | 20 kHz (aberto) |
+| `knobSweepA` | FILTER (CH1) | LP 100 Hz – 20 kHz ◄ 0 ► HP 20 Hz – 20 kHz | 0 (centro) |
 | `knobPanA` | PAN (CH1) | L 100 – C – R 100 | C (centro) |
 | `knobVolB` | VOL CH2 | 0–100 % | 100 % |
-| `knobSweepB` | CUTOFF (CH2) | 100 Hz – 20 kHz | 20 kHz (aberto) |
+| `knobSweepB` | FILTER (CH2) | LP 100 Hz – 20 kHz ◄ 0 ► HP 20 Hz – 20 kHz | 0 (centro) |
 | `knobPanB` | PAN (CH2) | L 100 – C – R 100 | C (centro) |
 
-> O **PAN** fica ao lado do **CUTOFF** em cada canal. Ele é um `StereoPannerNode`
+> O **PAN** fica ao lado do **FILTER** em cada canal. Ele é um `StereoPannerNode`
 > criado a cada play.
 
 ![CUTOFF + PAN](docs/img/eq-cutoff-pan.png)
@@ -468,7 +470,7 @@ O que é verificado em cada rodada:
 
 - **Rolagem lateral = 0 px** em todas as larguras (nada de "arrastar pra ver o resto").
 - **Alinhamento da torre central**: desvio máximo de **0,01 px**.
-- **Visual realista preservado**: madeira 26 px, borda superior 4 px, knob com borda 2 px,
+- **Visual realista preservado**: orelhas metálicas 26 px, borda superior 4 px, knob com borda 2 px,
   fader 58 px, fonte *Share Tech Mono*, transformação 3D presente.
 - **Arraste de knob por mouse e por toque** funciona (inclusive em Chrome, e depois da
   página ser rolada).
@@ -617,7 +619,7 @@ madeira com knobs de verdade. O documento traz o **BOM com preços**, o
 esquemático em blocos, o roteiro do **PCB no KiCad** e as **fases** — sendo a
 primeira "um canal de ponta a ponta", para não comprar tudo e não montar nada.
 
-> Os **34 knobs desta tela são a especificação do hardware**: cada potenciômetro
+> Os **32 knobs desta tela são a especificação do hardware**: cada potenciômetro
 > físico tem um controle equivalente aqui, com a mesma faixa de valores.
 
 ### Ordem sugerida
@@ -640,10 +642,10 @@ Ideias já mapeadas, em ordem de utilidade:
 - [x] **Gravação da saída** — botão REC gravando o master em `.webm`/`.ogg`/`.m4a`
       (via `MediaStreamDestination`), pra você levar o dub direto pra DAW ou postar.
 - [x] **CONVERTER** — renderiza a música offline (WAV 16-bit/44,1 kHz/estéreo) com
-      todos os seus ajustes (VOL, PAN, CUTOFF, crossfader, isolator, kills, onlys,
+      todos os seus ajustes (VOL, PAN, FILTER, crossfader, isolator, kills, onlys,
       master tape delay, BASS BOOST).
 - [x] **BASS BOOST** — reforço de +12 dB abaixo de 110 Hz no master (on/off).
-- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 34 knobs +
+- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 32 knobs +
       kills + xfader em um "snapshot" (ex.: "Steppa", "Roots", "Digital").
 - [ ] **Botão de pânico / reset geral** — volta tudo ao padrão de uma vez.
 - [ ] **Delay com sincronia de tempo** — travar o TIME em BPM (1/4, 1/8 pontuado, etc.).
