@@ -1807,7 +1807,7 @@
     let masterInGain = null, masterToneBass = null, masterToneTreble = null;
     let masterReverbNode = null, masterReverbWet = null;
     /* Eco do pop do TIRAR AGULHA: caminho próprio, com wet fixo em 40% */
-    let popEchoDelay = null, popEchoFB = null, popEchoFilter = null, popEchoWet = null;
+    let popEchoDelay = null, popEchoFB = null, popEchoFilter = null, popEchoWet = null, popEcoTimer = null;
     const POP_ECHO_WET = 0.40;
     let masterDelayParams = { dTime: 0.375, dFB: 0.4, dDry: 1.0, dWet: 0.0 };
     let masterReverbParams = { wet: 0.0 };
@@ -2475,9 +2475,29 @@
         let g = audioCtx.createGain(); g.gain.setValueAtTime(0.8, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
         noise.connect(filt); filt.connect(g);
         /* O pop do TIRAR AGULHA tem o seu proprio eco, com wet fixo em 40%: segue o
-           tempo do painel (REPEAT RATE/MODE) e a INTENSIDADE, mas nao depende do
-           ECHO VOLUME — que continua valendo so' para a musica. */
+           tempo do painel (REPEAT RATE/MODE) e a INTENSIDADE. */
         if (popEchoDelay) { popEchoDelay.delayTime.value = tempoEfetivoEcho(); popEchoFB.gain.value = masterDelayParams.dFB; popEchoWet.gain.value = POP_ECHO_WET; g.connect(popEchoDelay); }
+        /* O TIRAR AGULHA tambem leva a MUSICA pro eco: na hora do estalo o ECHO
+           VOLUME do master sobe pra 40% (se ja estiver acima, fica) e volta sozinho
+           pro valor do painel quando a cauda morre — a musica que estava tocando
+           ecoa a 40% e a volta continua seca com o WET em 0 (sem delay forcado). */
+        if (echoEfeitoLigado && masterWetGainNode) {
+            let alvo = Math.max(masterDelayParams.dWet, POP_ECHO_WET);
+            let cauda = Math.min(4.0, Math.max(1.5, tempoEfetivoEcho() * (4 + 6 * masterDelayParams.dFB)));
+            let gwet = masterWetGainNode.gain;
+            gwet.cancelScheduledValues(now);
+            gwet.setValueAtTime(gwet.value, now);
+            gwet.linearRampToValueAtTime(alvo, now + 0.05);
+            if (popEcoTimer) clearTimeout(popEcoTimer);
+            popEcoTimer = setTimeout(() => {
+                if (!masterWetGainNode) return;
+                let t2 = audioCtx.currentTime;
+                let g2 = masterWetGainNode.gain;
+                g2.cancelScheduledValues(t2);
+                g2.setValueAtTime(g2.value, t2);
+                g2.linearRampToValueAtTime(echoEfeitoLigado ? masterDelayParams.dWet : 0, t2 + 0.5);
+            }, cauda * 1000);
+        }
         if (masterDryGain) g.connect(masterDryGain); g.connect(masterGain);
         noise.start(now);
     }

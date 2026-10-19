@@ -165,9 +165,11 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **💥 TREMEDEIRA** — botão no crossover: **só o movimento físico** — todas as caixas
   (gabinete e racks) tremem junto com os graves, em tempo real, seguindo o nível de
   SUB + BASS. O áudio não muda em nada: sem boost, sem distorção e sem rumor grave.
-- **TIRAR AGULHA com eco próprio** — o pop do disco sai com um eco de **40 %** de wet,
-  no tempo (REPEAT RATE/MODE) e na INTENSIDADE do SPACE ECHO; o ECHO VOLUME continua
-  valendo só para a música (nada de delay forçado na volta).
+- **TIRAR AGULHA com eco de 40 %** — o pop do disco sai com um eco de **40 %** de wet,
+  no tempo (REPEAT RATE/MODE) e na INTENSIDADE do SPACE ECHO — e **a música também**:
+  na hora do estalo o ECHO VOLUME do master sobe pra 40 % (se já estiver acima, fica)
+  e volta sozinho pro valor do painel quando a cauda morre. A música que estava
+  tocando ecoa a 40 % e a volta continua seca com o WET em 0 (sem delay forçado).
 - **BASS BOOST** — botão on/off, o 5º da fileira; reforço de +12 dB abaixo de 110 Hz
   (low-shelf real no master).
 - **SYNARE com presets** — o pedal ganhou um seletor com **10 sons clássicos de syn
@@ -212,7 +214,7 @@ Controles por canal:
 | Controle | O que faz |
 |---|---|
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
-| **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco — o pop já sai com o eco próprio fixo em 40 % (no tempo e INTENSIDADE do SPACE ECHO) |
+| **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco — o pop e a música ecoam a 40 % (no tempo e INTENSIDADE do SPACE ECHO); o ECHO VOLUME volta sozinho pro painel depois que a cauda morre |
 | **🔄 DISCO REVERSO** | Backspin liga/desliga em **1,2x** com o **som do disco arranhando** junto: Aperta e a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
 | **FILTER bipolar** | Um só knob: centro = 0 (tudo aberto); esquerda fecha o LOWPASS (100 Hz – 20 kHz), direita sobe o HIGHPASS (20 Hz – 20 kHz) |
