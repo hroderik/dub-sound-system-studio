@@ -1750,7 +1750,7 @@
                     </div>
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobSynVol"><div class="knob-indicator"></div></div>
-                        <label style="color:var(--gold);">VOL: <span id="lblSynVol">18</span>%</label>
+                        <label style="color:var(--gold);">VOL: <span id="lblSynVol">70</span>%</label>
                     </div>
                 </div>
 
@@ -1824,7 +1824,7 @@
     /* ===== SYNARE / SPACE DRUM (tambor analogico com delay proprio) ===== */
     let synDelayNode, synFBNode, synWetGainNode, synFilterNode;
     let synNoiseBuf = null;
-    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.18, dTime: 0.30, dFB: 0.45, dWet: 0.35, wave: 'triangle' };
+    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.70, dTime: 0.30, dFB: 0.45, dWet: 0.35, wave: 'triangle' };
 
     const sirenPresets = {
         1: { pitch: 900, rate: 12.0, wave: 'sawtooth' },
@@ -1840,20 +1840,21 @@
     };
 
     /* Presets do SYNARE: sons clássicos de syn drum (tom, laser, space drum...).
-       Cada preset configura TUNE/SWEEP/DECAY/TONE/NOISE/SPACE/VOL e o delay
+       Cada preset configura TUNE/SWEEP/DECAY/TONE/NOISE/SPACE e o delay
        exclusivo (TIME/FB/WET) de uma vez; a forma de onda também muda (wave).
+       O VOL fica como estiver: trocar de preset não mexe no volume.
        O preset 1 é o ajuste padrão do pedal. */
     const synPresets = {
-        1: { tune: 220, sweep: 0.80, decay: 0.45, tone: 900, noise: 0.35, space: 0.20, vol: 0.18, dTime: 0.300, dFB: 0.45, dWet: 0.35, wave: 'triangle' },
-        2: { tune: 160, sweep: 0.55, decay: 0.35, tone: 1400, noise: 0.06, space: 0.05, vol: 0.22, dTime: 0.280, dFB: 0.35, dWet: 0.22, wave: 'triangle' },
-        3: { tune: 400, sweep: 1.00, decay: 0.18, tone: 4200, noise: 0.05, space: 0.00, vol: 0.20, dTime: 0.300, dFB: 0.50, dWet: 0.40, wave: 'sawtooth' },
-        4: { tune: 60, sweep: 1.00, decay: 1.10, tone: 2200, noise: 0.08, space: 0.90, vol: 0.16, dTime: 0.450, dFB: 0.60, dWet: 0.50, wave: 'sine' },
-        5: { tune: 110, sweep: 0.50, decay: 0.50, tone: 1000, noise: 0.05, space: 0.12, vol: 0.22, dTime: 0.450, dFB: 0.62, dWet: 0.55, wave: 'triangle' },
-        6: { tune: 240, sweep: 0.35, decay: 0.22, tone: 2600, noise: 0.75, space: 0.00, vol: 0.20, dTime: 0.220, dFB: 0.30, dWet: 0.18, wave: 'square' },
-        7: { tune: 55, sweep: 0.60, decay: 0.55, tone: 400, noise: 0.03, space: 0.00, vol: 0.26, dTime: 0.300, dFB: 0.25, dWet: 0.15, wave: 'sine' },
-        8: { tune: 200, sweep: 0.70, decay: 0.28, tone: 1800, noise: 0.12, space: 0.15, vol: 0.20, dTime: 0.375, dFB: 0.55, dWet: 0.50, wave: 'square' },
-        9: { tune: 500, sweep: 0.25, decay: 0.12, tone: 3500, noise: 0.25, space: 0.00, vol: 0.18, dTime: 0.180, dFB: 0.25, dWet: 0.15, wave: 'triangle' },
-        10: { tune: 45, sweep: 0.35, decay: 1.20, tone: 250, noise: 0.15, space: 0.08, vol: 0.26, dTime: 0.400, dFB: 0.30, dWet: 0.25, wave: 'sine' }
+        1: { tune: 220, sweep: 0.80, decay: 0.45, tone: 900, noise: 0.35, space: 0.20, dTime: 0.300, dFB: 0.45, dWet: 0.35, wave: 'triangle' },
+        2: { tune: 160, sweep: 0.55, decay: 0.35, tone: 1400, noise: 0.06, space: 0.05, dTime: 0.280, dFB: 0.35, dWet: 0.22, wave: 'triangle' },
+        3: { tune: 400, sweep: 1.00, decay: 0.18, tone: 4200, noise: 0.05, space: 0.00, dTime: 0.300, dFB: 0.50, dWet: 0.40, wave: 'sawtooth' },
+        4: { tune: 60, sweep: 1.00, decay: 1.10, tone: 2200, noise: 0.08, space: 0.90, dTime: 0.450, dFB: 0.60, dWet: 0.50, wave: 'sine' },
+        5: { tune: 110, sweep: 0.50, decay: 0.50, tone: 1000, noise: 0.05, space: 0.12, dTime: 0.450, dFB: 0.62, dWet: 0.55, wave: 'triangle' },
+        6: { tune: 240, sweep: 0.35, decay: 0.22, tone: 2600, noise: 0.75, space: 0.00, dTime: 0.220, dFB: 0.30, dWet: 0.18, wave: 'square' },
+        7: { tune: 55, sweep: 0.60, decay: 0.55, tone: 400, noise: 0.03, space: 0.00, dTime: 0.300, dFB: 0.25, dWet: 0.15, wave: 'sine' },
+        8: { tune: 200, sweep: 0.70, decay: 0.28, tone: 1800, noise: 0.12, space: 0.15, dTime: 0.375, dFB: 0.55, dWet: 0.50, wave: 'square' },
+        9: { tune: 500, sweep: 0.25, decay: 0.12, tone: 3500, noise: 0.25, space: 0.00, dTime: 0.180, dFB: 0.25, dWet: 0.15, wave: 'triangle' },
+        10: { tune: 45, sweep: 0.35, decay: 1.20, tone: 250, noise: 0.15, space: 0.08, dTime: 0.400, dFB: 0.30, dWet: 0.25, wave: 'sine' }
     };
 
     function loadSynPreset() {
@@ -1866,7 +1867,6 @@
         if (knobs['knobSynTone']) knobs['knobSynTone'].setValue((p.tone - 100) / 5900);
         if (knobs['knobSynNoise']) knobs['knobSynNoise'].setValue(p.noise);
         if (knobs['knobSynSpace']) knobs['knobSynSpace'].setValue(p.space);
-        if (knobs['knobSynVol']) knobs['knobSynVol'].setValue(p.vol);
         if (knobs['knobSynDTime']) knobs['knobSynDTime'].setValue((p.dTime - 0.05) / 1.15);
         if (knobs['knobSynDFB']) knobs['knobSynDFB'].setValue(p.dFB / 0.9);
         if (knobs['knobSynDWet']) knobs['knobSynDWet'].setValue(p.dWet);
@@ -2864,7 +2864,7 @@
         knobs['knobSynTone'] = new Knob('knobSynTone', (900-100)/5900, val => { synParams.tone = 100 + (val * 5900); document.getElementById('lblSynTone').innerText = Math.round(synParams.tone); });
         knobs['knobSynNoise'] = new Knob('knobSynNoise', 0.35, val => { synParams.noise = val; document.getElementById('lblSynNoise').innerText = Math.round(val * 100); });
         knobs['knobSynSpace'] = new Knob('knobSynSpace', 0.2, val => { synParams.space = val; document.getElementById('lblSynSpace').innerText = Math.round(val * 100); });
-        knobs['knobSynVol'] = new Knob('knobSynVol', 0.18, val => { synParams.vol = val; document.getElementById('lblSynVol').innerText = Math.round(val * 100); });
+        knobs['knobSynVol'] = new Knob('knobSynVol', 0.70, val => { synParams.vol = val; document.getElementById('lblSynVol').innerText = Math.round(val * 100); });
         knobs['knobSynDTime'] = new Knob('knobSynDTime', (0.30-0.05)/1.15, val => { synParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblSynDTime').innerText = synParams.dTime.toFixed(3); if (synDelayNode) synDelayNode.delayTime.value = synParams.dTime; });
         knobs['knobSynDFB'] = new Knob('knobSynDFB', 0.45/0.9, val => { synParams.dFB = val * 0.9; document.getElementById('lblSynDFB').innerText = Math.round(synParams.dFB * 100); if (synFBNode) synFBNode.gain.value = synParams.dFB; });
         knobs['knobSynDWet'] = new Knob('knobSynDWet', 0.35, val => { synParams.dWet = val; document.getElementById('lblSynDWet').innerText = Math.round(val * 100); if (synWetGainNode) synWetGainNode.gain.value = val; });
