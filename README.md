@@ -191,7 +191,7 @@ Controles por canal:
 |---|---|
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
 | **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco |
-| **🔄 DISCO REVERSO** | Backspin liga/desliga em **1,5x** com o **som do disco arranhando** junto: aperta e a música fica voltando (ao contrário, mais rápida) até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
+| **🔄 DISCO REVERSO** | Backspin liga/desliga na **velocidade real (2,5x)** com o **som do disco arranhando** junto: puxada de dedo ~0,9 m/s ÷ vinil a 33⅓ rpm ~0,36 m/s ≈ 2,5x. Aperta e a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
 | **FILTER bipolar** | Um só knob: centro = 0 (tudo aberto); esquerda fecha o LOWPASS (100 Hz – 20 kHz), direita sobe o HIGHPASS (20 Hz – 20 kHz) |
 | **LED + VU** | Nível do canal, acende com o som |
