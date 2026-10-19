@@ -170,12 +170,12 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **Toolbar auto-hide** — rola pra baixo e ela some; volta ao rolar pra cima ou com o
   mouse no topo.
 - **3D desativado por padrão** (botão 📐 3D: OFF).
-- **MODO EDIÇÃO** — botão ✥ EDITAR na toolbar: **segure o equipamento e arraste pra
-  cima ou pra baixo** (mouse ou dedo) pra mudar a ordem — vale para os módulos
-  externos (SIRENE, CROSSOVER, SYNARE) **e para o próprio DUB MIXER SOUND SYSTEM**.
-  No modo edição os **knobs, botões e faders continuam funcionando normalmente**;
-  para arrastar, segure numa parte livre do painel (fora dos controles). As setas
-  ▲▼ continuam como alternativa. A ordem fica salva e volta quando abrir de novo.
+- **MODO EDIÇÃO** — botão ✥ EDITAR na toolbar: **segure em qualquer lugar do
+  equipamento e arraste como uma janela** (mouse ou dedo) — ele segue o ponteiro nos
+  dois eixos e encaixa onde soltar; vale para os módulos externos (SIRENE, CROSSOVER,
+  SPACE ECHO, SYNARE) **e para o próprio DUB MIXER SOUND SYSTEM**. No modo edição os
+  **knobs, botões e faders ficam bloqueados** (nada de clicar sem querer); só as setas
+  ▲▼ continuam ativas como alternativa. A ordem fica salva e volta quando abrir de novo.
 - **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
   parafusos e fica na mesma largura dos módulos externos (SIREN, CROSSOVER e o
   SPACE ECHO, com orelhas e parafusos); o CROSSOVER é um modelo diferente (anodizado

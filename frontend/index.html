@@ -641,15 +641,17 @@
                 linear-gradient(180deg, #d9dde1 0%, #b3b9c0 16%, #ced3d8 42%, #a7adb5 76%, #c6cbd0 100%);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -2px 4px rgba(0,0,0,0.38), 0 3px 8px rgba(0,0,0,0.55);
         }
-        .mixer-header::before, .mixer-header::after {
-            content: ''; position: absolute; top: 50%; width: 14px; height: 48px; margin-top: -24px; border-radius: 4px;
-            background-image:
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%);
-            background-size: 12px 12px; background-position: center 5px, center calc(100% - 17px); background-repeat: no-repeat;
+        /* Parafusos da faceplate (4 cantos) — elementos de verdade pra ficarem bem visíveis */
+        .mixer-header .face-parafuso {
+            position: absolute; width: 15px; height: 15px; border-radius: 50%;
+            background: radial-gradient(circle at 38% 32%, #ffffff 0%, #e8ecef 16%, #b7bcc4 36%, #7d848d 54%, #3f444c 74%, #16181d 90%, #06070a 100%);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.55), inset 0 -1px 2px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.55);
         }
-        .mixer-header::before { left: 9px; }
-        .mixer-header::after { right: 9px; }
+        .mixer-header .face-parafuso::after {
+            content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 2px; margin: -1px 0 0 -4.5px;
+            border-radius: 1px; background: rgba(5, 7, 9, 0.9);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.45);
+        }
         .mixer-header h2 { margin: 0; color: #1b1e22; font-size: 1.42rem; letter-spacing: 4px; font-weight: 900; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
         .mixer-header p { margin: 4px 0 0 0; color: #43474d; font-size: 0.66rem; letter-spacing: 2.4px; font-weight: 700; text-shadow: 0 1px 0 rgba(255,255,255,0.65); }
 
@@ -1154,8 +1156,9 @@
 
         /* ===== MODO EDICAO: reordenar os modulos (inclusive o DUB MIXER SOUND SYSTEM) =====
            A barra de cada modulo so aparece com o modo ligado; as setas ▲▼ trocam a ordem.
-           No modo edicao os knobs/botoes/faders continuam funcionando; o arraste comeca
-           fora dos controles. A ordem fica salva no navegador. */
+           No modo edicao os controles ficam BLOQUEADOS (nada de clicar sem querer): segure
+           em qualquer lugar e arraste o equipamento como uma janela; ele encaixa ao soltar.
+           A ordem fica salva no navegador. */
         .modulo-barra {
             display: none; align-items: center; justify-content: center; gap: 10px;
             margin: 0 0 6px; padding: 5px 10px;
@@ -1179,8 +1182,8 @@
             outline: 2px dashed rgba(243,198,83,0.55); outline-offset: 4px; border-radius: 10px;
             cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none;
         }
-        /* O DUB MIXER inteiro tambem entra na ordem do modo edicao (sem trocar o cursor
-           de dentro do painel, pra nao atrapalhar knobs/botoes/faders) */
+        /* O DUB MIXER inteiro tambem entra na ordem do modo edicao (agora os controles
+           ficam bloqueados, entao o cursor de arrastar vale no painel todo) */
         body.modo-edicao #modulosExternos > .mixer-chassis {
             outline: 2px dashed rgba(243,198,83,0.55); outline-offset: 4px; border-radius: 10px;
             touch-action: none; -webkit-user-select: none; user-select: none;
@@ -1191,7 +1194,10 @@
             cursor: grabbing; outline-style: solid; outline-color: var(--gold); opacity: 0.92;
             box-shadow: 0 18px 40px rgba(0,0,0,0.55);
         }
-        body.modo-edicao .modulo-barra::after { content: '· arraste o equipamento (fora dos controles) pra cima/baixo ↕'; font-size: 0.5rem; letter-spacing: 0.5px; opacity: 0.75; }
+        body.modo-edicao .modulo-barra::after { content: '· segure em qualquer lugar e arraste como uma janela (controles bloqueados) ↕'; font-size: 0.5rem; letter-spacing: 0.5px; opacity: 0.75; }
+        body.modo-edicao #modulosExternos, body.modo-edicao #modulosExternos * { cursor: grab; }
+        body.modo-edicao #modulosExternos .modulo-btn { cursor: pointer; }
+        body.modo-edicao #modulosExternos .arrastando, body.modo-edicao #modulosExternos .arrastando * { cursor: grabbing; }
         /* DISCO REVERSO ligado: botão fica vermelho aceso */
         .btn-reverso.active { background: linear-gradient(180deg, #b91c1c, #7f1414); color: #fff; border-color: #f4d03f; box-shadow: 0 0 10px rgba(244,208,63,0.45); }
 
@@ -1230,7 +1236,7 @@
         <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
     </div>
     <div class="segmented" role="group" aria-label="Edição dos módulos">
-        <button type="button" id="btnEditar" onclick="toggleEdicao()" title="Liga o modo edição: arraste o equipamento (o DUB MIXER e os módulos) pra cima/baixo — segure fora dos controles; as setas ▲▼ também mudam a ordem. No modo edição knobs, botões e faders continuam funcionando" aria-pressed="false">✥ EDITAR</button>
+        <button type="button" id="btnEditar" onclick="toggleEdicao()" title="Liga o modo edição: segure em qualquer lugar do equipamento (o DUB MIXER e os módulos) e arraste como uma janela — no modo edição os controles ficam bloqueados; as setas ▲▼ também mudam a ordem" aria-pressed="false">✥ EDITAR</button>
     </div>
     <div class="toolbar-group">
         <span class="toolbar-label">Pedais</span>
@@ -1245,6 +1251,10 @@
 <div class="mixer-chassis" id="modMixer">
     <div class="modulo-barra"><span class="modulo-nome">🎛 DUB MIXER SOUND SYSTEM</span><button type="button" class="modulo-btn" onclick="moverModulo('modMixer',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('modMixer',1)" title="Mover para baixo">▼</button></div>
     <div class="mixer-header">
+        <span class="face-parafuso" style="left:12px; top:12px;" aria-hidden="true"></span>
+        <span class="face-parafuso" style="right:12px; top:12px;" aria-hidden="true"></span>
+        <span class="face-parafuso" style="left:12px; bottom:12px;" aria-hidden="true"></span>
+        <span class="face-parafuso" style="right:12px; bottom:12px;" aria-hidden="true"></span>
         <h2>DUB MIXER SOUND SYSTEM</h2>
         <p>5-WAY ANALOGUE CROSSOVER & PREAMP</p>
     </div>
@@ -2068,8 +2078,9 @@
     /* ===== MODO EDICAO: mover os modulos na ordem que quiser =====
        Botao na barra (ao lado do Claro/Noturno). Cada modulo — inclusive o proprio
        DUB MIXER SOUND SYSTEM — ganha uma barra com setas ▲▼; a ordem fica salva no
-       navegador e volta ao abrir de novo. No modo edicao os knobs, botoes e faders
-       continuam funcionando; o arraste comeca fora dos controles. */
+       navegador e volta ao abrir de novo. No modo edicao os controles (knobs, botoes,
+       faders) ficam BLOQUEADOS: segure em qualquer lugar e arraste o modulo como uma
+       janela; ele segue o ponteiro e encaixa onde soltar. */
     function toggleEdicao() {
         let on = !document.body.classList.contains('modo-edicao');
         document.body.classList.toggle('modo-edicao', on);
@@ -2112,47 +2123,92 @@
         } catch (e) {}
     }
 
-    /* Arrastar o equipamento pra cima/baixo pra trocar a ordem (so no modo edicao).
-       Segura numa parte livre do painel (fora de botoes/knobs/faders — no modo edicao
-       eles continuam funcionando) e puxa o mouse ou o dedo; vale tambem pro DUB MIXER
-       inteiro. A ordem fica salva igual as setas ▲▼. */
+    /* Arrastar o equipamento como uma janela (so no modo edicao): segure em QUALQUER
+       lugar do módulo — os controles ficam bloqueados — e ele segue o mouse/dedo nos
+       dois eixos; ao soltar, encaixa na ordem pela posição do ponteiro e desliza pra
+       dentro do lugar. Vale também pro DUB MIXER inteiro. A ordem fica salva igual
+       às setas ▲▼. */
     (function ligarArrastarModulos() {
         let cont = document.getElementById('modulosExternos'); if (!cont) return;
-        let arrastando = null, yInicial = 0, comecou = false;
+        const MOVEIS = '.rack-externo, .synare-externo, .mixer-chassis';
+        let arrastando = null, xInicial = 0, yInicial = 0, comecou = false, dx = 0, dy = 0;
+
+        /* No modo edicao os controles ficam bloqueados: o pointerdown vira arrasto da
+           janela (as setas ▲▼ continuam funcionando normalmente). */
         cont.addEventListener('pointerdown', e => {
             if (!document.body.classList.contains('modo-edicao')) return;
             if (!e.target || !e.target.closest) return;
-            if (e.pointerType === 'mouse' && e.button !== 0) return;
-            if (e.target.closest('button, input, select, a, progress, .knob-container, .fader-track, .fader-cap')) return;
-            let el = e.target.closest('.rack-externo, .synare-externo, .mixer-chassis');
+            if (e.target.closest('.modulo-btn')) return;
+            if (e.pointerType === 'mouse' && e.button > 0) { e.preventDefault(); e.stopPropagation(); return; }
+            let el = e.target.closest(MOVEIS);
             if (!el || el.parentElement !== cont) return;
-            arrastando = el; yInicial = e.clientY; comecou = false;
+            e.preventDefault(); e.stopPropagation();
+            arrastando = el; xInicial = e.clientX; yInicial = e.clientY; comecou = false; dx = 0; dy = 0;
             try { cont.setPointerCapture(e.pointerId); } catch (err) {}
-        });
+        }, true);
         cont.addEventListener('pointermove', e => {
             if (!arrastando) return;
+            dx = e.clientX - xInicial; dy = e.clientY - yInicial;
             if (!comecou) {
-                if (Math.abs(e.clientY - yInicial) < 6) return; /* pequeno movimento nao dispara o arrasto */
-                comecou = true; arrastando.classList.add('arrastando');
+                if ((Math.abs(dx) + Math.abs(dy)) < 6) return; /* pequeno movimento nao dispara o arrasto */
+                comecou = true;
+                arrastando.classList.add('arrastando');
+                arrastando.style.position = 'relative';
+                arrastando.style.zIndex = '60';
             }
             e.preventDefault();
-            let alvo = null;
-            for (let el of cont.children) {
-                if (el === arrastando) continue;
-                if (!el.classList || !(el.classList.contains('rack-externo') || el.classList.contains('synare-externo') || el.classList.contains('mixer-chassis'))) continue;
-                let r = el.getBoundingClientRect();
-                if (e.clientY < r.top + r.height / 2) { alvo = el; break; }
-            }
-            if (alvo) { if (arrastando.nextElementSibling !== alvo) cont.insertBefore(arrastando, alvo); }
-            else if (arrastando !== cont.lastElementChild) cont.appendChild(arrastando);
+            arrastando.style.transition = 'none';
+            arrastando.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
         });
-        let soltar = () => {
+        /* Solta a janela: encaixa na ordem (pela posicao do ponteiro) e desliza pro lugar */
+        function posicionar(noLugar, ySolta) {
+            let el = arrastando; if (!el) return;
+            let rAntes = el.getBoundingClientRect();
+            if (noLugar) {
+                let y = (typeof ySolta === 'number') ? ySolta : (yInicial + dy);
+                let alvo = null;
+                for (let filho of cont.children) {
+                    if (filho === el) continue;
+                    if (!filho.classList) continue;
+                    if (!(filho.classList.contains('rack-externo') || filho.classList.contains('synare-externo') || filho.classList.contains('mixer-chassis'))) continue;
+                    let r = filho.getBoundingClientRect();
+                    if (y < r.top + r.height / 2) { alvo = filho; break; }
+                }
+                if (alvo) cont.insertBefore(el, alvo); else cont.appendChild(el);
+                salvarOrdemModulos(); atualizarBotoesModulos();
+            }
+            let rDepois = el.getBoundingClientRect();
+            el.style.transition = 'none';
+            el.style.transform = 'translate(' + (dx - (rDepois.left - rAntes.left)) + 'px, ' + (dy - (rDepois.top - rAntes.top)) + 'px)';
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+                el.style.transition = 'transform 0.18s ease';
+                el.style.transform = 'translate(0px, 0px)';
+            }));
+            setTimeout(() => {
+                if (arrastando === el) return; /* outro arrasto comecou: nao mexer */
+                el.style.transition = ''; el.style.transform = ''; el.style.position = ''; el.style.zIndex = '';
+                el.classList.remove('arrastando');
+            }, 340);
+        }
+        cont.addEventListener('pointerup', e => {
             if (!arrastando) return;
-            if (comecou) { arrastando.classList.remove('arrastando'); salvarOrdemModulos(); atualizarBotoesModulos(); }
+            if (comecou) posicionar(true, e.clientY);
             arrastando = null; comecou = false;
+        });
+        cont.addEventListener('pointercancel', () => {
+            if (!arrastando) return;
+            if (comecou) posicionar(false);
+            arrastando = null; comecou = false;
+        });
+
+        /* Cliques dentro dos modulos nao fazem nada no modo edicao (so as setas ▲▼) */
+        let bloquearCliques = e => {
+            if (!document.body.classList.contains('modo-edicao')) return;
+            if (e.target && e.target.closest && e.target.closest('.modulo-btn')) return;
+            e.preventDefault(); e.stopPropagation();
         };
-        cont.addEventListener('pointerup', soltar);
-        cont.addEventListener('pointercancel', soltar);
+        cont.addEventListener('click', bloquearCliques, true);
+        cont.addEventListener('dblclick', bloquearCliques, true);
     })();
 
     /* ===== RACK MASTER TAPE DELAY / SPACE ECHO (Roland RE-201) =====
