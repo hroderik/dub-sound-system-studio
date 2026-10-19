@@ -540,7 +540,7 @@
         /* ===== MESA COMPACTA (DJ escondeu equipamentos na barra) =====
            Menos equipamento na tela = gabinete realmente menor e mais curto. */
         body.mesa-compacta .mixer-chassis { padding-top: 14px; padding-bottom: 14px; }
-        body.mesa-compacta .mixer-header { margin-bottom: 10px; padding: 6px; }
+        body.mesa-compacta .mixer-header { margin-bottom: 10px; padding: 6px 36px; }
         body.mesa-compacta .crossfader-section { margin-top: 6px; padding: 8px; }
 
         /* O clique com o MOUSE nao deve deixar o anel de foco visivel em cima do botao
@@ -630,9 +630,28 @@
                 radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
                 linear-gradient(270deg, #1e2126 0, #545b64 42%, #3a4046 68%, #191c20 100%); }
 
-        .mixer-header { text-align: center; margin-bottom: 16px; border-bottom: 2px solid var(--border-metal); border-top: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 10px; background: rgba(0,0,0,0.35); box-shadow: inset 0 3px 6px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.06); }
-        .mixer-header h2 { margin: 0; color: var(--text-color); font-size: 1.42rem; letter-spacing: 4px; font-weight: 900; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
-        .mixer-header p { margin: 4px 0 0 0; color: var(--gold); font-size: 0.66rem; letter-spacing: 2.4px; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.9); }
+        /* Cabeçalho como faceplate de rack 19": metal escovado + 2 parafusos em cada ponta */
+        .mixer-header {
+            position: relative;
+            text-align: center; margin-bottom: 16px;
+            border: 2px solid #0b0d10; border-radius: 6px;
+            padding: 12px 44px;
+            background:
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.09) 0 1px, rgba(0,0,0,0.045) 1px 3px),
+                linear-gradient(180deg, #d9dde1 0%, #b3b9c0 16%, #ced3d8 42%, #a7adb5 76%, #c6cbd0 100%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -2px 4px rgba(0,0,0,0.38), 0 3px 8px rgba(0,0,0,0.55);
+        }
+        .mixer-header::before, .mixer-header::after {
+            content: ''; position: absolute; top: 50%; width: 14px; height: 48px; margin-top: -24px; border-radius: 4px;
+            background-image:
+                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
+                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%);
+            background-size: 12px 12px; background-position: center 5px, center calc(100% - 17px); background-repeat: no-repeat;
+        }
+        .mixer-header::before { left: 9px; }
+        .mixer-header::after { right: 9px; }
+        .mixer-header h2 { margin: 0; color: #1b1e22; font-size: 1.42rem; letter-spacing: 4px; font-weight: 900; text-shadow: 0 1px 0 rgba(255,255,255,0.7); }
+        .mixer-header p { margin: 4px 0 0 0; color: #43474d; font-size: 0.66rem; letter-spacing: 2.4px; font-weight: 700; text-shadow: 0 1px 0 rgba(255,255,255,0.65); }
 
         /* minmax(0, 1fr) evita que textos longos (nome de arquivo/música) alarguem a coluna e descentralizem a torre do meio */
         /* Torre central mais larga (392px) para os dois VU analógicos redondos de 168px */
@@ -1501,7 +1520,7 @@
                 <button id="btnOnlyMidHigh" class="btn-solo" onclick="toggleOnlyMidHigh()">ONLY MID-HIGH</button>
                 <button id="btnOnlyHigh" class="btn-solo" onclick="toggleOnlyHigh()">ONLY HIGH</button>
                 <button id="btnBassBoost" class="btn-solo" onclick="toggleBassBoost()" title="Reforço de graves (+12 dB abaixo de 110 Hz)" aria-pressed="false">BASS BOOST</button>
-                <button id="btnTreme" class="btn-solo" onclick="toggleTremedeira()" title="BASS BOOST + TREMEDEIRA: mais graves e todas as caixas tremendo junto com o som (soma com o BASS BOOST)" aria-pressed="false">💥 TREMEDEIRA</button>
+                <button id="btnTreme" class="btn-solo" onclick="toggleTremedeira()" title="BASS BOOST + TREMEDEIRA: corpo extra de grave (low-shelf + sub), um pouco de distorção, o ar do sistema fazendo barulho e as caixas tremendo (soma com o BASS BOOST)" aria-pressed="false">💥 TREMEDEIRA</button>
             </div>
         </div>
         <div class="crossover-grid">
@@ -1727,6 +1746,10 @@
     let bassBoostNode = null;
     let bassBoostActive = false;
     let tremeBoostNode = null; /* TREMEDEIRA: low-shelf extra somado ao BASS BOOST */
+    let tremeSubNode = null;   /* TREMEDEIRA: pico de sub (~60 Hz) pra mais corpo */
+    let tremeShaperNode = null; /* TREMEDEIRA: saturação leve (pouca distorção) */
+    let tremeLimiter = null;   /* TREMEDEIRA: limitador do master (só aperta com ela ligada) */
+    let rumbleSrc = null, rumbleHP = null, rumbleLP = null, rumbleGain = null, rumbleLFO = null;
     let tremeAtivo = false;
     let tremeAlvos = null, tremeElFoiLigado = false;
     const BASS_BOOST_DB = 12;
@@ -1791,6 +1814,21 @@
             }
         }
         return buf;
+    }
+
+    /* Ruído marrom pro "ar" da TREMEDEIRA (rumor grave de sistema empurrando ar) */
+    function criarRuidoAr(ctx) {
+        const sr = ctx.sampleRate, len = Math.floor(sr * 2.5);
+        const buf = ctx.createBuffer(1, len, sr);
+        const d = buf.getChannelData(0); let last = 0;
+        for (let i = 0; i < len; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.2; }
+        return buf;
+    }
+    /* Curva de saturação suave (tanh, inclinação 1 no zero) pra TREMEDEIRA */
+    function criarCurvaSaturacao(k) {
+        const n = 8192, c = new Float32Array(n);
+        for (let i = 0; i < n; i++) { const x = (i / (n - 1)) * 2 - 1; c[i] = Math.tanh(k * x) / k; }
+        return c;
     }
 
     function unlockAudioContext() {
@@ -1887,16 +1925,40 @@
             bassBoostNode.type = 'lowshelf';
             bassBoostNode.frequency.value = 110;
             bassBoostNode.gain.value = 0;
-            /* TREMEDEIRA: um low-shelf extra (+12 dB abaixo de 110 Hz) somado ao BASS
-               BOOST, simulando o peso das caixas tremendo. Os VUs medem depois dele. */
+            /* TREMEDEIRA: corpo extra de graves (low-shelf + pico de sub), saturação
+               leve, o "ar" do sistema fazendo barulho e um limitador pra não estourar.
+               Os VUs medem depois de tudo. */
             tremeBoostNode = audioCtx.createBiquadFilter();
             tremeBoostNode.type = 'lowshelf';
-            tremeBoostNode.frequency.value = 110;
+            tremeBoostNode.frequency.value = 100;
             tremeBoostNode.gain.value = 0;
+            tremeSubNode = audioCtx.createBiquadFilter();
+            tremeSubNode.type = 'peaking';
+            tremeSubNode.frequency.value = 60;
+            tremeSubNode.Q.value = 1.0;
+            tremeSubNode.gain.value = 0;
+            tremeShaperNode = audioCtx.createWaveShaper();
+            tremeShaperNode.oversample = '4x';
+            tremeLimiter = audioCtx.createDynamicsCompressor();
+            tremeLimiter.threshold.value = 0; tremeLimiter.knee.value = 0; tremeLimiter.ratio.value = 1; tremeLimiter.attack.value = 0.003; tremeLimiter.release.value = 0.25;
+            /* "Ar" do sistema: ruído marrom grave que sopra junto com os graves */
+            rumbleSrc = audioCtx.createBufferSource();
+            rumbleSrc.buffer = criarRuidoAr(audioCtx); rumbleSrc.loop = true;
+            rumbleHP = audioCtx.createBiquadFilter(); rumbleHP.type = 'highpass'; rumbleHP.frequency.value = 28;
+            rumbleLP = audioCtx.createBiquadFilter(); rumbleLP.type = 'lowpass'; rumbleLP.frequency.value = 150; rumbleLP.Q.value = 0.7;
+            rumbleLFO = audioCtx.createOscillator(); rumbleLFO.frequency.value = 0.45;
+            const rumbleLFOG = audioCtx.createGain(); rumbleLFOG.gain.value = 40;
+            rumbleLFO.connect(rumbleLFOG); rumbleLFOG.connect(rumbleLP.frequency);
+            rumbleGain = audioCtx.createGain(); rumbleGain.gain.value = 0;
+            rumbleSrc.connect(rumbleHP); rumbleHP.connect(rumbleLP); rumbleLP.connect(rumbleGain); rumbleGain.connect(tremeBoostNode);
+            rumbleSrc.start(); rumbleLFO.start();
             masterGain.connect(bassBoostNode);
             bassBoostNode.connect(tremeBoostNode);
-            tremeBoostNode.connect(audioCtx.destination);
-            tremeBoostNode.connect(masterSplitter);
+            tremeBoostNode.connect(tremeSubNode);
+            tremeSubNode.connect(tremeShaperNode);
+            tremeShaperNode.connect(tremeLimiter);
+            tremeLimiter.connect(audioCtx.destination);
+            tremeLimiter.connect(masterSplitter);
             masterSplitter.connect(masterAnalyserL, 0);
             masterSplitter.connect(masterAnalyserR, 1);
             masterAnalyserL.connect(vuSinkMudo);
@@ -2394,13 +2456,21 @@
         const b = document.getElementById('btnBassBoost');
         if (b) { b.classList.toggle('active', bassBoostActive); b.setAttribute('aria-pressed', bassBoostActive ? 'true' : 'false'); }
     }
-    /* TREMEDEIRA: bass boost extra + todas as caixas (gabinete e racks) tremendo no
-       ritmo dos graves. O áudio é um low-shelf somável ao BASS BOOST; o tremor é
-       visual e roda no loop dos VUs (trackVUs), seguindo o nível de SUB + BASS. */
+    /* TREMEDEIRA: corpo extra de graves (low-shelf + pico de sub), um pouco de
+       distorção (saturação suave), o "ar" do sistema fazendo barulho e todas as
+       caixas (gabinete e racks) tremendo no ritmo dos graves (trackVUs). */
+    const TREME_BOOST_DB = 15, TREME_SUB_DB = 6;
     function toggleTremedeira() {
         unlockAudioContext();
         tremeAtivo = !tremeAtivo;
-        if (tremeBoostNode) tremeBoostNode.gain.value = tremeAtivo ? BASS_BOOST_DB : 0;
+        if (tremeBoostNode) tremeBoostNode.gain.value = tremeAtivo ? TREME_BOOST_DB : 0;
+        if (tremeSubNode) tremeSubNode.gain.value = tremeAtivo ? TREME_SUB_DB : 0;
+        if (tremeShaperNode) tremeShaperNode.curve = tremeAtivo ? criarCurvaSaturacao(1.4) : null;
+        if (tremeLimiter) {
+            if (tremeAtivo) { tremeLimiter.threshold.value = -6; tremeLimiter.knee.value = 6; tremeLimiter.ratio.value = 12; }
+            else { tremeLimiter.threshold.value = 0; tremeLimiter.knee.value = 0; tremeLimiter.ratio.value = 1; }
+        }
+        if (!tremeAtivo && rumbleGain) rumbleGain.gain.value = 0;
         const b = document.getElementById('btnTreme');
         if (b) { b.classList.toggle('active', tremeAtivo); b.setAttribute('aria-pressed', tremeAtivo ? 'true' : 'false'); }
         document.body.classList.toggle('treme-ativo', tremeAtivo);
@@ -2545,9 +2615,12 @@
                 if (el.classList.contains('arrastando')) continue;
                 el.style.transform = 'translate(' + dx + 'px, ' + dy + 'px) rotate(' + rt + 'deg)';
             }
+            /* O "ar" do sistema sopra junto: o rumor segue o nível dos graves */
+            if (rumbleGain) rumbleGain.gain.value = 0.006 + (forca * 0.05);
             tremeElFoiLigado = true;
         } else if (tremeElFoiLigado) {
             if (tremeAlvos) for (let i = 0; i < tremeAlvos.length; i++) tremeAlvos[i].style.transform = '';
+            if (rumbleGain) rumbleGain.gain.value = 0;
             tremeElFoiLigado = false;
         }
         requestAnimationFrame(trackVUs);
@@ -2669,7 +2742,7 @@
         if (typeof MediaRecorder === 'undefined') { ioStatus('Este navegador não suporta gravação.', 'var(--status-err)'); return; }
 
         // Deriva o master para um destino de gravação (mesmo ponto que vai para os alto-falantes)
-        if (!recDest) { recDest = audioCtx.createMediaStreamDestination(); (tremeBoostNode ? tremeBoostNode : bassBoostNode).connect(recDest); }
+        if (!recDest) { recDest = audioCtx.createMediaStreamDestination(); (tremeLimiter ? tremeLimiter : bassBoostNode).connect(recDest); }
 
         const tipos = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'];
         const tipo = tipos.find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
@@ -2807,9 +2880,14 @@
             boost.type = 'lowshelf'; boost.frequency.value = 110;
             boost.gain.value = bassBoostActive ? BASS_BOOST_DB : 0;
             const boost2 = off.createBiquadFilter();
-            boost2.type = 'lowshelf'; boost2.frequency.value = 110;
-            boost2.gain.value = tremeAtivo ? BASS_BOOST_DB : 0;
-            mg.connect(boost); boost.connect(boost2); boost2.connect(off.destination);
+            boost2.type = 'lowshelf'; boost2.frequency.value = 100;
+            boost2.gain.value = tremeAtivo ? TREME_BOOST_DB : 0;
+            const bump2 = off.createBiquadFilter();
+            bump2.type = 'peaking'; bump2.frequency.value = 60; bump2.Q.value = 1.0;
+            bump2.gain.value = tremeAtivo ? TREME_SUB_DB : 0;
+            const sc2 = off.createWaveShaper(); sc2.oversample = '4x';
+            sc2.curve = tremeAtivo ? criarCurvaSaturacao(1.4) : null;
+            mg.connect(boost); boost.connect(boost2); boost2.connect(bump2); bump2.connect(sc2); sc2.connect(off.destination);
 
             const renderizado = await off.startRendering();
             baixarBlob(wavDoBuffer(renderizado), 'dub-convertido-' + carimbo() + '.wav');

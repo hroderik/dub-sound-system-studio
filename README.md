@@ -147,13 +147,17 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 
 ### ✨ Novidades recentes
 
+- **Cabeçalho em faceplate de rack** — o topo do mixer (DUB MIXER SOUND SYSTEM /
+  5-WAY ANALOGUE CROSSOVER & PREAMP) virou metal escovado com 4 parafusos de rack.
 - **SPACE ECHO (Roland RE-201)** — o MASTER TAPE DELAY virou um **rack separado**, com o painel
   clássico: chaves EFFECT/DIRECT (com LED), INPUT VOL, MODE SELECTOR (12 tempos), BASS/TREBLE
   do eco, REVERB, INTENSITY, ECHO VOLUME, REPEAT RATE, DRY e **TAP TEMPO** (bata no ritmo pra
   marcar o eco). Todas as funções antigas continuam — só mudaram de nome (TIME→REPEAT RATE,
   FB→INTENSITY, WET→ECHO VOLUME).
-- **💥 TREMEDEIRA** — botão novo no crossover: BASS BOOST extra (+12 dB abaixo de 110 Hz,
-  somável ao BASS BOOST) e **todas as caixas tremem junto com os graves**, em tempo real.
+- **💥 TREMEDEIRA** — botão no crossover: corpo extra de graves (+15 dB abaixo de 100 Hz
+  + pico de +6 dB em 60 Hz, somável ao BASS BOOST), **um pouco de distorção** (saturação
+  suave) e o **ar do sistema fazendo barulho** (rumor grave que segue o nível dos graves,
+  com limitador pra não estourar) — e todas as caixas tremendo junto, em tempo real.
 - **TIRAR AGULHA corrigido** — o pop do disco agora entra no eco pelo painel: com ECHO VOLUME
   em 0 % a música volta seca, sem delay forçado.
 - **BASS BOOST** — botão on/off, o 5º da fileira; reforço de +12 dB abaixo de 110 Hz
@@ -175,7 +179,9 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
   parafusos e fica na mesma largura dos módulos externos (SIREN, CROSSOVER e o
   SPACE ECHO, com orelhas e parafusos); o CROSSOVER é um modelo diferente (anodizado
-  preto/azul) e o SPACE ECHO tem o painel escuro com blocos verdes do RE-201.
+  preto/azul) e o SPACE ECHO tem o painel escuro com blocos verdes do RE-201. O
+  cabeçalho (DUB MIXER SOUND SYSTEM / 5-WAY ANALOGUE CROSSOVER & PREAMP) virou uma
+  faceplate de rack de metal escovado com 4 parafusos.
 - **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
 - **MASTER TAPE DELAY agora é o rack SPACE ECHO** (RE-201), separado — dá pra reposicionar no modo edição.
 - **Volume da sirene em 40 %** por padrão.
@@ -229,7 +235,7 @@ Para cada banda você tem:
   - **BASS+SUB KILL** — mata (ou solta) BASS e SUB juntos.
   - **ONLY MID-HIGH** — tira o sub e o bass.
   - **ONLY HIGH** — só o agudo.
-  - **💥 TREMEDEIRA** — BASS BOOST extra + as caixas (gabinete e racks) tremendo junto com os graves, em tempo real; desligou, tudo volta ao lugar.
+  - **💥 TREMEDEIRA** — corpo extra de graves + um pouco de distorção + o ar do sistema fazendo barulho + as caixas (gabinete e racks) tremendo junto com os graves, em tempo real; desligou, tudo volta ao lugar.
 
 ### ↔️ X-FADER
 
