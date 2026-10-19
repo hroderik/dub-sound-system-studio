@@ -148,14 +148,15 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 ### ✨ Novidades recentes
 
 - **Orelhas laterais com rebites de verdade** — o gabinete agora tem **2 rebites
-  de metal em cada lado** (iguais aos do cabeçalho), bem visíveis — antes eram
-  manchas de gradiente que nem pareciam parafuso.
+  de metal em cada lado**, bem visíveis — antes eram manchas de gradiente que
+  nem pareciam parafuso.
 - **Fundo claro/noturno num botão só** — agora é só o emoji (☀️/🌙): clicou, troca
   o ícone e o fundo muda, igual iPhone.
 - **SIRENE visível por padrão** — o rack SR-10 já abre na mesa junto com o mixer;
   o botão **🚨 SIRENE** continua ocultando/mostrando quando quiser.
 - **Cabeçalho em faceplate de rack** — o topo do mixer (DUB MIXER SOUND SYSTEM /
-  5-WAY ANALOGUE CROSSOVER & PREAMP) virou metal escovado com 4 parafusos de rack.
+  5-WAY ANALOGUE CROSSOVER & PREAMP) virou metal escovado, sem parafusos — os
+  rebites ficaram só nas orelhas do gabinete.
 - **SPACE ECHO (Roland RE-201)** — o MASTER TAPE DELAY virou um **rack separado**, com o painel
   clássico: chaves EFFECT/DIRECT (com LED), INPUT VOL, MODE SELECTOR (12 tempos), BASS/TREBLE
   do eco, REVERB, INTENSITY, ECHO VOLUME, REPEAT RATE, DRY e **TAP TEMPO** (bata no ritmo pra
@@ -184,12 +185,11 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   **knobs, botões e faders ficam bloqueados** (nada de clicar sem querer); só as setas
   ▲▼ continuam ativas como alternativa. A ordem fica salva e volta quando abrir de novo.
 - **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
-  **2 rebites de verdade em cada lado** (iguais aos do cabeçalho) e fica na mesma
-  largura dos módulos externos (SIREN, CROSSOVER e o SPACE ECHO, com orelhas e
-  parafusos); o CROSSOVER é um modelo diferente (anodizado preto/azul) e o SPACE
-  ECHO tem o painel escuro com blocos verdes do RE-201. O cabeçalho (DUB MIXER
-  SOUND SYSTEM / 5-WAY ANALOGUE CROSSOVER & PREAMP) é uma faceplate de rack de
-  metal escovado com 4 parafusos.
+  **2 rebites de verdade em cada lado** e fica na mesma largura dos módulos
+  externos (SIREN, CROSSOVER e o SPACE ECHO, com orelhas e parafusos); o CROSSOVER
+  é um modelo diferente (anodizado preto/azul) e o SPACE ECHO tem o painel escuro
+  com blocos verdes do RE-201. O cabeçalho (DUB MIXER SOUND SYSTEM / 5-WAY
+  ANALOGUE CROSSOVER & PREAMP) é uma faceplate de rack de metal escovado.
 - **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
 - **MASTER TAPE DELAY agora é o rack SPACE ECHO** (RE-201), separado — dá pra reposicionar no modo edição.
 - **Volume da sirene em 40 %** por padrão.
