@@ -287,6 +287,7 @@ O hash calculado tem que bater com a linha do arquivo nos `*SUMS.txt`. Se não b
 - [x] **16 temas** com contraste revisado + modo edição + toolbar auto-hide
 - [x] **Executáveis** Linux e Windows (+ workflow de CI para macOS)
 - [x] **Segurança** — CSP, validação de arquivos, fonte/ícone embutidos
+- [x] **Publicado** — repositório público, Pages no ar e release `v0.1.0` com instaladores das 3 plataformas + checksums SHA-256/MD5
 
 ### Melhorias planejadas
 
@@ -320,9 +321,9 @@ Backlog de equipamento clássico que cabe no grafo — os três primeiros já t�
 
 ### O que vem em seguida
 
-1. **Publicar** o repositório no GitHub (README, prints e builds já prontos neste estado).
-2. **Rodar a fita no Safari/iOS** e corrigir o que aparecer.
-3. **Publicar os releases** das três plataformas (macOS sai pelo workflow de CI).
+1. **Idiomas** — PT-BR, English e русский: dicionário embutido (sem requests), seletor com escolha salva e detecção do idioma do sistema; revisar o layout com os textos mais longos do russo.
+2. **Migrar o HTML para Rust** — primeiro a engine (motor de áudio, estado e DSP 100 % Rust, aproveitando os kernels de `dsp.rs`), mantendo a interface atual; depois avaliar UI nativa (egui/slint) sem WebView.
+3. **Rodar a fita no Safari/iOS** e corrigir o que aparecer.
 4. **Melhorias de UI** da lista acima, na ordem de utilidade.
 5. **Racks novos**, um por vez, começando pelos que já têm kernel (phaser, flanger, autowah).
 6. **Hardware** — começar a Fase 1 ("um canal de ponta a ponta") do [roadmap físico](docs/ROADMAP-HARDWARE.md).
