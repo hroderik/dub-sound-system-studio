@@ -1292,7 +1292,10 @@
                         <button class="btn-red" onclick="stopDeck('A')">⏹ STOP</button>
                     </div>
                     <progress id="progA" value="0" max="100" onclick="seekAudio(event, 'A')"></progress>
-                    <button class="btn-sm btn-amber" onclick="triggerNeedlePop('A')">📀 TIRAR AGULHA</button>
+                    <div style="display:flex; gap:4px;">
+                        <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('A')">📀 TIRAR AGULHA</button>
+                        <button class="btn-sm btn-amber" style="flex:1;" onclick="tocarDiscoReverso('A')" title="Backspin: puxa o disco pra trás — a música toca ao contrário e depois volta">🔄 DISCO REVERSO</button>
+                    </div>
                 </div>
 
 
@@ -1412,7 +1415,10 @@
                         <button class="btn-red" onclick="stopDeck('B')">⏹ STOP</button>
                     </div>
                     <progress id="progB" value="0" max="100" onclick="seekAudio(event, 'B')"></progress>
-                    <button class="btn-sm btn-amber" onclick="triggerNeedlePop('B')">📀 TIRAR AGULHA</button>
+                    <div style="display:flex; gap:4px;">
+                        <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('B')">📀 TIRAR AGULHA</button>
+                        <button class="btn-sm btn-amber" style="flex:1;" onclick="tocarDiscoReverso('B')" title="Backspin: puxa o disco pra trás — a música toca ao contrário e depois volta">🔄 DISCO REVERSO</button>
+                    </div>
                 </div>
 
 
@@ -2086,13 +2092,21 @@
     function togglePlay(deckID) {
         let deck = (deckID === 'A') ? deckA : deckB;
         unlockAudioContext(); if (!deck.buffer) return;
-        if (deck.isPlaying) { deck.source.stop(); deck.pauseOffset += audioCtx.currentTime - deck.startTime; deck.isPlaying = false; }
+        if (deck.isPlaying) {
+            if (deck.girandoRev) { /* pausa no meio do DISCO REVERSO: para onde a agulha está */
+                deck.pauseOffset = Math.max(0, deck.girandoRev.pos - (audioCtx.currentTime - deck.girandoRev.t) * deck.girandoRev.rate);
+                deck.girandoRev = null;
+            } else { deck.pauseOffset += audioCtx.currentTime - deck.startTime; }
+            try { deck.source.stop(); } catch(e) {}
+            deck.isPlaying = false;
+        }
         else { playDeckFrom(deckID, deck.pauseOffset); }
     }
 
     function playDeckFrom(deckID, offset) {
         let deck = (deckID === 'A') ? deckA : deckB; if (!deck.buffer) return;
         if (deck.isPlaying && deck.source) { try { deck.source.stop(); } catch(e) {} deck.isPlaying = false; }
+        deck.girandoRev = null;
         deck.source = audioCtx.createBufferSource(); deck.source.buffer = deck.buffer; deck.gain = audioCtx.createGain(); deck.gain.gain.value = deck.vol;
         /* PAN: um StereoPanner por deck, entre o volume e o crossfader. */
         deck.panner = audioCtx.createStereoPanner(); deck.panner.pan.value = deck.pan;
@@ -2109,15 +2123,56 @@
 
     function stopDeck(deckID) {
         let deck = (deckID === 'A') ? deckA : deckB;
+        deck.girandoRev = null;
         if (deck.isPlaying && deck.source) { try { deck.source.stop(); } catch(e) {} deck.isPlaying = false; }
         deck.pauseOffset = 0; document.getElementById('prog' + deckID).value = 0;
     }
 
     function trackProgress(deckID) {
         let deck = (deckID === 'A') ? deckA : deckB; if (!deck.isPlaying) return;
-        let current = (deck.pauseOffset + (audioCtx.currentTime - deck.startTime)) % deck.buffer.duration;
+        let current;
+        if (deck.girandoRev) { /* DISCO REVERSO: a barra anda pra trás junto com o disco */
+            current = Math.max(0, deck.girandoRev.pos - (audioCtx.currentTime - deck.girandoRev.t) * deck.girandoRev.rate);
+        } else {
+            current = (deck.pauseOffset + (audioCtx.currentTime - deck.startTime)) % deck.buffer.duration;
+        }
         document.getElementById('prog' + deckID).value = (current / deck.buffer.duration) * 100;
         requestAnimationFrame(() => trackProgress(deckID));
+    }
+
+    /* DISCO REVERSO (backspin): como o DJ puxando o disco pra trás com o dedo —
+       a música toca ao contrário por ~1 s e depois volta ao normal, de onde a agulha parou. */
+    function tocarDiscoReverso(deckID) {
+        unlockAudioContext();
+        let deck = (deckID === 'A') ? deckA : deckB;
+        if (!deck.buffer || !deck.isPlaying || deck.girandoRev) return;
+        let now = audioCtx.currentTime;
+        let pos = (deck.pauseOffset + (now - deck.startTime)) % deck.buffer.duration;
+        /* Monta o buffer ao contrário uma vez por música */
+        if (!deck.bufferReverso || deck.bufferReversoFonte !== deck.buffer) {
+            let orig = deck.buffer;
+            let rev = audioCtx.createBuffer(orig.numberOfChannels, orig.length, orig.sampleRate);
+            for (let c = 0; c < orig.numberOfChannels; c++) {
+                let de = orig.getChannelData(c), para = rev.getChannelData(c);
+                for (let i = 0, n = orig.length; i < n; i++) para[i] = de[n - 1 - i];
+            }
+            deck.bufferReverso = rev; deck.bufferReversoFonte = orig;
+        }
+        let giro = 1.0; /* segundos de música que voltam no backspin */
+        try { deck.source.stop(); } catch (e) {}
+        let spin = audioCtx.createBufferSource(); spin.buffer = deck.bufferReverso;
+        deck.source = spin;
+        deck.gain = audioCtx.createGain(); deck.gain.gain.value = deck.vol;
+        deck.panner = audioCtx.createStereoPanner(); deck.panner.pan.value = deck.pan;
+        spin.connect(deck.gain); deck.gain.connect(deck.panner); deck.panner.connect(deckID === 'A' ? crossGainA : crossGainB);
+        let inicioRev = deck.bufferReverso.duration - pos;
+        if (inicioRev > deck.bufferReverso.duration - 0.001) inicioRev = deck.bufferReverso.duration - 0.001;
+        if (inicioRev < 0) inicioRev = 0;
+        let fimRev = Math.min(inicioRev + giro, deck.bufferReverso.duration);
+        deck.girandoRev = { t: now, pos: pos, rate: 1 };
+        let novoOffset = Math.max(0, pos - giro);
+        spin.onended = () => { if (deck.girandoRev && deck.source === spin) { deck.girandoRev = null; playDeckFrom(deckID, novoOffset); } };
+        spin.start(now, inicioRev, fimRev - inicioRev);
     }
 
     function triggerNeedlePop(deckID) {
