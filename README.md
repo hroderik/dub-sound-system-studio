@@ -2,9 +2,9 @@
 
 **Uma mesa de som dub completa, dentro de um único arquivo HTML.**
 
-Preamp de 2 canais + crossover analógico de 5 vias + delay de fita + gerador de sirene
-+ pedal Synare/Space Drum — tudo rodando no navegador, sem instalar nada, sem conta,
-sem internet. A mesa toca apenas os seus arquivos locais.
+Crossover analógico de 5 vias + delay de fita estilo Roland Space Echo (RE-201) +
+gerador de sirene + pedal Synare/Space Drum — tudo rodando no navegador, sem instalar
+nada, sem conta, sem internet. A mesa toca apenas os seus arquivos locais.
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 [![Um arquivo só](https://img.shields.io/badge/arquivo%20%C3%BAnico-index.html-success.svg)](index.html)
@@ -20,7 +20,7 @@ sem internet. A mesa toca apenas os seus arquivos locais.
 - [Por que usar este app](#-por-que-usar-este-app)
 - [Como rodar (Windows / Linux / macOS / celular)](#-como-rodar)
 - [Funções — o que a mesa faz](#-funções--o-que-a-mesa-faz)
-- [Referência completa dos 32 knobs](#-referência-completa-dos-32-knobs)
+- [Referência completa dos 36 knobs](#-referência-completa-dos-36-knobs)
 - [Pedais opcionais (mostrar / ocultar)](#-pedais-opcionais-mostrar--ocultar)
 - [Temas visuais](#-temas-visuais)
 - [Compatibilidade testada](#-compatibilidade-testada)
@@ -79,7 +79,7 @@ O projeto tem **duas frentes futuras** documentadas:
 
 - **[Versão física (hardware, R$ 100)](docs/ROADMAP-HARDWARE.md)** — mesa de dub de
   verdade que liga na tomada: crossover analógico, delay PT2399, sirene VCO, Synare
-  LM13700, tudo em chassi de madeira. **Os 32 knobs desta tela são a especificação.**
+  LM13700, tudo em chassi de madeira. **Os 36 knobs desta tela são a especificação.**
 - **Versão executável (app nativo)** — em desenvolvimento (Rust/Tauri, com DSP em
   `rust/` e `dsp/`). Roda em Linux/macOS/Windows com a mesma interface.
 
@@ -147,7 +147,16 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 
 ### ✨ Novidades recentes
 
-- **BASS BOOST** — botão on/off, o último da fileira (5º lugar); reforço de +12 dB abaixo de 110 Hz
+- **SPACE ECHO (Roland RE-201)** — o MASTER TAPE DELAY virou um **rack separado**, com o painel
+  clássico: chaves EFFECT/DIRECT (com LED), INPUT VOL, MODE SELECTOR (12 tempos), BASS/TREBLE
+  do eco, REVERB, INTENSITY, ECHO VOLUME, REPEAT RATE, DRY e **TAP TEMPO** (bata no ritmo pra
+  marcar o eco). Todas as funções antigas continuam — só mudaram de nome (TIME→REPEAT RATE,
+  FB→INTENSITY, WET→ECHO VOLUME).
+- **💥 TREMEDEIRA** — botão novo no crossover: BASS BOOST extra (+12 dB abaixo de 110 Hz,
+  somável ao BASS BOOST) e **todas as caixas tremem junto com os graves**, em tempo real.
+- **TIRAR AGULHA corrigido** — o pop do disco agora entra no eco pelo painel: com ECHO VOLUME
+  em 0 % a música volta seca, sem delay forçado.
+- **BASS BOOST** — botão on/off, o 5º da fileira; reforço de +12 dB abaixo de 110 Hz
   (low-shelf real no master).
 - **GRAVAR MIX** — captura a saída do master em tempo real (`.webm`/`.ogg`/`.m4a`).
 - **CONVERTER** — renderiza a música offline e exporta WAV 16-bit/44,1 kHz/estéreo com
@@ -164,16 +173,17 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   para arrastar, segure numa parte livre do painel (fora dos controles). As setas
   ▲▼ continuam como alternativa. A ordem fica salva e volta quando abrir de novo.
 - **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
-  parafusos e fica na mesma largura dos módulos externos (SIREN e CROSSOVER, com
-  orelhas e parafusos); o CROSSOVER é um modelo diferente (anodizado preto/azul).
+  parafusos e fica na mesma largura dos módulos externos (SIREN, CROSSOVER e o
+  SPACE ECHO, com orelhas e parafusos); o CROSSOVER é um modelo diferente (anodizado
+  preto/azul) e o SPACE ECHO tem o painel escuro com blocos verdes do RE-201.
 - **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
-- **MASTER TAPE DELAY embutido na caixa do CROSSOVER** (uma caixa só, sem vão).
+- **MASTER TAPE DELAY agora é o rack SPACE ECHO** (RE-201), separado — dá pra reposicionar no modo edição.
 - **Volume da sirene em 40 %** por padrão.
 - **VU estéreo real** (L/R) — mostradores retangulares laranja com moldura preta, sobre placa de alumínio com parafusos ("L METER" / "R METER" / "ANALOG VU METER"); a luz interna brilha junto com o SUB + BASS (e apaga quando os graves levam KILL).
-- **DRY no delay** — knob DRY no MASTER TAPE DELAY: mistura o sinal seco junto do eco (100 % por padrão).
+- **DRY no delay** — knob DRY no SPACE ECHO: mistura o sinal seco junto do eco (100 % por padrão).
 - **FILTER bipolar por canal** — um só knob no lugar de LOWPASS + HIGHPASS: centro = 0 (filtros abertos); girando para a ESQUERDA fecha o LOWPASS (100 Hz – 20 kHz) e para a DIREITA sobe o HIGHPASS (20 Hz – 20 kHz). Duplo clique volta ao centro.
 - **PWA** — manifest + service worker: instalável na tela inicial e funciona offline.
-- **Reverb de mola** — knob REVERB no master (depois do delay), com impulso de spring.
+- **Reverb de mola** — knob REVERB no painel do SPACE ECHO (a chave EFFECT liga/desliga o eco e a mola juntos), com impulso de spring.
 - **MIDI** — botão 🎹 MIDI: ON/OFF com soft takeover (CCs mapeados para os knobs).
 
 ### 🎚️ Canal 1 e Canal 2 (decks)
@@ -214,11 +224,12 @@ Para cada banda você tem:
 - **Botão KILL** — corta a banda na hora (o clássico *drop* de dub: mata o baixo,
   deixa a caixa ecoando, e devolve tudo de uma vez).
 - **LED** por banda, mostrando o nível em tempo real.
-- **Botões de banda** — na ordem da fileira: ONLY SUB, BASS+SUB KILL, ONLY MID-HIGH, ONLY HIGH, BASS BOOST:
+- **Botões de banda** — na ordem da fileira: ONLY SUB, BASS+SUB KILL, ONLY MID-HIGH, ONLY HIGH, BASS BOOST, 💥 TREMEDEIRA:
   - **ONLY SUB** — só o grave.
   - **BASS+SUB KILL** — mata (ou solta) BASS e SUB juntos.
   - **ONLY MID-HIGH** — tira o sub e o bass.
   - **ONLY HIGH** — só o agudo.
+  - **💥 TREMEDEIRA** — BASS BOOST extra + as caixas (gabinete e racks) tremendo junto com os graves, em tempo real; desligou, tudo volta ao lugar.
 
 ### ↔️ X-FADER
 
@@ -235,21 +246,30 @@ não uma estimativa. Cada lado tem:
 - **Torre de 12 LEDs** (verde → âmbar → vermelho) — acende com o som.
 - **VU analógico de ponteiro** — o medidor com agulha que acompanha o ritmo.
 
-Por dentro: o som sai do `masterGain` direto para o `AudioContext.destination`, e o
-**mesmo sinal** passa em paralelo por um `ChannelSplitter` de 2 vias para os dois
+Por dentro: o som sai do `masterGain`, passa pelo BASS BOOST/TREMEDEIRA (low-shelf de graves) e vai para o `AudioContext.destination`, e o
+**mesmo ponto final** alimenta um `ChannelSplitter` de 2 vias para os dois
 `AnalyserNode` (L e R). Por isso, ao jogar o **PAN** de um canal para o lado, você vê
-os dois VUs se desequilibrarem.
+os dois VUs se desequilibrarem — e os VUs refletem o BASS BOOST/TREMEDEIRA ligado.
 
 ![Master VU estéreo](docs/img/master-vu-estereo.png)
 
-### 📼 Master Tape Delay
+### 📼 Master Tape Delay / SPACE ECHO (RE-201)
 
-Delay **da música** (depois do crossover e antes do master), com 3 knobs:
+Delay **da música** (depois do crossover e antes do master), agora num **rack separado**
+com o painel do Roland Space Echo. Todas as funções antigas continuam — só mudaram de
+nome: o TIME virou **REPEAT RATE**, o FB virou **INTENSITY** e o WET virou **ECHO VOLUME**.
 
-- **TIME** — 0,05 s a 1,20 s
-- **FB** — realimentação 0–90 %
-- **WET** — quanto do delay entra no master (0 % por padrão, ligue conforme o gosto)
+- **EFFECT** — liga/desliga o eco (desligado, ECHO VOLUME e REVERB vão a zero, sem perder os ajustes)
+- **DIRECT** — liga/desliga o som seco que passa junto do eco (com LED vermelho)
+- **INPUT VOL** — volume de entrada do eco
+- **MODE SELECTOR** — 12 combinações de tempo do eco (1×, 0,5×, 0,75×, ⅔×, 1,25×, 1,5×, 2×, 2,5×, ⅓×, 3×, 4×, ¼×)
+- **BASS / TREBLE** — EQ do eco (−12 a +12 dB)
+- **REVERB** — reverb de mola (0–100 %)
+- **INTENSITY** — realimentação 0–90 %
+- **ECHO VOLUME** — quanto do eco entra no master (0 % por padrão, ligue conforme o gosto)
+- **REPEAT RATE** — 0,05 s a 1,20 s
 - **DRY** — quanto do sinal original continua junto do eco (100 % por padrão)
+- **TAP TEMPO** — bata 2 ou mais vezes no ritmo pra marcar o tempo do eco
 
 Tem um filtro passa-baixa no caminho do delay, pra ficar aquele eco escuro de fita
 em vez de eco digital brilhante. E um **VU próprio**, mostrando que o delay está vivo.
@@ -317,7 +337,7 @@ que se desconecta sozinha (sem vazamento de áudio).
 
 ---
 
-## 🎚️ Referência completa dos 32 knobs
+## 🎚️ Referência completa dos 36 knobs
 
 Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 **Duplo clique** volta ao valor de fábrica. O valor aparece ao lado do nome.
@@ -348,14 +368,19 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 | `knobIsoHM` | H-MID | 0–200 % | 100 % |
 | `knobIsoHigh` | HIGH | 0–200 % | 100 % |
 
-### Master Tape Delay
+### Master Tape Delay / SPACE ECHO
 
 | Knob | Rótulo | Faixa | Padrão |
 |---|---|---|---|
-| `knobMasterDTime` | TIME | 0,05 – 1,20 s | 0,375 s |
-| `knobMasterDFB` | FB | 0–90 % | 40 % |
-| `knobMasterDWet` | WET | 0–100 % | 0 % (desligado) |
+| `knobMasterDTime` | REPEAT RATE | 0,05 – 1,20 s | 0,375 s |
+| `knobMasterDFB` | INTENSITY | 0–90 % | 40 % |
+| `knobMasterDWet` | ECHO VOLUME | 0–100 % | 0 % (desligado) |
 | `knobMasterDDry` | DRY | 0–100 % | 100 % (sinal seco) |
+| `knobMasterReverb` | REVERB | 0–100 % | 0 % |
+| `knobEchoInput` | INPUT VOL | 0 – 150 % | 100 % |
+| `knobEchoMode` | MODE SELECTOR | 1–12 | 1 |
+| `knobEchoBass` | BASS (eco) | −12 – +12 dB | 0 dB |
+| `knobEchoTreble` | TREBLE (eco) | −12 – +12 dB | 0 dB |
 
 ### Siren Generator
 
@@ -532,9 +557,9 @@ Deck B (arquivo) ─► Gain ─► Lowpass ─┘             ├─► HP80+LP
                                                     ├─► HP250+LP1200 ► gLM  ─► analLM  ─┤
                                                     ├─► HP1200+LP5000 ► gHM ─► analHM  ─┤
                                                     └─► HP5000 ──► gHigh ─► analHigh ──┤
-                                              (mesmo ponto) ──► Master Tape Delay ────┤
+                                              (mesmo ponto) ──► Space Echo (delay) ───┤
                                                                                        ▼
-                                                                                  masterGain ─► saída
+                                                                                  masterGain ─► BASS BOOST/TREMEDEIRA ─► saída
 Sirene ──► delay da sirene ──┐
 Synare ──► delay do Synare ──┴───────────────────────────────────────────────────────► masterGain
 ```
@@ -618,7 +643,7 @@ madeira com knobs de verdade. O documento traz o **BOM com preços**, o
 esquemático em blocos, o roteiro do **PCB no KiCad** e as **fases** — sendo a
 primeira "um canal de ponta a ponta", para não comprar tudo e não montar nada.
 
-> Os **32 knobs desta tela são a especificação do hardware**: cada potenciômetro
+> Os **36 knobs desta tela são a especificação do hardware**: cada potenciômetro
 > físico tem um controle equivalente aqui, com a mesma faixa de valores.
 
 ### Ordem sugerida
@@ -644,7 +669,7 @@ Ideias já mapeadas, em ordem de utilidade:
       todos os seus ajustes (VOL, PAN, FILTER, crossfader, isolator, kills, onlys,
       master tape delay, BASS BOOST).
 - [x] **BASS BOOST** — reforço de +12 dB abaixo de 110 Hz no master (on/off).
-- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 32 knobs +
+- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 36 knobs +
       kills + xfader em um "snapshot" (ex.: "Steppa", "Roots", "Digital").
 - [ ] **Botão de pânico / reset geral** — volta tudo ao padrão de uma vez.
 - [ ] **Delay com sincronia de tempo** — travar o TIME em BPM (1/4, 1/8 pontuado, etc.).

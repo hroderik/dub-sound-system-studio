@@ -949,6 +949,39 @@
         .master-tape-dentro .knob-col { flex-direction: row; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: flex-start; }
         .master-tape-dentro .knob-container { flex-direction: column; gap: 4px; }
         .master-tape-dentro .knob-container label { flex: none; text-align: center; }
+        /* ===== PAINEL SPACE ECHO (Roland RE-201): blocos escuros/verdes ===== */
+        .echo-painel { display: flex; align-items: stretch; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 4px; }
+        .echo-bloco { border-radius: 6px; padding: 6px 10px 6px; display: flex; align-items: flex-start; justify-content: center; gap: 14px; border: 1px solid #06070a; }
+        .echo-bloco.echo-bloco-col { flex-direction: column; align-items: center; gap: 4px; }
+        .echo-bloco.echo-escuro { background: linear-gradient(180deg, #23262d, #121419); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 14px rgba(0,0,0,0.5); }
+        .echo-bloco.echo-verde { background: linear-gradient(180deg, #1e7d46, #0f4429); box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 14px rgba(0,0,0,0.35); }
+        .echo-bloco .knob-container { margin: 2px 0 0; }
+        .echo-bloco label { color: #e8ecef; font-size: 0.5rem; letter-spacing: 0.5px; font-weight: 700; }
+        .echo-bloco.echo-verde label { color: #eaffef; }
+        .echo-controle { display: flex; flex-direction: column; align-items: center; gap: 5px; margin-top: 6px; }
+        .echo-switch { width: 30px; height: 16px; border-radius: 3px; border: 1px solid #000; background: #0d0f12; position: relative; cursor: pointer; padding: 0; box-shadow: inset 0 1px 2px rgba(0,0,0,0.8); }
+        .echo-switch::before { content: ''; position: absolute; top: 1px; left: 1px; width: 13px; height: 12px; border-radius: 2px; background: linear-gradient(180deg, #d7dade, #8f949b); box-shadow: 0 1px 2px rgba(0,0,0,0.6); transition: left 0.08s ease, background 0.08s ease; }
+        .echo-switch[aria-pressed="true"]::before { left: 14px; background: linear-gradient(180deg, #ffe9a8, #d9a528); }
+        .echo-led-vermelho { width: 7px; height: 7px; border-radius: 50%; background: #450808; box-shadow: inset 0 0 2px rgba(0,0,0,0.7); border: 1px solid rgba(0,0,0,0.5); }
+        .echo-led-vermelho.ligado { background: #ff3b30; box-shadow: 0 0 7px rgba(255,59,48,0.95); }
+        .echo-space-echo { font-style: italic; font-weight: 700; color: #dfe4ea; font-size: 0.72rem; letter-spacing: 0.5px; margin: 3px 0 2px; text-align: center; }
+        .echo-tap-knob { width: 46px; height: 46px; border-radius: 50%; border: 2px solid #000; cursor: pointer; margin: 0 auto; background: radial-gradient(circle at 35% 30%, #4a4d54, #16181c 70%, #0a0b0d 100%); box-shadow: 0 5px 10px rgba(0,0,0,0.6), inset 0 2px 3px rgba(255,255,255,0.18), inset 0 -3px 5px rgba(0,0,0,0.6); position: relative; padding: 0; }
+        .echo-tap-knob .echo-tap-miolo { position: absolute; left: 50%; top: 50%; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #dfe3e9, #808690); }
+        .echo-tap-knob.batendo { box-shadow: 0 0 14px rgba(244,208,63,0.9), 0 5px 10px rgba(0,0,0,0.6); }
+        /* Rack do SPACE ECHO: face escura, orelhas prateadas */
+        body.modo-rack .section-box.rack-unit.rack-unit-echo {
+            background: linear-gradient(180deg, #2a2d33 0, #0c0d10 6%, #060709 50%, #0c0d10 94%, #2a2d33 100%);
+            border-color: #020304;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.95),
+                        inset 0 0 30px rgba(0,0,0,0.7), 0 9px 20px rgba(0,0,0,0.62);
+        }
+        .section-box.rack-unit.rack-unit-echo .rack-ear { flex-basis: 26px; padding: 6px 0; background: linear-gradient(90deg, #b9bdc4 0, #eef0f2 45%, #c9ccd1 68%, #8f959d 100%); }
+        .section-box.rack-unit.rack-unit-echo .rack-ear.dir { background: linear-gradient(270deg, #b9bdc4 0, #eef0f2 45%, #c9ccd1 68%, #8f959d 100%); }
+        .section-box.rack-unit.rack-unit-echo .rack-face { padding: 6px 10px 8px; }
+        .section-box.rack-unit.rack-unit-echo .rack-brand { color: #cfd4d9; margin-bottom: 2px; font-size: 0.46rem; }
+        /* ===== TREMEDEIRA: o tremor das caixas é feito por JS (trackVUs); aqui só a
+           trava do scroll lateral enquanto o gabinete balança ===== */
+        body.treme-ativo { overflow-x: hidden; }
         .crossover-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; text-align: center; }
         /* Em telas estreitas as 5 bandas não cabem lado a lado: quebramos em 3 e depois 2 colunas */
         @media (max-width: 640px) { .crossover-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -1462,12 +1495,13 @@
         <div class="rack-brand"><span class="rack-led" style="background:radial-gradient(circle at 35% 30%, #b8e6ff, #3b82f6 45%, #1e3a8a 100%); box-shadow:0 0 8px rgba(59,130,246,0.85), inset 0 0 2px rgba(255,255,255,0.65);"></span> DUB SYSTEMS · CX-5 CROSSOVER</div>
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-metal); padding-bottom: 6px; margin-bottom: 8px;">
             <h4 style="margin:0; border:none; padding:0;">CROSSOVER 5-WAY ANALÓGICO + ISOLATOR</h4>
-            <div style="display:flex; gap: 4px;">
+            <div style="display:flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end;">
                 <button id="btnOnlySub" class="btn-solo" onclick="toggleOnlySub()">ONLY SUB</button>
                 <button id="btnBassSubKill" class="btn-solo" onclick="toggleBassSubKill()" title="Mata (ou solta) BASS e SUB juntos">BASS+SUB KILL</button>
                 <button id="btnOnlyMidHigh" class="btn-solo" onclick="toggleOnlyMidHigh()">ONLY MID-HIGH</button>
                 <button id="btnOnlyHigh" class="btn-solo" onclick="toggleOnlyHigh()">ONLY HIGH</button>
                 <button id="btnBassBoost" class="btn-solo" onclick="toggleBassBoost()" title="Reforço de graves (+12 dB abaixo de 110 Hz)" aria-pressed="false">BASS BOOST</button>
+                <button id="btnTreme" class="btn-solo" onclick="toggleTremedeira()" title="BASS BOOST + TREMEDEIRA: mais graves e todas as caixas tremendo junto com o som (soma com o BASS BOOST)" aria-pressed="false">💥 TREMEDEIRA</button>
             </div>
         </div>
         <div class="crossover-grid">
@@ -1523,30 +1557,79 @@
             </div>
         </div>
 
-        <!-- MASTER TAPE DELAY (MÚSICA) — dentro da mesma caixa do crossover -->
-        <div class="master-tape-dentro">
-            <div class="master-tape-titulo">MASTER TAPE DELAY (MÚSICA - GRAVES ISENTOS)</div>
-            <div class="knob-col">
-                <div class="knob-container">
-                    <div class="knob-wrapper" id="knobMasterDTime"><div class="knob-indicator"></div></div>
-                    <label>TIME: <span id="lblMDTime">0.375</span>s</label>
+        </div><!-- /.rack-face -->
+        <div class="rack-ear dir" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
+    </div>
+</div>
+
+<!-- ===== MASTER TAPE DELAY / SPACE ECHO — MÓDULO DE RACK 19" (Roland RE-201) =====
+     Rack separado com o painel do Space Echo: EFFECT, INPUT VOL, DIRECT (com LED),
+     MODE SELECTOR, BASS, TREBLE, REVERB, INTENSITY, ECHO VOLUME, REPEAT RATE e
+     TAP TEMPO — mais o DRY do mixer. Todas as funções do delay continuam iguais. -->
+<div class="rack-externo" id="rack-echo-slot">
+    <div class="modulo-barra"><span class="modulo-nome">📼 MASTER TAPE DELAY</span><button type="button" class="modulo-btn" onclick="moverModulo('rack-echo-slot',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('rack-echo-slot',1)" title="Mover para baixo">▼</button></div>
+    <div class="section-box rack-unit rack-unit-echo" id="modEcho" style="margin-top: 8px;">
+        <div class="rack-ear" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
+        <div class="rack-face">
+        <div class="rack-brand"><span class="rack-led" style="background:radial-gradient(circle at 35% 30%, #ffd9d0, #ff4d4d 45%, #7a1010 100%); box-shadow:0 0 8px rgba(255,77,77,0.85), inset 0 0 2px rgba(255,255,255,0.65);"></span> RASEfx-20 · ROLAND SPACE ECHO RE-201</div>
+        <div class="echo-painel">
+            <div class="echo-bloco echo-escuro">
+                <div class="echo-controle">
+                    <label>EFFECT</label>
+                    <button type="button" id="btnEchoEffect" class="echo-switch" onclick="toggleEchoEffect()" aria-pressed="true" title="Liga/desliga o eco (efeito)"></button>
                 </div>
                 <div class="knob-container">
+                    <div class="knob-wrapper" id="knobEchoInput"><div class="knob-indicator"></div></div>
+                    <label>INPUT VOL</label>
+                </div>
+                <div class="echo-controle">
+                    <label>DIRECT</label>
+                    <button type="button" id="btnEchoDirect" class="echo-switch" onclick="toggleEchoDirect()" aria-pressed="true" title="Liga/desliga o som direto (seco)"></button>
+                    <span class="echo-led-vermelho ligado" id="ledEchoDirect" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="echo-bloco echo-escuro">
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobEchoMode"><div class="knob-indicator"></div></div>
+                    <label>MODE SELECTOR: <span id="lblEchoMode">1</span></label>
+                </div>
+            </div>
+            <div class="echo-bloco echo-verde">
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobEchoBass"><div class="knob-indicator"></div></div>
+                    <label>BASS</label>
+                </div>
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobEchoTreble"><div class="knob-indicator"></div></div>
+                    <label>TREBLE</label>
+                </div>
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobMasterReverb"><div class="knob-indicator"></div></div>
+                    <label>REVERB: <span id="lblMDReverb">0</span>%</label>
+                </div>
+            </div>
+            <div class="echo-bloco echo-verde">
+                <div class="knob-container">
                     <div class="knob-wrapper" id="knobMasterDFB"><div class="knob-indicator"></div></div>
-                    <label>FB: <span id="lblMDFB">40</span>%</label>
+                    <label>INTENSITY: <span id="lblMDFB">40</span>%</label>
+                </div>
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobMasterDWet"><div class="knob-indicator"></div></div>
+                    <label>ECHO VOLUME: <span id="lblMDWet">0</span>%</label>
+                </div>
+                <div class="knob-container">
+                    <div class="knob-wrapper" id="knobMasterDTime"><div class="knob-indicator"></div></div>
+                    <label>REPEAT RATE: <span id="lblMDTime">0.375</span>s</label>
                 </div>
                 <div class="knob-container">
                     <div class="knob-wrapper" id="knobMasterDDry"><div class="knob-indicator"></div></div>
                     <label>DRY: <span id="lblMDDry">100</span>%</label>
                 </div>
-                <div class="knob-container">
-                    <div class="knob-wrapper" id="knobMasterDWet"><div class="knob-indicator"></div></div>
-                    <label style="color:var(--gold);">WET: <span id="lblMDWet">0</span>%</label>
-                </div>
-                <div class="knob-container">
-                    <div class="knob-wrapper" id="knobMasterReverb"><div class="knob-indicator"></div></div>
-                    <label style="color:var(--gold);">REVERB: <span id="lblMDReverb">0</span>%</label>
-                </div>
+            </div>
+            <div class="echo-bloco echo-escuro echo-bloco-col">
+                <div class="echo-space-echo">SPACE ECHO</div>
+                <button type="button" id="btnEchoTap" class="echo-tap-knob" onclick="tapTempoEcho()" title="TAP TEMPO: bata 2 ou mais vezes no ritmo pra marcar o tempo do eco"><span class="echo-tap-miolo"></span></button>
+                <label class="echo-tap-lbl">TAP TEMPO</label>
             </div>
         </div>
         </div><!-- /.rack-face -->
@@ -1643,6 +1726,9 @@
     let crossGainA, crossGainB, masterGain, filterA, filterB, hpA, hpB;
     let bassBoostNode = null;
     let bassBoostActive = false;
+    let tremeBoostNode = null; /* TREMEDEIRA: low-shelf extra somado ao BASS BOOST */
+    let tremeAtivo = false;
+    let tremeAlvos = null, tremeElFoiLigado = false;
     const BASS_BOOST_DB = 12;
     let fSubLP, fBassHP, fBassLP, fLMHP, fLMLP, fHMHP, fHMLP, fHighHP;
     let gSub, gBass, gLM, gHM, gHigh;
@@ -1655,6 +1741,7 @@
     let masterAnalyserL, masterAnalyserR, masterSplitter;
 
     let masterDelayNode, masterFBNode, masterWetGainNode, masterFilterNode, masterDelaySum, masterDryGain;
+    let masterInGain = null, masterToneBass = null, masterToneTreble = null;
     let masterReverbNode = null, masterReverbWet = null;
     let masterDelayParams = { dTime: 0.375, dFB: 0.4, dDry: 1.0, dWet: 0.0 };
     let masterReverbParams = { wet: 0.0 };
@@ -1750,8 +1837,14 @@
             masterFilterNode = audioCtx.createBiquadFilter(); masterFilterNode.type = 'lowpass'; masterFilterNode.frequency.value = 3000;
             masterDryGain = audioCtx.createGain(); masterDryGain.gain.value = masterDelayParams.dDry; masterDelaySum = audioCtx.createGain();
 
-            midHighSum.connect(masterDryGain); midHighSum.connect(masterDelayNode); masterDelayNode.connect(masterFilterNode);
-            masterFilterNode.connect(masterFBNode); masterFBNode.connect(masterDelayNode); masterFilterNode.connect(masterWetGainNode);
+            /* Painel SPACE ECHO: entrada (INPUT VOL) + EQ do eco (BASS/TREBLE) no caminho do efeito */
+            masterInGain = audioCtx.createGain(); masterInGain.gain.value = 1.0;
+            masterToneBass = audioCtx.createBiquadFilter(); masterToneBass.type = 'lowshelf'; masterToneBass.frequency.value = 320;
+            masterToneTreble = audioCtx.createBiquadFilter(); masterToneTreble.type = 'highshelf'; masterToneTreble.frequency.value = 2200;
+
+            midHighSum.connect(masterDryGain); midHighSum.connect(masterInGain); masterInGain.connect(masterDelayNode); masterDelayNode.connect(masterFilterNode);
+            masterFilterNode.connect(masterFBNode); masterFBNode.connect(masterDelayNode);
+            masterFilterNode.connect(masterToneBass); masterToneBass.connect(masterToneTreble); masterToneTreble.connect(masterWetGainNode);
             masterDryGain.connect(masterDelaySum); masterWetGainNode.connect(masterDelaySum); masterDelaySum.connect(masterGain);
             /* REVERB DE MOLA: convolver em paralelo, depois do delay da musica */
             masterReverbNode = audioCtx.createConvolver(); masterReverbNode.buffer = createSpringReverbIR(audioCtx);
@@ -1794,9 +1887,16 @@
             bassBoostNode.type = 'lowshelf';
             bassBoostNode.frequency.value = 110;
             bassBoostNode.gain.value = 0;
+            /* TREMEDEIRA: um low-shelf extra (+12 dB abaixo de 110 Hz) somado ao BASS
+               BOOST, simulando o peso das caixas tremendo. Os VUs medem depois dele. */
+            tremeBoostNode = audioCtx.createBiquadFilter();
+            tremeBoostNode.type = 'lowshelf';
+            tremeBoostNode.frequency.value = 110;
+            tremeBoostNode.gain.value = 0;
             masterGain.connect(bassBoostNode);
-            bassBoostNode.connect(audioCtx.destination);
-            bassBoostNode.connect(masterSplitter);
+            bassBoostNode.connect(tremeBoostNode);
+            tremeBoostNode.connect(audioCtx.destination);
+            tremeBoostNode.connect(masterSplitter);
             masterSplitter.connect(masterAnalyserL, 0);
             masterSplitter.connect(masterAnalyserR, 1);
             masterAnalyserL.connect(vuSinkMudo);
@@ -1993,6 +2093,57 @@
         cont.addEventListener('pointercancel', soltar);
     })();
 
+    /* ===== RACK MASTER TAPE DELAY / SPACE ECHO (Roland RE-201) =====
+       EFFECT liga/desliga o eco; DIRECT liga/desliga o som direto (seco); MODE
+       SELECTOR muda o tempo do eco (12 combos); BASS/TREBLE equalizam o eco;
+       INPUT VOL é a entrada; TAP TEMPO marca o tempo do eco batendo. */
+    let echoEfeitoLigado = true, echoDirectLigado = true, echoModo = 1;
+    let echoTaps = [], echoUltimoTap = 0;
+    const ECHO_MODO_FATORES = [1, 0.5, 0.75, 2/3, 1.25, 1.5, 2, 2.5, 1/3, 3, 4, 1/4];
+    function tempoEfetivoEcho() {
+        let f = ECHO_MODO_FATORES[echoModo - 1] || 1;
+        return Math.min(4.9, Math.max(0.02, masterDelayParams.dTime * f));
+    }
+    function aplicarTempoEcho() {
+        let t = tempoEfetivoEcho();
+        if (masterDelayNode) masterDelayNode.delayTime.value = t;
+        let l = document.getElementById('lblMDTime'); if (l) l.innerText = t.toFixed(3);
+    }
+    function atualizarEfeitoEcho() {
+        if (masterWetGainNode) masterWetGainNode.gain.value = echoEfeitoLigado ? masterDelayParams.dWet : 0;
+        if (masterReverbWet) masterReverbWet.gain.value = echoEfeitoLigado ? masterReverbParams.wet : 0;
+    }
+    function atualizarDirectEcho() {
+        if (masterDryGain) masterDryGain.gain.value = echoDirectLigado ? masterDelayParams.dDry : 0;
+    }
+    function toggleEchoEffect() {
+        echoEfeitoLigado = !echoEfeitoLigado;
+        let b = document.getElementById('btnEchoEffect'); if (b) b.setAttribute('aria-pressed', String(echoEfeitoLigado));
+        atualizarEfeitoEcho();
+    }
+    function toggleEchoDirect() {
+        echoDirectLigado = !echoDirectLigado;
+        let b = document.getElementById('btnEchoDirect'); if (b) b.setAttribute('aria-pressed', String(echoDirectLigado));
+        let led = document.getElementById('ledEchoDirect'); if (led) led.classList.toggle('ligado', echoDirectLigado);
+        atualizarDirectEcho();
+    }
+    function tapTempoEcho() {
+        if (!audioCtx) return;
+        let agora = performance.now();
+        if (agora - echoUltimoTap > 2000) echoTaps = [];
+        echoUltimoTap = agora;
+        echoTaps.push(agora);
+        let b = document.getElementById('btnEchoTap');
+        if (b) { b.classList.add('batendo'); setTimeout(() => b.classList.remove('batendo'), 130); }
+        if (echoTaps.length < 2) return;
+        let soma = 0; for (let i = 1; i < echoTaps.length; i++) soma += (echoTaps[i] - echoTaps[i-1]);
+        let medio = soma / (echoTaps.length - 1) / 1000;
+        masterDelayParams.dTime = Math.min(1.2, Math.max(0.05, medio));
+        if (knobs['knobMasterDTime']) knobs['knobMasterDTime'].setValue((masterDelayParams.dTime - 0.05) / 1.15);
+        else aplicarTempoEcho();
+        if (echoTaps.length > 5) echoTaps = echoTaps.slice(-2);
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         setBgMode('light');
         /* Acerta a barra de pedais e o modo compacto com o estado que veio do HTML
@@ -2166,8 +2317,10 @@
         let noise = audioCtx.createBufferSource(); noise.buffer = buffer; let filt = audioCtx.createBiquadFilter(); filt.type = 'lowpass'; filt.frequency.value = 1200;
         let g = audioCtx.createGain(); g.gain.setValueAtTime(0.8, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
         noise.connect(filt); filt.connect(g);
-        if (masterWetGainNode) masterWetGainNode.gain.setValueAtTime(0.2, now);
-        if (masterDelayNode) g.connect(masterDelayNode); if (masterDryGain) g.connect(masterDryGain); g.connect(masterGain);
+        /* O pop da agulha so ecoa se o ECHO VOLUME estiver ligado (antes ele forcava
+           o eco em 20% e a musica voltava com delay mesmo com o WET em 0%) */
+        if (masterInGain) g.connect(masterInGain); else if (masterDelayNode) g.connect(masterDelayNode);
+        if (masterDryGain) g.connect(masterDryGain); g.connect(masterGain);
         noise.start(now);
     }
 
@@ -2240,6 +2393,18 @@
         if (bassBoostNode) bassBoostNode.gain.value = bassBoostActive ? BASS_BOOST_DB : 0;
         const b = document.getElementById('btnBassBoost');
         if (b) { b.classList.toggle('active', bassBoostActive); b.setAttribute('aria-pressed', bassBoostActive ? 'true' : 'false'); }
+    }
+    /* TREMEDEIRA: bass boost extra + todas as caixas (gabinete e racks) tremendo no
+       ritmo dos graves. O áudio é um low-shelf somável ao BASS BOOST; o tremor é
+       visual e roda no loop dos VUs (trackVUs), seguindo o nível de SUB + BASS. */
+    function toggleTremedeira() {
+        unlockAudioContext();
+        tremeAtivo = !tremeAtivo;
+        if (tremeBoostNode) tremeBoostNode.gain.value = tremeAtivo ? BASS_BOOST_DB : 0;
+        const b = document.getElementById('btnTreme');
+        if (b) { b.classList.toggle('active', tremeAtivo); b.setAttribute('aria-pressed', tremeAtivo ? 'true' : 'false'); }
+        document.body.classList.toggle('treme-ativo', tremeAtivo);
+        if (!tremeAtivo && tremeAlvos) for (let i = 0; i < tremeAlvos.length; i++) tremeAlvos[i].style.transform = '';
     }
     function toggleKill(band) { killState[band] = !killState[band]; let btnID = 'kill' + band.charAt(0).toUpperCase() + band.slice(1); if(band === 'lm') btnID = 'killLm'; if(band === 'hm') btnID = 'killHm'; document.getElementById(btnID).classList.toggle('active', killState[band]); if (band === 'sub' || band === 'bass') { bassSubKillAtivo = killState.sub && killState.bass; let bb = document.getElementById('btnBassSubKill'); if (bb) bb.classList.toggle('active', bassSubKillAtivo); } updateCrossover(); }
     let bassSubKillAtivo = false;
@@ -2366,6 +2531,25 @@
            ficam depois dos ganhos do kill, então KILL nos graves apaga a luz. */
         if (!vuPairEl) vuPairEl = document.querySelector('.vu-pair');
         if (vuPairEl) vuPairEl.style.setProperty('--vu-glow', Math.min(1, 0.18 + (nivelSub * 0.9 + nivelBass * 0.9) * 1.6).toFixed(3));
+        /* TREMEDEIRA: cada caixa (gabinete + racks) vibra junto com os graves.
+           A amplitude acompanha o nível de SUB + BASS; desligado, tudo volta ao lugar. */
+        if (tremeAtivo) {
+            if (!tremeAlvos) tremeAlvos = Array.prototype.slice.call(document.querySelectorAll('#modulosExternos > .mixer-chassis, #modulosExternos > .rack-externo'));
+            const forca = Math.min(1, nivelSub + nivelBass);
+            const a = 0.7 + (forca * 2.9);
+            const dx = ((Math.random() * 2 - 1) * a * 0.7).toFixed(2);
+            const dy = ((Math.random() * 2 - 1) * a * 0.6).toFixed(2);
+            const rt = ((Math.random() * 2 - 1) * a * 0.045).toFixed(3);
+            for (let i = 0; i < tremeAlvos.length; i++) {
+                const el = tremeAlvos[i];
+                if (el.classList.contains('arrastando')) continue;
+                el.style.transform = 'translate(' + dx + 'px, ' + dy + 'px) rotate(' + rt + 'deg)';
+            }
+            tremeElFoiLigado = true;
+        } else if (tremeElFoiLigado) {
+            if (tremeAlvos) for (let i = 0; i < tremeAlvos.length; i++) tremeAlvos[i].style.transform = '';
+            tremeElFoiLigado = false;
+        }
         requestAnimationFrame(trackVUs);
     }
 
@@ -2423,11 +2607,16 @@
         knobs['knobSirenDTime'] = new Knob('knobSirenDTime', (0.375-0.05)/1.15, val => { sirenParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblSDTime').innerText = sirenParams.dTime.toFixed(3); if (sirenDelayNode) sirenDelayNode.delayTime.value = sirenParams.dTime; });
         knobs['knobSirenDFB'] = new Knob('knobSirenDFB', 0.4 / 0.9, val => { sirenParams.dFB = val * 0.9; document.getElementById('lblSDFB').innerText = Math.round(sirenParams.dFB * 100); if (sirenFBNode) sirenFBNode.gain.value = sirenParams.dFB; });
         knobs['knobSirenDWet'] = new Knob('knobSirenDWet', 0.3, val => { sirenParams.dWet = val; document.getElementById('lblSDWet').innerText = Math.round(val * 100); if (sirenWetGainNode) sirenWetGainNode.gain.value = val; });
-        knobs['knobMasterDTime'] = new Knob('knobMasterDTime', (0.375-0.05)/1.15, val => { masterDelayParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblMDTime').innerText = masterDelayParams.dTime.toFixed(3); if (masterDelayNode) masterDelayNode.delayTime.value = masterDelayParams.dTime; });
+        knobs['knobMasterDTime'] = new Knob('knobMasterDTime', (0.375-0.05)/1.15, val => { masterDelayParams.dTime = 0.05 + (val * 1.15); aplicarTempoEcho(); });
         knobs['knobMasterDFB'] = new Knob('knobMasterDFB', 0.4 / 0.9, val => { masterDelayParams.dFB = val * 0.9; document.getElementById('lblMDFB').innerText = Math.round(masterDelayParams.dFB * 100); if (masterFBNode) masterFBNode.gain.value = masterDelayParams.dFB; });
-        knobs['knobMasterDDry'] = new Knob('knobMasterDDry', 1.0, val => { masterDelayParams.dDry = val; document.getElementById('lblMDDry').innerText = Math.round(val * 100); if (masterDryGain) masterDryGain.gain.value = val; });
-        knobs['knobMasterDWet'] = new Knob('knobMasterDWet', 0.0, val => { masterDelayParams.dWet = val; document.getElementById('lblMDWet').innerText = Math.round(val * 100); if (masterWetGainNode) masterWetGainNode.gain.value = val; });
-        knobs['knobMasterReverb'] = new Knob('knobMasterReverb', 0.0, val => { masterReverbParams.wet = val; document.getElementById('lblMDReverb').innerText = Math.round(val * 100); if (masterReverbWet) masterReverbWet.gain.value = val; });
+        knobs['knobMasterDDry'] = new Knob('knobMasterDDry', 1.0, val => { masterDelayParams.dDry = val; document.getElementById('lblMDDry').innerText = Math.round(val * 100); atualizarDirectEcho(); });
+        knobs['knobMasterDWet'] = new Knob('knobMasterDWet', 0.0, val => { masterDelayParams.dWet = val; document.getElementById('lblMDWet').innerText = Math.round(val * 100); atualizarEfeitoEcho(); });
+        knobs['knobMasterReverb'] = new Knob('knobMasterReverb', 0.0, val => { masterReverbParams.wet = val; document.getElementById('lblMDReverb').innerText = Math.round(val * 100); atualizarEfeitoEcho(); });
+        /* Painel SPACE ECHO: INPUT VOL, MODE SELECTOR, BASS e TREBLE */
+        knobs['knobEchoInput'] = new Knob('knobEchoInput', 2/3, val => { if (masterInGain) masterInGain.gain.value = val * 1.5; });
+        knobs['knobEchoBass'] = new Knob('knobEchoBass', 0.5, val => { if (masterToneBass) masterToneBass.gain.value = -12 + (val * 24); });
+        knobs['knobEchoTreble'] = new Knob('knobEchoTreble', 0.5, val => { if (masterToneTreble) masterToneTreble.gain.value = -12 + (val * 24); });
+        knobs['knobEchoMode'] = new Knob('knobEchoMode', 0.0, val => { echoModo = 1 + Math.round(val * 11); let l = document.getElementById('lblEchoMode'); if (l) l.innerText = echoModo; aplicarTempoEcho(); });
         knobs['knobIsoSub'] = new Knob('knobIsoSub', 0.5, val => { isoVal.sub = val * 2; updateCrossover(); });
         knobs['knobIsoBass'] = new Knob('knobIsoBass', 0.5, val => { isoVal.bass = val * 2; updateCrossover(); });
         knobs['knobIsoLM'] = new Knob('knobIsoLM', 0.5, val => { isoVal.lm = val * 2; updateCrossover(); });
@@ -2480,7 +2669,7 @@
         if (typeof MediaRecorder === 'undefined') { ioStatus('Este navegador não suporta gravação.', 'var(--status-err)'); return; }
 
         // Deriva o master para um destino de gravação (mesmo ponto que vai para os alto-falantes)
-        if (!recDest) { recDest = audioCtx.createMediaStreamDestination(); bassBoostNode.connect(recDest); }
+        if (!recDest) { recDest = audioCtx.createMediaStreamDestination(); (tremeBoostNode ? tremeBoostNode : bassBoostNode).connect(recDest); }
 
         const tipos = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'];
         const tipo = tipos.find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
@@ -2591,27 +2780,36 @@
                 const gg = off.createGain(); gg.gain.value = b.ganho; no.connect(gg); gg.connect(b.destino);
             });
 
-            // --- MASTER TAPE DELAY (só mid/high; graves passam direto) ---
-            const dry = off.createGain(); dry.gain.value = masterDelayParams.dDry;
-            const dly = off.createDelay(5.0); dly.delayTime.value = masterDelayParams.dTime;
+            // --- MASTER TAPE DELAY / SPACE ECHO (só mid/high; graves passam direto) ---
+            const inG = off.createGain(); inG.gain.value = masterInGain ? masterInGain.gain.value : 1.0;
+            const dry = off.createGain(); dry.gain.value = echoDirectLigado ? masterDelayParams.dDry : 0;
+            const dly = off.createDelay(5.0); dly.delayTime.value = tempoEfetivoEcho();
             const fb = off.createGain(); fb.gain.value = masterDelayParams.dFB;
-            const wet = off.createGain(); wet.gain.value = masterDelayParams.dWet;
+            const wet = off.createGain(); wet.gain.value = echoEfeitoLigado ? masterDelayParams.dWet : 0;
             const flt = off.createBiquadFilter(); flt.type = 'lowpass'; flt.frequency.value = 3000;
+            const toneB = off.createBiquadFilter(); toneB.type = 'lowshelf'; toneB.frequency.value = 320;
+            toneB.gain.value = masterToneBass ? masterToneBass.gain.value : 0;
+            const toneT = off.createBiquadFilter(); toneT.type = 'highshelf'; toneT.frequency.value = 2200;
+            toneT.gain.value = masterToneTreble ? masterToneTreble.gain.value : 0;
             const dsum = off.createGain();
-            midHigh.connect(dry); midHigh.connect(dly); dly.connect(flt);
-            flt.connect(fb); fb.connect(dly); flt.connect(wet);
+            midHigh.connect(dry); midHigh.connect(inG); inG.connect(dly); dly.connect(flt);
+            flt.connect(fb); fb.connect(dly);
+            flt.connect(toneB); toneB.connect(toneT); toneT.connect(wet);
             dry.connect(dsum); wet.connect(dsum);
             // --- REVERB DE MOLA (em paralelo, depois do delay) ---
             const revNode = off.createConvolver(); revNode.buffer = createSpringReverbIR(off);
-            const revWet = off.createGain(); revWet.gain.value = masterReverbParams.wet;
+            const revWet = off.createGain(); revWet.gain.value = echoEfeitoLigado ? masterReverbParams.wet : 0;
             dsum.connect(revNode); revNode.connect(revWet); revWet.connect(mg);
             dsum.connect(mg);
 
-            // --- BASS BOOST antes da saída ---
+            // --- BASS BOOST + TREMEDEIRA antes da saída ---
             const boost = off.createBiquadFilter();
             boost.type = 'lowshelf'; boost.frequency.value = 110;
             boost.gain.value = bassBoostActive ? BASS_BOOST_DB : 0;
-            mg.connect(boost); boost.connect(off.destination);
+            const boost2 = off.createBiquadFilter();
+            boost2.type = 'lowshelf'; boost2.frequency.value = 110;
+            boost2.gain.value = tremeAtivo ? BASS_BOOST_DB : 0;
+            mg.connect(boost); boost.connect(boost2); boost2.connect(off.destination);
 
             const renderizado = await off.startRendering();
             baixarBlob(wavDoBuffer(renderizado), 'dub-convertido-' + carimbo() + '.wav');
