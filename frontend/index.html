@@ -606,7 +606,7 @@
                 repeating-linear-gradient(90deg, rgba(255,255,255,0.016) 0 1px, rgba(0,0,0,0.02) 1px 3px),
                 linear-gradient(180deg, rgba(255,255,255,0.10), rgba(0,0,0,0.28)),
                 var(--metal-panel);
-            border: 4px solid var(--border-outer); border-radius: 14px; padding: 22px 18px; max-width: min(1560px, 100%); width: 100%; box-sizing: border-box;
+            border: 4px solid var(--border-outer); border-radius: 14px; padding: 22px 18px; max-width: min(1560px, 100%); width: 100%; box-sizing: border-box; margin: 0 auto;
             box-shadow: 0 30px 60px rgba(0,0,0,0.95), 0 6px 14px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,255,0.12), inset 0 -4px 10px rgba(0,0,0,0.9); position: relative;
             border-left: 26px solid #14171b; border-right: 26px solid #14171b;
             transition: background 0.3s ease, border-color 0.3s ease;
@@ -1100,9 +1100,10 @@
         input[type="file"]::file-selector-button { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.58rem; font-weight: 700; padding: 4px 8px; margin-right: 6px; border-radius: 4px; border: 2px solid var(--btn-border); background: var(--btn-bg); color: var(--btn-text); cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15); }
         #statusA, #statusB { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.6rem; margin: 2px 0; }
 
-        /* ===== MODO EDICAO: reordenar os modulos externos (sirene, crossover, synare) =====
+        /* ===== MODO EDICAO: reordenar os modulos (inclusive o DUB MIXER SOUND SYSTEM) =====
            A barra de cada modulo so aparece com o modo ligado; as setas ▲▼ trocam a ordem.
-           A ordem fica salva no navegador. */
+           No modo edicao os knobs/botoes/faders continuam funcionando; o arraste comeca
+           fora dos controles. A ordem fica salva no navegador. */
         .modulo-barra {
             display: none; align-items: center; justify-content: center; gap: 10px;
             margin: 0 0 6px; padding: 5px 10px;
@@ -1120,114 +1121,28 @@
         }
         .modulo-btn:active { transform: translateY(1px); }
         .modulo-btn[disabled] { opacity: 0.25; cursor: default; }
+        #modulosExternos { width: 100%; }
         body.modo-edicao #modulosExternos > .rack-externo,
         body.modo-edicao #modulosExternos > .synare-externo {
             outline: 2px dashed rgba(243,198,83,0.55); outline-offset: 4px; border-radius: 10px;
             cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none;
         }
+        /* O DUB MIXER inteiro tambem entra na ordem do modo edicao (sem trocar o cursor
+           de dentro do painel, pra nao atrapalhar knobs/botoes/faders) */
+        body.modo-edicao #modulosExternos > .mixer-chassis {
+            outline: 2px dashed rgba(243,198,83,0.55); outline-offset: 4px; border-radius: 10px;
+            touch-action: none; -webkit-user-select: none; user-select: none;
+        }
         body.modo-edicao #modulosExternos > .rack-externo.arrastando,
-        body.modo-edicao #modulosExternos > .synare-externo.arrastando {
+        body.modo-edicao #modulosExternos > .synare-externo.arrastando,
+        body.modo-edicao #modulosExternos > .mixer-chassis.arrastando {
             cursor: grabbing; outline-style: solid; outline-color: var(--gold); opacity: 0.92;
             box-shadow: 0 18px 40px rgba(0,0,0,0.55);
         }
-        body.modo-edicao .modulo-barra::after { content: '· ou arraste o equipamento pra cima/baixo ↕'; font-size: 0.5rem; letter-spacing: 0.5px; opacity: 0.75; }
+        body.modo-edicao .modulo-barra::after { content: '· arraste o equipamento (fora dos controles) pra cima/baixo ↕'; font-size: 0.5rem; letter-spacing: 0.5px; opacity: 0.75; }
         /* DISCO REVERSO ligado: botão fica vermelho aceso */
         .btn-reverso.active { background: linear-gradient(180deg, #b91c1c, #7f1414); color: #fff; border-color: #f4d03f; box-shadow: 0 0 10px rgba(244,208,63,0.45); }
 
-        /* ===== ABA PREAMP: visual do pré-amp analógico clássico (face PRATA) =====
-           Sobrepõe o tema escolhido: painel de alumínio escovado, tinta preta,
-           knobs pretos no isolator + de alumínio nos canais, KILL vira chave com
-           LED e fileira de frequências 40HZ-16K.
-           É só visual — todas as funções continuam iguais. */
-        body.look-preamp {
-            --bg-body: #26251f;
-            --metal-panel: linear-gradient(180deg, #ecebe7 0%, #d6d5d1 46%, #bfbeb9 100%);
-            --border-outer: #55534d;
-            --border-metal: #8f8f8b;
-            --gold: #1f1e1b;
-            --section-bg: linear-gradient(180deg, #f1f2f4, #d9dbde);
-            --text-color: #1d1c19;
-            --sub-text: #4c4a44;
-            --surface: rgba(0,0,0,0.06);
-            --surface-strong: rgba(0,0,0,0.14);
-            --hairline: rgba(0,0,0,0.22);
-            --btn-bg: linear-gradient(180deg, #f6f6f4 0%, #cfcfcc 100%);
-            --btn-text: #1d1c19;
-            --btn-border: #7d7d79;
-            --input-bg: rgba(255,255,255,0.7);
-            --input-text: #1d1c19;
-            --input-border: #8f8f8b;
-            --on-gold: #f6f4ee;
-            --toolbar-bg: rgba(216,216,213,0.92);
-            --toolbar-text: #1d1c19;
-            --toolbar-border: rgba(0,0,0,0.28);
-            --screw-color: rgba(0,0,0,0.38);
-            --status-ok: #1e4d1e;
-            --status-info: #1f3d5c;
-            --status-warn: #6b4a05;
-            --status-err: #7a1d1d;
-            --knob-base: radial-gradient(circle at 35% 32%, #3d3d40 0%, #1d1d1f 55%, #0c0c0e 100%);
-            --knob-border: #0a0a0c;
-            --knob-indicator: #efece2;
-        }
-        /* Canônicos de alumínio nos canais, como no pré-amp prata */
-        body.look-preamp #knobVolA, body.look-preamp #knobPanA, body.look-preamp #knobSweepA,
-        body.look-preamp #knobVolB, body.look-preamp #knobPanB, body.look-preamp #knobSweepB {
-            background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e6e6e3 42%, #cbcbc8 74%, #ababa7 100%);
-            border-color: #6e6e6a;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4), inset 0 3px 4px rgba(255,255,255,0.85), inset 0 -4px 6px rgba(0,0,0,0.35);
-            --knob-indicator: #131313;
-        }
-        /* Cabeçalho e caixas com tinta preta sobre o metal claro */
-        body.look-preamp .mixer-header { background: rgba(0,0,0,0.05); border-top: 1px solid rgba(255,255,255,0.75); border-bottom: 2px solid #8f8f8b; box-shadow: inset 0 2px 5px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,0.6); }
-        body.look-preamp .mixer-header h2, body.look-preamp .mixer-header p { text-shadow: none; }
-        body.look-preamp .section-box, body.look-preamp .band-box { border-color: #9a9a96; box-shadow: inset 0 1px 2px rgba(255,255,255,0.7), 0 2px 5px rgba(0,0,0,0.22); }
-        body.look-preamp .led-tower { background: #14161a; border-color: #6e6e6a; }
-        /* Módulos de rack também ficam prata na aba PREAMP */
-        body.look-preamp .section-box.rack-unit { --text-color: #1d1c19; --gold: #1f1e1b;
-            background: linear-gradient(180deg, #eaeae7 0, #cdcdc9 5%, #bcbcb8 50%, #cdcdc9 95%, #eaeae7 100%);
-            border-color: #55534d;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.35), inset 0 0 26px rgba(0,0,0,0.08), 0 9px 20px rgba(0,0,0,0.35); }
-        body.look-preamp .rack-ear { background: linear-gradient(90deg, #a9a9a5, #dcdcd8 45%, #c2c2be 65%, #999995); }
-        /* Orelhas do gabinete também ficam claras */
-        body.look-preamp .mixer-chassis { border-left-color: #7d7c77; border-right-color: #7d7c77; }
-        body.look-preamp .mixer-chassis::before { background-image:
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                linear-gradient(90deg, #b6b6b2 0, #e8e8e5 42%, #cbcbc8 68%, #a4a4a0 100%); }
-        body.look-preamp .mixer-chassis::after { background-image:
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                linear-gradient(270deg, #b6b6b2 0, #e8e8e5 42%, #cbcbc8 68%, #a4a4a0 100%); }
-        /* KILL vira chave (toggle) preta da fileira do pré-amp, com LED por cima */
-        body.look-preamp .btn-kill {
-            width: 24px; height: 40px; font-size: 0; line-height: 1; margin: 6px auto 0; padding: 0; position: relative;
-            background: linear-gradient(180deg, #dcdcd8, #b4b4b0); border: 1px solid #6a6a66; border-radius: 5px;
-            box-shadow: inset 0 1px 0 #fff, 0 1px 3px rgba(0,0,0,0.35); opacity: 1;
-        }
-        body.look-preamp .btn-kill::before {
-            content: ''; position: absolute; left: 50%; top: 3px; width: 14px; height: 20px; margin-left: -7px;
-            border-radius: 4px 4px 6px 6px; background: linear-gradient(180deg, #353538, #0e0e10);
-            box-shadow: inset 0 2px 2px rgba(255,255,255,0.18), 0 2px 3px rgba(0,0,0,0.5); transition: transform 0.08s ease, background 0.08s ease;
-        }
-        body.look-preamp .btn-kill::after {
-            content: ''; position: absolute; left: 50%; top: -9px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%;
-            background: #4a0808; border: 1px solid rgba(0,0,0,0.35); transition: background 0.1s ease, box-shadow 0.1s ease;
-        }
-        body.look-preamp .btn-kill.active { border-color: #8a1a1a; }
-        body.look-preamp .btn-kill.active::before { transform: translateY(10px); background: linear-gradient(180deg, #8f1d1d, #4a0808); }
-        body.look-preamp .btn-kill.active::after { background: #ff3b30; box-shadow: 0 0 7px rgba(255,59,48,0.95); }
-        /* Fileira de frequências (40HZ-16K) embaixo do isolator — só na aba PREAMP */
-        .preamp-freq-row { display: none; }
-        body.look-preamp .preamp-freq-row {
-            display: flex; justify-content: space-between; align-items: flex-end; margin: 2px 6px 0;
-            padding: 2px 2px 0; border-top: 2px solid #8f8f8b; color: #33322e; font-size: 0.5rem;
-            font-weight: 700; letter-spacing: 0.5px; text-shadow: none;
-        }
-        body.look-preamp .preamp-freq-row span { position: relative; padding-top: 5px; }
-        body.look-preamp .preamp-freq-row span::before {
-            content: ''; position: absolute; top: -2px; left: 50%; width: 1px; height: 4px; background: #33322e; opacity: 0.75;
-        }
     </style>
 </head>
 <body class="theme-dub bg-light modo-rack">
@@ -1263,10 +1178,7 @@
         <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
     </div>
     <div class="segmented" role="group" aria-label="Edição dos módulos">
-        <button type="button" id="btnEditar" onclick="toggleEdicao()" title="Liga o modo edição: arraste o equipamento pra cima/baixo (ou use as setas ▲▼) pra mudar a ordem" aria-pressed="false">✥ EDITAR</button>
-    </div>
-    <div class="segmented" role="group" aria-label="Visual preamp">
-        <button type="button" id="btnPreamp" onclick="togglePreamp()" title="Visual do pré-amp analógico clássico: painel preto, texto branco e knobs creme (não muda nenhuma função)" aria-pressed="false">🎛 PREAMP</button>
+        <button type="button" id="btnEditar" onclick="toggleEdicao()" title="Liga o modo edição: arraste o equipamento (o DUB MIXER e os módulos) pra cima/baixo — segure fora dos controles; as setas ▲▼ também mudam a ordem. No modo edição knobs, botões e faders continuam funcionando" aria-pressed="false">✥ EDITAR</button>
     </div>
     <div class="toolbar-group">
         <span class="toolbar-label">Pedais</span>
@@ -1277,8 +1189,9 @@
     </div>
 </div>
 
-<div class="chassis-stage">
-<div class="mixer-chassis">
+<div id="modulosExternos">
+<div class="mixer-chassis" id="modMixer">
+    <div class="modulo-barra"><span class="modulo-nome">🎛 DUB MIXER SOUND SYSTEM</span><button type="button" class="modulo-btn" onclick="moverModulo('modMixer',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('modMixer',1)" title="Mover para baixo">▼</button></div>
     <div class="mixer-header">
         <h2>DUB MIXER SOUND SYSTEM</h2>
         <p>5-WAY ANALOGUE CROSSOVER & PREAMP</p>
@@ -1303,7 +1216,7 @@
                     <progress id="progA" value="0" max="100" onclick="seekAudio(event, 'A')"></progress>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('A')">📀 TIRAR AGULHA</button>
-                        <button id="btnReversoA" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('A')" title="Backspin 2.5x (velocidade real): puxa o disco pra trás — a música fica voltando em 2,5x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
+                        <button id="btnReversoA" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('A')" title="Backspin 0.5x: puxa o disco pra trás — a música fica voltando em 0,5x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
                     </div>
                 </div>
 
@@ -1426,7 +1339,7 @@
                     <progress id="progB" value="0" max="100" onclick="seekAudio(event, 'B')"></progress>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('B')">📀 TIRAR AGULHA</button>
-                        <button id="btnReversoB" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('B')" title="Backspin 2.5x (velocidade real): puxa o disco pra trás — a música fica voltando em 2,5x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
+                        <button id="btnReversoB" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('B')" title="Backspin 0.5x: puxa o disco pra trás — a música fica voltando em 0,5x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
                     </div>
                 </div>
 
@@ -1458,10 +1371,7 @@
 
 </div>
 
-</div>
-
-<!-- ===== MODULOS EXTERNOS: racks moviveis no MODO EDICAO (ordem escolhida pelo usuario) ===== -->
-<div id="modulosExternos">
+<!-- ===== MODULOS EXTERNOS: o DUB MIXER SOUND SYSTEM e os racks, na ordem escolhida no MODO EDICAO ===== -->
 
 <!-- ===== SIREN GENERATOR — MÓDULO DE RACK 19" (fora do gabinete, embaixo dele) =====
      Largura alinhada ao gabinete, como um equipamento de rack separado sobre a mesa. -->
@@ -1613,11 +1523,6 @@
             </div>
         </div>
 
-        <!-- Fileira de frequências do isolator (aparece na aba PREAMP) -->
-        <div class="preamp-freq-row" aria-hidden="true">
-            <span>40HZ</span><span>80</span><span>150</span><span>300</span><span>600</span><span>1.2K</span><span>2.4K</span><span>4.8K</span><span>8K</span><span>16K</span>
-        </div>
-
         <!-- MASTER TAPE DELAY (MÚSICA) — dentro da mesma caixa do crossover -->
         <div class="master-tape-dentro">
             <div class="master-tape-titulo">MASTER TAPE DELAY (MÚSICA - GRAVES ISENTOS)</div>
@@ -1701,7 +1606,7 @@
                     </div>
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobSynVol"><div class="knob-indicator"></div></div>
-                        <label style="color:var(--gold);">VOL: <span id="lblSynVol">40</span>%</label>
+                        <label style="color:var(--gold);">VOL: <span id="lblSynVol">18</span>%</label>
                     </div>
                 </div>
 
@@ -1764,7 +1669,7 @@
     /* ===== SYNARE / SPACE DRUM (tambor analogico com delay proprio) ===== */
     let synDelayNode, synFBNode, synWetGainNode, synFilterNode;
     let synNoiseBuf = null;
-    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.4, dTime: 0.30, dFB: 0.45, dWet: 0.35 };
+    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.18, dTime: 0.30, dFB: 0.45, dWet: 0.35 };
 
     const sirenPresets = {
         1: { pitch: 900, rate: 12.0, wave: 'sawtooth' },
@@ -1999,8 +1904,10 @@
     }
 
     /* ===== MODO EDICAO: mover os modulos na ordem que quiser =====
-       Botao na barra (ao lado do Claro/Noturno). Cada modulo ganha uma barra com
-       setas ▲▼; a ordem fica salva no navegador e volta ao abrir de novo. */
+       Botao na barra (ao lado do Claro/Noturno). Cada modulo — inclusive o proprio
+       DUB MIXER SOUND SYSTEM — ganha uma barra com setas ▲▼; a ordem fica salva no
+       navegador e volta ao abrir de novo. No modo edicao os knobs, botoes e faders
+       continuam funcionando; o arraste comeca fora dos controles. */
     function toggleEdicao() {
         let on = !document.body.classList.contains('modo-edicao');
         document.body.classList.toggle('modo-edicao', on);
@@ -2011,7 +1918,7 @@
     function modulosMoviveis() {
         let cont = document.getElementById('modulosExternos');
         if (!cont) return [];
-        return Array.from(cont.children).filter(c => c.classList && (c.classList.contains('rack-externo') || c.classList.contains('synare-externo')));
+        return Array.from(cont.children).filter(c => c.classList && (c.classList.contains('rack-externo') || c.classList.contains('synare-externo') || c.classList.contains('mixer-chassis')));
     }
     function moverModulo(id, dir) {
         let cont = document.getElementById('modulosExternos'); if (!cont) return;
@@ -2044,8 +1951,9 @@
     }
 
     /* Arrastar o equipamento pra cima/baixo pra trocar a ordem (so no modo edicao).
-       Segura em qualquer parte do modulo (menos botoes/controles) e puxa o mouse
-       ou o dedo; a ordem fica salva igual as setas ▲▼. */
+       Segura numa parte livre do painel (fora de botoes/knobs/faders — no modo edicao
+       eles continuam funcionando) e puxa o mouse ou o dedo; vale tambem pro DUB MIXER
+       inteiro. A ordem fica salva igual as setas ▲▼. */
     (function ligarArrastarModulos() {
         let cont = document.getElementById('modulosExternos'); if (!cont) return;
         let arrastando = null, yInicial = 0, comecou = false;
@@ -2053,8 +1961,8 @@
             if (!document.body.classList.contains('modo-edicao')) return;
             if (!e.target || !e.target.closest) return;
             if (e.pointerType === 'mouse' && e.button !== 0) return;
-            if (e.target.closest('button, input, select, a, progress')) return;
-            let el = e.target.closest('.rack-externo, .synare-externo');
+            if (e.target.closest('button, input, select, a, progress, .knob-container, .fader-track, .fader-cap')) return;
+            let el = e.target.closest('.rack-externo, .synare-externo, .mixer-chassis');
             if (!el || el.parentElement !== cont) return;
             arrastando = el; yInicial = e.clientY; comecou = false;
             try { cont.setPointerCapture(e.pointerId); } catch (err) {}
@@ -2069,7 +1977,7 @@
             let alvo = null;
             for (let el of cont.children) {
                 if (el === arrastando) continue;
-                if (!el.classList || !(el.classList.contains('rack-externo') || el.classList.contains('synare-externo'))) continue;
+                if (!el.classList || !(el.classList.contains('rack-externo') || el.classList.contains('synare-externo') || el.classList.contains('mixer-chassis'))) continue;
                 let r = el.getBoundingClientRect();
                 if (e.clientY < r.top + r.height / 2) { alvo = el; break; }
             }
@@ -2085,31 +1993,6 @@
         cont.addEventListener('pointercancel', soltar);
     })();
 
-    /* ===== ABA PREAMP: visual do pré-amp clássico (face prata) =====
-       Aplica body.look-preamp por cima de qualquer tema. Só muda o visual;
-       todas as funções continuam iguais. A escolha fica salva no navegador. */
-    function togglePreamp() {
-        let on = !document.body.classList.contains('look-preamp');
-        document.body.classList.toggle('look-preamp', on);
-        let b = document.getElementById('btnPreamp');
-        if (b) { b.classList.toggle('active', on); b.setAttribute('aria-pressed', String(on)); }
-        let so = document.getElementById('btnOnlySub');
-        if (so) so.textContent = on ? 'SUB SOLO' : 'ONLY SUB';
-        try { localStorage.setItem('dubmixer_preamp', on ? '1' : '0'); } catch (e) {}
-        atualizarClasseVu();
-    }
-    function carregarPreamp() {
-        try {
-            if (localStorage.getItem('dubmixer_preamp') === '1') {
-                document.body.classList.add('look-preamp');
-                let b = document.getElementById('btnPreamp');
-                if (b) { b.classList.add('active'); b.setAttribute('aria-pressed', 'true'); }
-                let so = document.getElementById('btnOnlySub');
-                if (so) so.textContent = 'SUB SOLO';
-            }
-        } catch (e) {}
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
         setBgMode('light');
         /* Acerta a barra de pedais e o modo compacto com o estado que veio do HTML
@@ -2118,8 +2001,6 @@
         /* Ordem escolhida no MODO EDICAO volta ao abrir de novo */
         carregarOrdemModulos();
         atualizarBotoesModulos();
-        /* Visual PREAMP escolhido volta ao abrir de novo */
-        carregarPreamp();
         /* Tema inicial define se a placa de alumínio dos VUs aparece */
         atualizarClasseVu();
     });
@@ -2243,7 +2124,7 @@
         deck.gain = audioCtx.createGain(); deck.gain.gain.value = deck.vol;
         deck.panner = audioCtx.createStereoPanner(); deck.panner.pan.value = deck.pan;
         spin.connect(deck.gain); deck.gain.connect(deck.panner); deck.panner.connect(deckID === 'A' ? crossGainA : crossGainB);
-        spin.playbackRate.value = 2.5; /* reverso em 2,5x: velocidade real do backspin (puxada de dedo ~0,9 m/s ÷ vinil ~0,36 m/s) */
+        spin.playbackRate.value = 0.5; /* reverso em 0,5x (pedido do usuário) */
         /* SOM DO DISCO ARRANHANDO: ruído da agulha raspando junto com o reverso */
         if (!deck.rasgoBuffer) {
             let rb = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
@@ -2263,7 +2144,7 @@
         let inicioRev = deck.bufferReverso.duration - pos;
         if (inicioRev > deck.bufferReverso.duration - 0.001) inicioRev = deck.bufferReverso.duration - 0.001;
         if (inicioRev < 0) inicioRev = 0;
-        deck.girandoRev = { t: now, pos: pos, rate: 2.5 };
+        deck.girandoRev = { t: now, pos: pos, rate: 0.5 };
         spin.onended = () => {
             /* Chegou no começo da música: a agulha para lá */
             if (deck.girandoRev && deck.source === spin) {
@@ -2503,7 +2384,7 @@
         }
         setValue(r) { this.ratio = Math.max(0, Math.min(1, r)); this.updateRotation(); if (this.onChange) this.onChange(this.ratio); }
         updateRotation() { let deg = -135 + (this.ratio * 270); if (this.element) this.element.style.transform = `translateZ(4px) rotate(${deg}deg)`; }
-        onPointerDown(e) { if (document.body.classList.contains('modo-edicao')) return; this.isDragging = true; this.startY = e.clientY; this.startRatio = this.ratio; try { this.hitTarget.setPointerCapture(e.pointerId); } catch (err) {} }
+        onPointerDown(e) { this.isDragging = true; this.startY = e.clientY; this.startRatio = this.ratio; try { this.hitTarget.setPointerCapture(e.pointerId); } catch (err) {} }
         onPointerMove(e) { if (!this.isDragging) return; let deltaY = this.startY - e.clientY; let sensitivity = 0.005; this.ratio = Math.max(0, Math.min(1, this.startRatio + (deltaY * sensitivity))); this.updateRotation(); if (this.onChange) this.onChange(this.ratio); }
         onPointerUp() { this.isDragging = false; }
     }
@@ -2560,7 +2441,7 @@
         knobs['knobSynTone'] = new Knob('knobSynTone', (900-100)/5900, val => { synParams.tone = 100 + (val * 5900); document.getElementById('lblSynTone').innerText = Math.round(synParams.tone); });
         knobs['knobSynNoise'] = new Knob('knobSynNoise', 0.35, val => { synParams.noise = val; document.getElementById('lblSynNoise').innerText = Math.round(val * 100); });
         knobs['knobSynSpace'] = new Knob('knobSynSpace', 0.2, val => { synParams.space = val; document.getElementById('lblSynSpace').innerText = Math.round(val * 100); });
-        knobs['knobSynVol'] = new Knob('knobSynVol', 0.4, val => { synParams.vol = val; document.getElementById('lblSynVol').innerText = Math.round(val * 100); });
+        knobs['knobSynVol'] = new Knob('knobSynVol', 0.18, val => { synParams.vol = val; document.getElementById('lblSynVol').innerText = Math.round(val * 100); });
         knobs['knobSynDTime'] = new Knob('knobSynDTime', (0.30-0.05)/1.15, val => { synParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblSynDTime').innerText = synParams.dTime.toFixed(3); if (synDelayNode) synDelayNode.delayTime.value = synParams.dTime; });
         knobs['knobSynDFB'] = new Knob('knobSynDFB', 0.45/0.9, val => { synParams.dFB = val * 0.9; document.getElementById('lblSynDFB').innerText = Math.round(synParams.dFB * 100); if (synFBNode) synFBNode.gain.value = synParams.dFB; });
         knobs['knobSynDWet'] = new Knob('knobSynDWet', 0.35, val => { synParams.dWet = val; document.getElementById('lblSynDWet').innerText = Math.round(val * 100); if (synWetGainNode) synWetGainNode.gain.value = val; });

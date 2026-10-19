@@ -31,54 +31,47 @@ const APP = 'http://127.0.0.1:8712/index.html';
   await p.screenshot({ path: path.join(OUT, 'mesa-compacta.png'), fullPage: true });
   await p.close();
 
-  // 3. Visual PREAMP (painel preto do pré-amp clássico)
-  p = await nova({ width: 1366, height: 1400 });
-  await p.evaluate(() => { togglePreamp(); togglePedal('synare'); });
-  await p.waitForTimeout(900);
-  await p.screenshot({ path: path.join(OUT, 'preamp.png'), fullPage: true });
-  await p.close();
-
-  // 4. MODO EDIÇÃO (mover os módulos na ordem que quiser)
+  // 3. MODO EDIÇÃO (mover os módulos e o próprio DUB MIXER na ordem que quiser)
   p = await nova({ width: 1366, height: 1400 });
   await p.evaluate(() => { togglePedal('synare'); toggleEdicao(); });
   await p.waitForTimeout(900);
   await p.screenshot({ path: path.join(OUT, 'modo-edicao.png'), fullPage: true });
   await p.close();
 
-  // 5. Sirene (rack 19") close
+  // 4. Sirene (rack 19") close
   p = await nova({ width: 1366, height: 1200 });
   await p.waitForTimeout(700);
   await p.locator('#modSiren').screenshot({ path: path.join(OUT, 'sirene.png') });
   await p.close();
 
-  // 6. Pedal Synare close
+  // 5. Pedal Synare close
   p = await nova({ width: 1366, height: 1200 });
   await p.evaluate(() => togglePedal('synare'));
   await p.waitForTimeout(700);
   await p.locator('#modSynare').screenshot({ path: path.join(OUT, 'pedal-synare.png') });
   await p.close();
 
-  // 7. Master VU estéreo (tema com VU analógico: mostradores retangulares laranja)
+  // 6. Master VU estéreo (tema com VU analógico: mostradores retangulares laranja)
   p = await nova({ width: 1366, height: 900 });
   await p.evaluate(() => setTheme('theme-neve'));
   await p.waitForTimeout(600);
   await p.locator('.master-tower').screenshot({ path: path.join(OUT, 'master-vu-estereo.png') });
   await p.close();
 
-  // 8. EQ & FILTERS (LOWPASS + HIGHPASS)
+  // 7. EQ & FILTERS (LOWPASS + HIGHPASS)
   p = await nova({ width: 1366, height: 1100 });
   await p.waitForTimeout(600);
   await p.locator('.channel-strip').first().screenshot({ path: path.join(OUT, 'eq-cutoff-pan.png') });
   await p.close();
 
-  // 9. Mobile
+  // 8. Mobile
   p = await nova({ width: 390, height: 844 });
   await p.evaluate(() => togglePedal('synare'));
   await p.waitForTimeout(700);
   await p.screenshot({ path: path.join(OUT, 'mobile.png'), fullPage: true });
   await p.close();
 
-  // 10. Temas (rasta, cosmic, neve, tube)
+  // 9. Temas (rasta, cosmic, neve, tube)
   for (const t of ['theme-rasta', 'theme-cosmic', 'theme-neve', 'theme-tube']) {
     p = await nova({ width: 1280, height: 1000 });
     await p.evaluate((th) => { setTheme(th); togglePedal('synare'); }, t);

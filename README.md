@@ -133,8 +133,6 @@ O mixer é responsivo e **funciona por toque** (knobs arrastam com o dedo). Duas
 2. **Pelo GitHub Pages** (não precisa de PC ligado):
    👉 **https://hroderik.github.io/dub-sound-system-studio/**
 
-![Visual PREAMP](docs/img/preamp.png)
-
 ![Modo edição](docs/img/modo-edicao.png)
 
 ![Mobile](docs/img/mobile.png)
@@ -160,14 +158,11 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   mouse no topo.
 - **3D desativado por padrão** (botão 📐 3D: OFF).
 - **MODO EDIÇÃO** — botão ✥ EDITAR na toolbar: **segure o equipamento e arraste pra
-  cima ou pra baixo** (mouse ou dedo) pra mudar a ordem dos módulos externos (SIRENE,
-  CROSSOVER, SYNARE); as setas ▲▼ continuam como alternativa. A ordem fica salva e
-  volta quando abrir o app de novo.
-- **Aba PREAMP** — botão 🎛 PREAMP na toolbar: aplica o visual do pré-amp analógico
-  clássico **face prata**: painel de alumínio escovado com tinta preta, knobs de
-  alumínio nos canais e pretos no isolator, KILL vira chave com LED vermelho aceso,
-  botão BASS+SUB KILL, "SUB SOLO" no lugar de "ONLY SUB" e fileira de frequências
-  40HZ–16K embaixo do isolator. Só muda o visual — nenhuma função muda.
+  cima ou pra baixo** (mouse ou dedo) pra mudar a ordem — vale para os módulos
+  externos (SIRENE, CROSSOVER, SYNARE) **e para o próprio DUB MIXER SOUND SYSTEM**.
+  No modo edição os **knobs, botões e faders continuam funcionando normalmente**;
+  para arrastar, segure numa parte livre do painel (fora dos controles). As setas
+  ▲▼ continuam como alternativa. A ordem fica salva e volta quando abrir de novo.
 - **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
   parafusos e fica na mesma largura dos módulos externos (SIREN e CROSSOVER, com
   orelhas e parafusos); o CROSSOVER é um modelo diferente (anodizado preto/azul).
@@ -191,7 +186,7 @@ Controles por canal:
 |---|---|
 | **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
 | **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco |
-| **🔄 DISCO REVERSO** | Backspin liga/desliga na **velocidade real (2,5x)** com o **som do disco arranhando** junto: puxada de dedo ~0,9 m/s ÷ vinil a 33⅓ rpm ~0,36 m/s ≈ 2,5x. Aperta e a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
+| **🔄 DISCO REVERSO** | Backspin liga/desliga em **0,5x** com o **som do disco arranhando** junto: Aperta e a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
 | **VOL CH1 / VOL CH2** | Volume do canal (knob) |
 | **FILTER bipolar** | Um só knob: centro = 0 (tudo aberto); esquerda fecha o LOWPASS (100 Hz – 20 kHz), direita sobe o HIGHPASS (20 Hz – 20 kHz) |
 | **LED + VU** | Nível do canal, acende com o som |
@@ -383,7 +378,7 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 | `knobSynTone` | TONE | 100 – 6000 Hz | 900 Hz |
 | `knobSynNoise` | NOISE | 0–100 % | 35 % |
 | `knobSynSpace` | SPACE | 0–100 % | 20 % |
-| `knobSynVol` | VOL | 0–100 % | 70 % |
+| `knobSynVol` | VOL | 0–100 % | 18 % |
 | `knobSynDTime` | TIME (delay) | 0,05 – 1,20 s | 0,300 s |
 | `knobSynDFB` | FB (delay) | 0–90 % | 45 % |
 | `knobSynDWet` | WET (delay) | 0–100 % | 35 % |
