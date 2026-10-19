@@ -2674,7 +2674,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-        knobs['knobVolA'] = new Knob('knobVolA', 1.0, val => { deckA.vol = val; if (deckA.gain) deckA.gain.gain.value = val; document.getElementById('lblVolA').innerText = Math.round(val * 100); ytApplyVolume('A'); });
+        knobs['knobVolA'] = new Knob('knobVolA', 1.0, val => { deckA.vol = val; if (deckA.gain) deckA.gain.gain.value = val; document.getElementById('lblVolA').innerText = Math.round(val * 100); });
         /* FILTER bipolar: centro (0.5) = 0. Esquerda fecha o LOWPASS; direita sobe o HIGHPASS. */
         function aplicarFiltroBipolar(val, deck, filtroLP, filtroHP, idRotulo) {
             if (val < 0.5) { deck.cutoff = 20000 * Math.pow(0.005, (0.5 - val) / 0.5); deck.hp = 20; }
@@ -2689,7 +2689,7 @@
         }
         knobs['knobSweepA'] = new Knob('knobSweepA', 0.5, val => aplicarFiltroBipolar(val, deckA, filterA, hpA, 'lblFiltA'));
         knobs['knobPanA'] = new Knob('knobPanA', 0.5, val => { deckA.pan = (val * 2) - 1; if (deckA.panner) deckA.panner.pan.value = deckA.pan; document.getElementById('lblPanA').innerText = rotuloPan(deckA.pan); });
-        knobs['knobVolB'] = new Knob('knobVolB', 1.0, val => { deckB.vol = val; if (deckB.gain) deckB.gain.gain.value = val; document.getElementById('lblVolB').innerText = Math.round(val * 100); ytApplyVolume('B'); });
+        knobs['knobVolB'] = new Knob('knobVolB', 1.0, val => { deckB.vol = val; if (deckB.gain) deckB.gain.gain.value = val; document.getElementById('lblVolB').innerText = Math.round(val * 100); });
         knobs['knobSweepB'] = new Knob('knobSweepB', 0.5, val => aplicarFiltroBipolar(val, deckB, filterB, hpB, 'lblFiltB'));
         knobs['knobPanB'] = new Knob('knobPanB', 0.5, val => { deckB.pan = (val * 2) - 1; if (deckB.panner) deckB.panner.pan.value = deckB.pan; document.getElementById('lblPanB').innerText = rotuloPan(deckB.pan); });
         knobs['knobSirenPitch'] = new Knob('knobSirenPitch', (440-50)/1450, val => { sirenParams.pitch = 50 + (val * 1450); if (isSirenActive && sirenOsc) sirenOsc.frequency.setValueAtTime(sirenParams.pitch, audioCtx.currentTime); });
