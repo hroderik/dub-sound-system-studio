@@ -170,6 +170,9 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   valendo só para a música (nada de delay forçado na volta).
 - **BASS BOOST** — botão on/off, o 5º da fileira; reforço de +12 dB abaixo de 110 Hz
   (low-shelf real no master).
+- **SYNARE com presets** — o pedal ganhou um seletor com **10 sons clássicos de syn
+  drum** (tom disco, laser, space drum, caixa seca, bumbo, trovão sub...): o preset
+  ajusta TUNE/SWEEP/DECAY/TONE/NOISE/SPACE/VOL e o delay exclusivo de uma vez.
 - **GRAVAR MIX** — captura a saída do master em tempo real (`.webm`/`.ogg`/`.m4a`).
 - **CONVERTER** — renderiza a música offline e exporta WAV 16-bit/44,1 kHz/estéreo com
   todos os seus ajustes.
@@ -190,7 +193,7 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   é um modelo diferente (anodizado preto/azul) e o SPACE ECHO tem o painel escuro
   com blocos verdes do RE-201. O cabeçalho (DUB MIXER SOUND SYSTEM / 5-WAY
   ANALOGUE CROSSOVER & PREAMP) é uma faceplate de rack de metal escovado.
-- **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
+- **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger) e **10 presets clássicos de syn drum** — o seletor **PRESET** configura os knobs e o delay de uma vez.
 - **MASTER TAPE DELAY agora é o rack SPACE ECHO** (RE-201), separado — dá pra reposicionar no modo edição.
 - **Volume da sirene em 40 %** por padrão.
 - **VU estéreo real** (L/R) — mostradores retangulares laranja com moldura preta, sobre placa de alumínio com parafusos ("L METER" / "R METER" / "ANALOG VU METER"); a luz interna brilha junto com o SUB + BASS (e apaga quando os graves levam KILL).
@@ -322,6 +325,9 @@ mudar de longe, sem precisar ler nada.
 O tambor sintético que virou assinatura do dub digital. Um oscilador com varredura
 de tom + ruído + filtro ressonante, disparado por um botão.
 
+- **PRESET** — 10 sons clássicos de syn drum que ajustam todos os knobs e o delay
+  de uma vez: Synare Clássico, Tom Disco 70s, Laser Zap, Space Drum, Tom Dub
+  (Eco Longo), Caixa Seca, Bumbo Profundo, Zap Dub, Percussão Seca e Trovão Sub
 - **TUNE** — 40–1000 Hz (tom base)
 - **SWEEP** — 0–100 % (quanto o tom varre ao ser tocado)
 - **DECAY** — 0,05–1,5 s (duração do tambor)
@@ -421,6 +427,10 @@ Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
 | `knobSynDTime` | TIME (delay) | 0,05 – 1,20 s | 0,300 s |
 | `knobSynDFB` | FB (delay) | 0–90 % | 45 % |
 | `knobSynDWet` | WET (delay) | 0–100 % | 35 % |
+
+> **Presets do Synare**: o seletor **PRESET** aplica os 10 sons clássicos de uma vez
+> (e gira os knobs na hora). De fábrica ele abre no **1. Synare Clássico** — os
+> valores da tabela acima.
 
 > **Três delays independentes**: um da música (master), um da sirene e um do Synare.
 > Você pode mandar um eco gigante no tambor sem sujar a música.

@@ -921,6 +921,10 @@
         .synare-pad-core { position: relative; z-index: 2; text-shadow: 0 0 6px rgba(249,115,22,0.8); }
         .synare-pad-label { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.5rem; letter-spacing: 2px; color: #9ca3af; }
         .synare-controls { min-width: 0; }
+        /* Presets do SYNARE: escolhe o som (igual a SIRENE) e os knobs se ajustam */
+        .synare-presets { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .synare-presets-label { font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.5rem; font-weight: 700; letter-spacing: 2px; color: #fdba74; white-space: nowrap; }
+        .synare-unit .synare-presets select { flex: 1; margin-bottom: 0; border-color: rgba(249,115,22,0.45); }
         .synare-unit .synare-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 6px; justify-items: center; }
         .synare-unit .tape-delay-box.synare-delay { background: rgba(249,115,22,0.06); border-color: rgba(249,115,22,0.3); }
         .synare-unit .tape-delay-box.synare-delay h5 { color: #fdba74; }
@@ -1704,6 +1708,22 @@
 
             <!-- Controles -->
             <div class="synare-controls">
+                <!-- PRESET: mesma ideia da SIRENE — escolhe o som e os knobs se ajustam -->
+                <div class="synare-presets">
+                    <span class="synare-presets-label">PRESET</span>
+                    <select id="synPreset" onchange="loadSynPreset()">
+                        <option value="1">1. Synare Clássico</option>
+                        <option value="2">2. Tom Disco 70s</option>
+                        <option value="3">3. Laser Zap</option>
+                        <option value="4">4. Space Drum</option>
+                        <option value="5">5. Tom Dub (Eco Longo)</option>
+                        <option value="6">6. Caixa Seca</option>
+                        <option value="7">7. Bumbo Profundo</option>
+                        <option value="8">8. Zap Dub</option>
+                        <option value="9">9. Percussão Seca</option>
+                        <option value="10">10. Trovão Sub</option>
+                    </select>
+                </div>
                 <div class="synare-grid">
                     <div class="knob-container">
                         <div class="knob-wrapper" id="knobSynTune"><div class="knob-indicator"></div></div>
@@ -1802,7 +1822,7 @@
     /* ===== SYNARE / SPACE DRUM (tambor analogico com delay proprio) ===== */
     let synDelayNode, synFBNode, synWetGainNode, synFilterNode;
     let synNoiseBuf = null;
-    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.18, dTime: 0.30, dFB: 0.45, dWet: 0.35 };
+    let synParams = { tune: 220, sweep: 0.8, decay: 0.45, tone: 900, noise: 0.35, space: 0.2, vol: 0.18, dTime: 0.30, dFB: 0.45, dWet: 0.35, wave: 'triangle' };
 
     const sirenPresets = {
         1: { pitch: 900, rate: 12.0, wave: 'sawtooth' },
@@ -1816,6 +1836,39 @@
         9: { pitch: 350, rate: 0.5, wave: 'sine' },
         10: { pitch: 250, rate: 0.1, wave: 'triangle' }
     };
+
+    /* Presets do SYNARE: sons clássicos de syn drum (tom, laser, space drum...).
+       Cada preset configura TUNE/SWEEP/DECAY/TONE/NOISE/SPACE/VOL e o delay
+       exclusivo (TIME/FB/WET) de uma vez; a forma de onda também muda (wave).
+       O preset 1 é o ajuste padrão do pedal. */
+    const synPresets = {
+        1: { tune: 220, sweep: 0.80, decay: 0.45, tone: 900, noise: 0.35, space: 0.20, vol: 0.18, dTime: 0.300, dFB: 0.45, dWet: 0.35, wave: 'triangle' },
+        2: { tune: 160, sweep: 0.55, decay: 0.35, tone: 1400, noise: 0.06, space: 0.05, vol: 0.22, dTime: 0.280, dFB: 0.35, dWet: 0.22, wave: 'triangle' },
+        3: { tune: 400, sweep: 1.00, decay: 0.18, tone: 4200, noise: 0.05, space: 0.00, vol: 0.20, dTime: 0.300, dFB: 0.50, dWet: 0.40, wave: 'sawtooth' },
+        4: { tune: 60, sweep: 1.00, decay: 1.10, tone: 2200, noise: 0.08, space: 0.90, vol: 0.16, dTime: 0.450, dFB: 0.60, dWet: 0.50, wave: 'sine' },
+        5: { tune: 110, sweep: 0.50, decay: 0.50, tone: 1000, noise: 0.05, space: 0.12, vol: 0.22, dTime: 0.450, dFB: 0.62, dWet: 0.55, wave: 'triangle' },
+        6: { tune: 240, sweep: 0.35, decay: 0.22, tone: 2600, noise: 0.75, space: 0.00, vol: 0.20, dTime: 0.220, dFB: 0.30, dWet: 0.18, wave: 'square' },
+        7: { tune: 55, sweep: 0.60, decay: 0.55, tone: 400, noise: 0.03, space: 0.00, vol: 0.26, dTime: 0.300, dFB: 0.25, dWet: 0.15, wave: 'sine' },
+        8: { tune: 200, sweep: 0.70, decay: 0.28, tone: 1800, noise: 0.12, space: 0.15, vol: 0.20, dTime: 0.375, dFB: 0.55, dWet: 0.50, wave: 'square' },
+        9: { tune: 500, sweep: 0.25, decay: 0.12, tone: 3500, noise: 0.25, space: 0.00, vol: 0.18, dTime: 0.180, dFB: 0.25, dWet: 0.15, wave: 'triangle' },
+        10: { tune: 45, sweep: 0.35, decay: 1.20, tone: 250, noise: 0.15, space: 0.08, vol: 0.26, dTime: 0.400, dFB: 0.30, dWet: 0.25, wave: 'sine' }
+    };
+
+    function loadSynPreset() {
+        let sel = document.getElementById('synPreset'); if (!sel) return;
+        let p = synPresets[sel.value]; if (!p) return;
+        synParams.wave = p.wave || 'triangle';
+        if (knobs['knobSynTune']) knobs['knobSynTune'].setValue((p.tune - 40) / 960);
+        if (knobs['knobSynSweep']) knobs['knobSynSweep'].setValue(p.sweep);
+        if (knobs['knobSynDecay']) knobs['knobSynDecay'].setValue((p.decay - 0.05) / 1.45);
+        if (knobs['knobSynTone']) knobs['knobSynTone'].setValue((p.tone - 100) / 5900);
+        if (knobs['knobSynNoise']) knobs['knobSynNoise'].setValue(p.noise);
+        if (knobs['knobSynSpace']) knobs['knobSynSpace'].setValue(p.space);
+        if (knobs['knobSynVol']) knobs['knobSynVol'].setValue(p.vol);
+        if (knobs['knobSynDTime']) knobs['knobSynDTime'].setValue((p.dTime - 0.05) / 1.15);
+        if (knobs['knobSynDFB']) knobs['knobSynDFB'].setValue(p.dFB / 0.9);
+        if (knobs['knobSynDWet']) knobs['knobSynDWet'].setValue(p.dWet);
+    }
 
 
     /* Impulso de reverb de mola (spring): decaimento exponencial com resonancias metalicas */
@@ -2570,7 +2623,7 @@
         let sweepTop = base * (1 + p.sweep * 8);
         let tone = Math.max(80, p.tone);
 
-        let osc = audioCtx.createOscillator(); osc.type = 'triangle';
+        let osc = audioCtx.createOscillator(); osc.type = p.wave || 'triangle';
         osc.frequency.setValueAtTime(sweepTop, now);
         osc.frequency.exponentialRampToValueAtTime(base, now + Math.max(0.02, decay * 0.35));
 
@@ -2737,6 +2790,9 @@
         knobs['knobSynDTime'] = new Knob('knobSynDTime', (0.30-0.05)/1.15, val => { synParams.dTime = 0.05 + (val * 1.15); document.getElementById('lblSynDTime').innerText = synParams.dTime.toFixed(3); if (synDelayNode) synDelayNode.delayTime.value = synParams.dTime; });
         knobs['knobSynDFB'] = new Knob('knobSynDFB', 0.45/0.9, val => { synParams.dFB = val * 0.9; document.getElementById('lblSynDFB').innerText = Math.round(synParams.dFB * 100); if (synFBNode) synFBNode.gain.value = synParams.dFB; });
         knobs['knobSynDWet'] = new Knob('knobSynDWet', 0.35, val => { synParams.dWet = val; document.getElementById('lblSynDWet').innerText = Math.round(val * 100); if (synWetGainNode) synWetGainNode.gain.value = val; });
+
+        /* Aplica o preset 1 ao abrir a mesa: knobs, rótulos e som já no preset */
+        loadSynPreset();
     });
 
     /* ===================== GRAVAR MIXAGEM + CONVERTER ===================== */
