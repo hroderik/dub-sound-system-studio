@@ -111,6 +111,7 @@
             --wood-right: #2c2f33;
             --border-outer: #1c1e21;
             --gold: #111;
+            --gold-escuro: #f0d894; /* dourado claro para superficies escuras fixas */
             --text-color: #111;
             --sub-text: #4a4030;
             --border-metal: #222;
@@ -135,7 +136,7 @@
             --status-ok: #0a4d24;
             --status-info: #1e3a8a;
             --status-warn: #7c2d12;
-            --status-err: #991b1b;
+            --status-err: #8b1a10;
         }
 
         /* TEMA: BENIDUB DS01 (Preto & Branco com Knobs Prata) */
@@ -162,6 +163,7 @@
             --wood-right: #71717a;
             --border-outer: #52525b;
             --gold: #18181b;
+            --gold-escuro: #f4f4f5; /* prata clara para superficies escuras fixas */
             --text-color: #18181b;
             --border-metal: #a1a1aa;
             --section-bg: rgba(255,255,255,0.1);
@@ -173,10 +175,10 @@
             --master-led-display: none;
         
             /* Painel claro: cores de status escuras para dar contraste */
-            --status-ok: #0a4d24;
-            --status-info: #1e3a8a;
-            --status-warn: #7c2d12;
-            --status-err: #991b1b;
+            --status-ok: #052e16;
+            --status-info: #172554;
+            --status-warn: #431407;
+            --status-err: #5c0e0e;
         }
         /* Colorindo os knobs do tema DIY via nth-child/IDs */
         body.theme-diy #knobIsoBass, body.theme-diy #knobSirenRate, body.theme-diy #knobVolB { background: radial-gradient(circle at 35% 35%, #eab308 0%, #a16207 100%); border-color: #713f12; }
@@ -190,6 +192,7 @@
             --wood-right: #111;
             --border-outer: #000;
             --gold: #111;
+            --gold-escuro: #ffe08a; /* dourado claro para superficies escuras fixas */
             --text-color: #000;
             --border-metal: #000;
             --section-bg: rgba(255,255,255,0.2);
@@ -201,10 +204,10 @@
             --master-led-display: none;
         
             /* Painel claro: cores de status escuras para dar contraste */
-            --status-ok: #0a4d24;
-            --status-info: #1e3a8a;
-            --status-warn: #7c2d12;
-            --status-err: #991b1b;
+            --status-ok: #052e16;
+            --status-info: #172554;
+            --status-warn: #431407;
+            --status-err: #5c0e0e;
         }
         body.theme-acapulco #knobIsoSub, body.theme-acapulco #knobSirenPitch { background: radial-gradient(circle at 35% 35%, #ef4444 0%, #b91c1c 100%); }
         body.theme-acapulco #knobIsoLM, body.theme-acapulco #knobSirenVol { background: radial-gradient(circle at 35% 35%, #eab308 0%, #a16207 100%); }
@@ -216,7 +219,8 @@
             --wood-right: linear-gradient(135deg, #553a24 0%, #382515 100%);
             --border-outer: #2c1e12;
             --border-metal: #b3a385;
-            --gold: #8a5a25; /* latão envelhecido */
+            --gold: #6b4218; /* latão envelhecido (mais escuro p/ render no creme) */
+            --gold-escuro: #e3c98f; /* latão claro para superficies escuras fixas */
             --text-color: #3a2c1c;
             --sub-text: #6b5a42;
             --section-bg: linear-gradient(145deg, #e7ddc8, #d8cbb1);
@@ -254,7 +258,8 @@
             --wood-right: linear-gradient(135deg, #191919 0%, #0d0d0d 100%);
             --border-outer: #141414;
             --border-metal: #9d9d9d;
-            --gold: #c8321f; /* vermelho Akai */
+            --gold: #8b1a10; /* vermelho Akai (mais escuro p/ render no cinza) */
+            --gold-escuro: #ffb3a3; /* vermelho claro para superficies escuras fixas */
             --text-color: #1b1b1b;
             --sub-text: #5c5c5c;
             --section-bg: linear-gradient(145deg, #cfcfcf, #b9b9b9);
@@ -279,7 +284,7 @@
             --status-ok: #0a4d24;
             --status-info: #1e3a8a;
             --status-warn: #7c2d12;
-            --status-err: #991b1b;
+            --status-err: #8b1a10;
         }
         /* Pads vermelhos estilo MPC nos knobs de destaque */
         body.theme-mpc #knobIsoSub, body.theme-mpc #knobSirenVol { background: radial-gradient(circle at 35% 35%, #e04836 0%, #8f1f13 100%); border-color: #5c1109; --knob-indicator: #fff; }
@@ -314,6 +319,7 @@
             --input-border: rgba(255,255,255,0.2);
             --screw-color: rgba(255,255,255,0.22);
             --on-gold: #0a2b17;
+            --status-err: #fca5a5; /* vermelho claro sobre o verde escuro */
             --master-analog-display: none;
             --master-led-display: flex;
         }
@@ -533,6 +539,10 @@
         * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body {
             background: var(--bg-body); color: var(--text-color); font-family: 'Share Tech Mono', ui-monospace, 'Courier New', monospace; margin: 0; padding: 18px 10px 42px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; min-height: 100dvh; box-sizing: border-box; -webkit-font-smoothing: antialiased; transition: background 0.35s ease, color 0.35s ease;
+            /* Dourado do tema em versao legivel para superficies FIXAS escuras
+               (torre do master, botoes I/O e SOLO, VUs). Os temas claros, cujo
+               dourado e escuro, trocam por uma versao clara no proprio bloco. */
+            --gold-escuro: var(--gold);
         }
 
         .chassis-stage { width: 100%; max-width: 100%; display: flex; justify-content: center; }
@@ -678,10 +688,10 @@
             display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; box-sizing: border-box;
             padding: 8px 6px; border-radius: 6px; cursor: pointer; font-family: var(--font-ui); font-weight: 700;
             font-size: 0.6rem; letter-spacing: 0.5px; text-transform: uppercase;
-            background: linear-gradient(180deg, #23262e, #14161b); color: var(--gold); border: 1px solid var(--border-metal);
+            background: linear-gradient(180deg, #23262e, #14161b); color: var(--gold-escuro); border: 1px solid var(--border-metal);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 6px rgba(0,0,0,0.6); transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
-        .btn-io:hover { border-color: var(--gold); }
+        .btn-io:hover { border-color: var(--gold-escuro); }
         .btn-io:disabled { opacity: 0.5; cursor: progress; }
         .btn-io.gravando { background: linear-gradient(180deg, #b91c1c, #7f1d1d); color: #fff; border-color: #fca5a5; }
         .io-dot { width: 9px; height: 9px; border-radius: 50%; background: #6b7280; box-shadow: inset 0 0 3px rgba(0,0,0,0.8); flex: 0 0 auto; }
@@ -692,11 +702,11 @@
         label { font-size: 0.56rem; margin-top: 4px; text-transform: uppercase; text-align: center; letter-spacing: 0.6px; font-weight: 700; color: var(--text-color); opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.8); }
         progress { width: 100%; height: 7px; border-radius: 4px; cursor: pointer; background: #050608; border: 1px solid #1c1f28; margin: 4px 0; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.9); -webkit-appearance: none; appearance: none; }
         progress::-webkit-progress-bar { background-color: #050608; border-radius: 4px; }
-        progress::-webkit-progress-value { background: linear-gradient(90deg, var(--gold), #f59e0b); border-radius: 4px; }
-        progress::-moz-progress-bar { background: linear-gradient(90deg, var(--gold), #f59e0b); border-radius: 4px; }
+        progress::-webkit-progress-value { background: linear-gradient(90deg, var(--gold-escuro), #f59e0b); border-radius: 4px; }
+        progress::-moz-progress-bar { background: linear-gradient(90deg, var(--gold-escuro), #f59e0b); border-radius: 4px; }
         
         button { background: var(--btn-bg); color: var(--btn-text); border: 2px solid var(--btn-border); border-radius: 5px; padding: 8px; font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.4px; cursor: pointer; width: 100%; margin: 3px 0; box-shadow: 0 4px 7px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.18); transition: all 0.1s ease; }
-        button:hover { border-color: var(--gold); color: var(--gold); }
+        button:hover { border-color: var(--gold-escuro); color: var(--gold-escuro); }
         /* IMPORTANTE: nada de "transform" nem "filter" em botao aqui.
            Dentro do gabinete com preserve-3d, mover o botao ou usar filter no clique
            faz o navegador re-renderizar o botao numa camada propria e revela as
@@ -796,8 +806,8 @@
                         inset 0 0 26px rgba(0,0,0,0.55), 0 9px 20px rgba(0,0,0,0.62);
         }
         /* Texto legivel nas caixas de rack (que tem fundo escuro) em qualquer tema */
-        body.modo-rack .section-box.rack-unit { --text-color: #e4e4e7; --gold: #e8c46a; }
-        body.modo-rack .section-box.rack-unit.rack-unit-2 { --gold: #93c5fd; }
+        body.modo-rack .section-box.rack-unit { --text-color: #e4e4e7; --gold: #e8c46a; --input-bg: rgba(0,0,0,0.5); --input-text: #e4e4e7; --input-border: rgba(255,255,255,0.18); }
+        body.modo-rack .section-box.rack-unit.rack-unit-2 { --gold: #93c5fd; --on-gold: #0b1526; /* SOLO ativo: texto escuro no azul claro fixo */ }
         /* Orelhas de rack (onde entram os parafusos de fixação) */
         .rack-ear {
             flex: 0 0 26px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
@@ -874,6 +884,9 @@
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.95),
                         inset 0 0 30px rgba(0,0,0,0.8), 0 10px 22px rgba(0,0,0,0.65);
             color: #e8e8ea;
+            /* Igual as caixas de rack: fundo escuro fixo = dourado claro e texto claro
+               em qualquer tema (senao o dourado escuro dos temas claros some no fundo). */
+            --gold: #e8c46a; --text-color: #e4e4e7; --input-bg: rgba(0,0,0,0.5); --input-text: #e4e4e7; --input-border: rgba(255,255,255,0.18);
         }
         .synare-brand {
             display: flex; align-items: baseline; gap: 10px; justify-content: center;
@@ -1110,7 +1123,7 @@
         /* MASTER ESTEREO: par de VU (L e R) lado a lado na torre central */
         .vu-pair { display: flex; flex-direction: row; align-items: flex-end; justify-content: center; gap: 18px; margin: 6px 0 2px; --vu-glow: 0.22; }
         .vu-channel { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .vu-label { font-size: 0.56rem; font-weight: 700; letter-spacing: 1px; color: var(--gold); opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.8); }
+        .vu-label { font-size: 0.56rem; font-weight: 700; letter-spacing: 1px; color: var(--gold-escuro); opacity: 0.9; text-shadow: 0 1px 1px rgba(0,0,0,0.8); }
         /* ===== PLACA DE ALUMÍNIO DOS VUs (só quando o tema usa o VU analógico) =====
            Placa cinza com 4 parafusos nos cantos e o texto ANALOG VU METER, como na foto. */
         body.vu-analog-ativo .vu-pair {
@@ -1161,10 +1174,10 @@
         .modulo-barra {
             display: none; align-items: center; justify-content: center; gap: 10px;
             margin: 0 0 6px; padding: 5px 10px;
-            border: 1px dashed var(--gold); border-radius: 6px;
-            background: rgba(0,0,0,0.35);
+            border: 1px dashed var(--gold-escuro); border-radius: 6px;
+            background: rgba(10,12,16,0.88); /* barra escura fixa: o dourado claro fica legivel em qualquer tema */
             font-family: 'Share Tech Mono', ui-monospace, monospace; font-size: 0.6rem;
-            letter-spacing: 1.5px; color: var(--gold); font-weight: 700;
+            letter-spacing: 1.5px; color: var(--gold-escuro); font-weight: 700;
         }
         body.modo-edicao .modulo-barra { display: flex; }
         .modulo-btn {
@@ -1305,7 +1318,7 @@
         <!-- TORRE CENTRAL - VU, SIRENE E DELAY -->
         <div class="center-tower">
             <div class="master-tower">
-                <span style="font-size: 0.54rem; color: var(--gold); font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; opacity: 0.9;">MASTER OUT</span>
+                <span style="font-size: 0.54rem; color: var(--gold-escuro); font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; opacity: 0.9;">MASTER OUT</span>
 
                 <!-- VU ESTEREO: um medidor para o canal L e outro para o canal R -->
                 <div class="vu-pair">

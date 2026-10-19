@@ -343,7 +343,7 @@ que se desconecta sozinha (sem vazamento de áudio).
 
 | Grupo | O que faz |
 |---|---|
-| **🎛️ Tema** | 12 visuais de equipamento (veja [Temas](#-temas-visuais)) |
+| **🎛️ Tema** | 16 visuais de equipamento (veja [Temas](#-temas-visuais)) |
 | **☀️ / 🌙** | Fundo da página — botão único só com emoji: clicou, troca o ícone (igual iPhone) |
 | **🎛️ Pedais** | Mostra/oculta a SIRENE e o SYNARE |
 
@@ -460,7 +460,7 @@ Quando você oculta, acontecem três coisas:
 
 ## 🎨 Temas visuais
 
-Doze visuais de equipamento, trocados na barra de ferramentas. O tema muda o material
+Dezesseis visuais de equipamento, trocados na barra de ferramentas. O tema muda o material
 do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
 
 | # | Tema | Visual |
@@ -485,9 +485,13 @@ do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
 Combine com o botão de fundo **☀️ Claro / 🌙 Noturno** (um botão único só com o
 emoji do modo atual — clicou, troca o ícone e o fundo muda).
 
-> Nos temas de **painel claro** (Mustard, DIY, Acapulco, Vintage, MPC) as cores de
-> status — verde do arquivo carregado, azul de aviso, âmbar e vermelho de erro — são
-> trocadas por tons **escuros**, senão o texto sumiria no fundo claro.
+> **Contraste revisado:** nos temas de **painel claro** (Mustard, DIY, Acapulco,
+> Vintage, MPC) as cores de status — verde do arquivo carregado, azul de aviso, âmbar
+> e vermelho de erro — e o dourado dos títulos são trocados por tons **escuros**,
+> senão o texto sumiria no fundo claro. E nas superfícies que continuam **escuras de
+> propósito** em qualquer tema (torre do MASTER OUT, módulos de rack, botões
+> GRAVAR/CONVERTER, VUs) esses temas usam uma versão **clara** do dourado — assim
+> nenhum texto fica com a cor parecida com a do fundo.
 
 ![Tema Rastafari](docs/img/tema-rasta.png)
 ![Tema Cosmic Dub](docs/img/tema-cosmic.png)
