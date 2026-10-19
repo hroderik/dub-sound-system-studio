@@ -599,6 +599,8 @@
         }
         .segmented button:hover { opacity: 0.9; color: inherit; }
         .segmented button.active { background: var(--toolbar-text); color: var(--toolbar-bg); opacity: 1; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+        /* Botao unico do tema (estilo iPhone): so o emoji, troca de icone ao clicar */
+        .segmented button#bgToggleBtn { padding: 6px 11px; font-size: 0.95rem; line-height: 1; opacity: 1; }
 
         .mixer-chassis {
             /* Gabinete de aço com laterais de madeira maciça (dimensões de equipamento real) */
@@ -612,23 +614,17 @@
             transition: background 0.3s ease, border-color 0.3s ease;
         }
 
-        /* Parafusos de metal + veio da madeira nas duas laterais */
+        /* Orelhas laterais metalicas do gabinete (veio da madeira por baixo).
+           Os rebites sao elementos .face-parafuso reais nos cantos, iguais aos do
+           cabecalho — nada de gradiente "fantasma" que nao parece parafuso. */
         .mixer-chassis::before, .mixer-chassis::after {
             content: ''; position: absolute; top: 0; bottom: 0; width: 26px; pointer-events: none; z-index: 3;
-            background-repeat: no-repeat;
-            background-image:
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                linear-gradient(90deg, #1e2126 0, #545b64 42%, #3a4046 68%, #191c20 100%);
-            background-size: 12px 12px, 12px 12px, 100% 100%;
-            background-position: 50% 15px, 50% calc(100% - 15px), 0 0;
+            background: linear-gradient(90deg, #1e2126 0, #545b64 42%, #3a4046 68%, #191c20 100%);
             box-shadow: inset 0 0 6px rgba(0,0,0,0.55);
         }
         .mixer-chassis::before { left: -26px; border-radius: 6px 0 0 6px; }
-        .mixer-chassis::after { right: -26px; border-radius: 0 6px 6px 0; background-image:
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                radial-gradient(circle at 42% 38%, #ffffff 0%, #dfe3e9 22%, #9aa1ad 48%, #4a505b 74%, #14161a 100%),
-                linear-gradient(270deg, #1e2126 0, #545b64 42%, #3a4046 68%, #191c20 100%); }
+        .mixer-chassis::after { right: -26px; border-radius: 0 6px 6px 0;
+            background: linear-gradient(270deg, #1e2126 0, #545b64 42%, #3a4046 68%, #191c20 100%); }
 
         /* Cabeçalho como faceplate de rack 19": metal escovado + 2 parafusos em cada ponta */
         .mixer-header {
@@ -641,13 +637,15 @@
                 linear-gradient(180deg, #d9dde1 0%, #b3b9c0 16%, #ced3d8 42%, #a7adb5 76%, #c6cbd0 100%);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), inset 0 -2px 4px rgba(0,0,0,0.38), 0 3px 8px rgba(0,0,0,0.55);
         }
-        /* Parafusos da faceplate (4 cantos) — elementos de verdade pra ficarem bem visíveis */
-        .mixer-header .face-parafuso {
+        /* Parafusos/rebites de verdade: faceplate do cabecalho (4 cantos) e orelhas
+           do gabinete (2 rebites de cada lado) — bem visiveis em qualquer tema */
+        .face-parafuso {
             position: absolute; width: 15px; height: 15px; border-radius: 50%;
             background: radial-gradient(circle at 38% 32%, #ffffff 0%, #e8ecef 16%, #b7bcc4 36%, #7d848d 54%, #3f444c 74%, #16181d 90%, #06070a 100%);
             box-shadow: 0 1px 3px rgba(0,0,0,0.55), inset 0 -1px 2px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.55);
+            pointer-events: none; z-index: 4;
         }
-        .mixer-header .face-parafuso::after {
+        .face-parafuso::after {
             content: ''; position: absolute; left: 50%; top: 50%; width: 9px; height: 2px; margin: -1px 0 0 -4.5px;
             border-radius: 1px; background: rgba(5, 7, 9, 0.9);
             box-shadow: 0 1px 0 rgba(255,255,255,0.45);
@@ -1232,8 +1230,7 @@
     </div>
 
     <div class="segmented" role="group" aria-label="Modo de fundo">
-        <button type="button" id="bgLightBtn" onclick="setBgMode('light')">☀️ Claro</button>
-        <button type="button" id="bgNightBtn" onclick="setBgMode('night')">🌙 Noturno</button>
+        <button type="button" id="bgToggleBtn" onclick="toggleBgMode()" title="Modo claro — clique pra ficar noturno" aria-label="Modo claro — clique pra ficar noturno" aria-pressed="false">☀️</button>
     </div>
     <div class="segmented" role="group" aria-label="Edição dos módulos">
         <button type="button" id="btnEditar" onclick="toggleEdicao()" title="Liga o modo edição: segure em qualquer lugar do equipamento (o DUB MIXER e os módulos) e arraste como uma janela — no modo edição os controles ficam bloqueados; as setas ▲▼ também mudam a ordem" aria-pressed="false">✥ EDITAR</button>
@@ -1241,7 +1238,7 @@
     <div class="toolbar-group">
         <span class="toolbar-label">Pedais</span>
         <div class="segmented" role="group" aria-label="Mostrar ou ocultar pedais">
-            <button type="button" id="btnModSiren" class="active" aria-pressed="true" onclick="togglePedal('siren')" title="Mostrar/ocultar o SIREN GENERATOR &amp; PRESETS">🚨 SIRENE</button>
+            <button type="button" id="btnModSiren" class="active" aria-pressed="true" onclick="togglePedal('siren')" title="Ocultar o SIREN GENERATOR &amp; PRESETS">🚨 SIRENE</button>
             <button type="button" id="btnModSynare" aria-pressed="false" onclick="togglePedal('synare')" title="Mostrar o pedal SYNARE / SPACE DRUM">🥁 SYNARE</button>
         </div>
     </div>
@@ -1250,6 +1247,11 @@
 <div id="modulosExternos">
 <div class="mixer-chassis" id="modMixer">
     <div class="modulo-barra"><span class="modulo-nome">🎛 DUB MIXER SOUND SYSTEM</span><button type="button" class="modulo-btn" onclick="moverModulo('modMixer',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('modMixer',1)" title="Mover para baixo">▼</button></div>
+    <!-- Rebites das orelhas laterais (2 de cada lado, iguais aos do cabecalho) -->
+    <span class="face-parafuso" style="left:-20.5px; top:15px;" aria-hidden="true"></span>
+    <span class="face-parafuso" style="left:-20.5px; bottom:15px;" aria-hidden="true"></span>
+    <span class="face-parafuso" style="right:-20.5px; top:15px;" aria-hidden="true"></span>
+    <span class="face-parafuso" style="right:-20.5px; bottom:15px;" aria-hidden="true"></span>
     <div class="mixer-header">
         <span class="face-parafuso" style="left:12px; top:12px;" aria-hidden="true"></span>
         <span class="face-parafuso" style="right:12px; top:12px;" aria-hidden="true"></span>
@@ -1439,7 +1441,7 @@
      Largura alinhada ao gabinete, como um equipamento de rack separado sobre a mesa. -->
 <div class="rack-externo" id="rack-siren-slot">
     <div class="modulo-barra"><span class="modulo-nome">🚨 SIRENE</span><button type="button" class="modulo-btn" onclick="moverModulo('rack-siren-slot',-1)" title="Mover para cima">▲</button><button type="button" class="modulo-btn" onclick="moverModulo('rack-siren-slot',1)" title="Mover para baixo">▼</button></div>
-    <div class="section-box rack-unit" id="modSiren" style="display: none;">
+    <div class="section-box rack-unit" id="modSiren">
         <div class="rack-ear" aria-hidden="true"><span class="rack-screw"></span><span class="rack-screw"></span></div>
 
         <div class="rack-face">
@@ -2003,10 +2005,17 @@
         let isLight = (mode === 'light');
         document.body.classList.toggle('bg-light', isLight);
         document.body.classList.toggle('bg-night', !isLight);
-        let lightBtn = document.getElementById('bgLightBtn'), nightBtn = document.getElementById('bgNightBtn');
-        if (lightBtn) lightBtn.classList.toggle('active', isLight);
-        if (nightBtn) nightBtn.classList.toggle('active', !isLight);
+        /* Botao unico de tema (igual iPhone): mostra so o emoji do modo atual e
+           troca de icone quando clica */
+        let b = document.getElementById('bgToggleBtn');
+        if (b) {
+            b.innerText = isLight ? '☀️' : '🌙';
+            let rotulo = isLight ? 'Modo claro — clique pra ficar noturno' : 'Modo noturno — clique pra ficar claro';
+            b.title = rotulo; b.setAttribute('aria-label', rotulo);
+            b.setAttribute('aria-pressed', String(!isLight));
+        }
     }
+    function toggleBgMode() { setBgMode(document.body.classList.contains('bg-light') ? 'night' : 'light'); }
 
     /* ===== PONTE TAURI (versao executavel) =====
        Detecta se esta rodando dentro do Tauri e expoe comandos Rust para
@@ -2058,8 +2067,9 @@
 
     /* Sincroniza a barra Pedais com o estado REAL do HTML.
        Serve para um pedal poder NASCER OCULTO pelo próprio HTML — assim ele
-       não "pisca" na tela antes do JS rodar. O SYNARE começa oculto: é um
-       pedal de uso pontual e não precisa ocupar a mesa toda vez que abre. */
+       não "pisca" na tela antes do JS rodar. A SIRENE já nasce visível; o
+       SYNARE começa oculto: é um pedal de uso pontual e não precisa ocupar a
+       mesa toda vez que abre. */
     function sincronizarPedais() {
         Object.keys(PEDAIS).forEach(chave => {
             let m = PEDAIS[chave];
@@ -2265,7 +2275,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         setBgMode('light');
         /* Acerta a barra de pedais e o modo compacto com o estado que veio do HTML
-           (o SYNARE já vem oculto) */
+           (a SIRENE já vem visível e o SYNARE oculto) */
         sincronizarPedais();
         /* Ordem escolhida no MODO EDICAO volta ao abrir de novo */
         carregarOrdemModulos();

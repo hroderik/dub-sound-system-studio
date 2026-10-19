@@ -147,6 +147,13 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 
 ### ✨ Novidades recentes
 
+- **Orelhas laterais com rebites de verdade** — o gabinete agora tem **2 rebites
+  de metal em cada lado** (iguais aos do cabeçalho), bem visíveis — antes eram
+  manchas de gradiente que nem pareciam parafuso.
+- **Fundo claro/noturno num botão só** — agora é só o emoji (☀️/🌙): clicou, troca
+  o ícone e o fundo muda, igual iPhone.
+- **SIRENE visível por padrão** — o rack SR-10 já abre na mesa junto com o mixer;
+  o botão **🚨 SIRENE** continua ocultando/mostrando quando quiser.
 - **Cabeçalho em faceplate de rack** — o topo do mixer (DUB MIXER SOUND SYSTEM /
   5-WAY ANALOGUE CROSSOVER & PREAMP) virou metal escovado com 4 parafusos de rack.
 - **SPACE ECHO (Roland RE-201)** — o MASTER TAPE DELAY virou um **rack separado**, com o painel
@@ -177,11 +184,12 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   **knobs, botões e faders ficam bloqueados** (nada de clicar sem querer); só as setas
   ▲▼ continuam ativas como alternativa. A ordem fica salva e volta quando abrir de novo.
 - **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
-  parafusos e fica na mesma largura dos módulos externos (SIREN, CROSSOVER e o
-  SPACE ECHO, com orelhas e parafusos); o CROSSOVER é um modelo diferente (anodizado
-  preto/azul) e o SPACE ECHO tem o painel escuro com blocos verdes do RE-201. O
-  cabeçalho (DUB MIXER SOUND SYSTEM / 5-WAY ANALOGUE CROSSOVER & PREAMP) virou uma
-  faceplate de rack de metal escovado com 4 parafusos.
+  **2 rebites de verdade em cada lado** (iguais aos do cabeçalho) e fica na mesma
+  largura dos módulos externos (SIREN, CROSSOVER e o SPACE ECHO, com orelhas e
+  parafusos); o CROSSOVER é um modelo diferente (anodizado preto/azul) e o SPACE
+  ECHO tem o painel escuro com blocos verdes do RE-201. O cabeçalho (DUB MIXER
+  SOUND SYSTEM / 5-WAY ANALOGUE CROSSOVER & PREAMP) é uma faceplate de rack de
+  metal escovado com 4 parafusos.
 - **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger).
 - **MASTER TAPE DELAY agora é o rack SPACE ECHO** (RE-201), separado — dá pra reposicionar no modo edição.
 - **Volume da sirene em 40 %** por padrão.
@@ -336,7 +344,7 @@ que se desconecta sozinha (sem vazamento de áudio).
 | Grupo | O que faz |
 |---|---|
 | **🎛️ Tema** | 12 visuais de equipamento (veja [Temas](#-temas-visuais)) |
-| **☀️ Claro / 🌙 Noturno** | Fundo da página |
+| **☀️ / 🌙** | Fundo da página — botão único só com emoji: clicou, troca o ícone (igual iPhone) |
 | **🎛️ Pedais** | Mostra/oculta a SIRENE e o SYNARE |
 
 ![Barra de ferramentas](docs/img/toolbar.png)
@@ -426,10 +434,11 @@ Nem todo mundo usa tudo. Na barra **🎛️ Pedais** você liga e desliga:
 - **🚨 SIRENE** — o bloco *SIREN GENERATOR & PRESETS*
 - **🥁 SYNARE** — o pedal completo
 
-> **O SYNARE já vem oculto** quando o app abre. É um pedal de uso pontual (você
-> dispara e pronto), então a mesa abre mais enxuta — e um clique em **🥁 SYNARE**
-> traz o pedal de volta. Se preferir que ele apareça sempre, é só deixar o botão
-> ligado: o app lembra do estado enquanto a página está aberta.
+> **A SIRENE já vem visível** quando o app abre, pronta pra tocar — o botão
+> **🚨 SIRENE** oculta ela se você não for usar. Já o **SYNARE vem oculto**: é um
+> pedal de uso pontual (você dispara e pronto), então a mesa abre mais enxuta —
+> e um clique em **🥁 SYNARE** traz ele de volta. O app lembra do estado enquanto
+> a página está aberta.
 
 Quando você oculta, acontecem três coisas:
 
@@ -473,7 +482,8 @@ do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
 | 15 | **SSL 4000** | Grafite + azul (channel strip) |
 | 16 | **Tube Preamp** | Valvulado, warm, dourado |
 
-Combine com o fundo **☀️ Claro** ou **🌙 Noturno**.
+Combine com o botão de fundo **☀️ Claro / 🌙 Noturno** (um botão único só com o
+emoji do modo atual — clicou, troca o ícone e o fundo muda).
 
 > Nos temas de **painel claro** (Mustard, DIY, Acapulco, Vintage, MPC) as cores de
 > status — verde do arquivo carregado, azul de aviso, âmbar e vermelho de erro — são
