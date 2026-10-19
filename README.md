@@ -149,7 +149,7 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 
 ### ✨ Novidades recentes
 
-- **BASS BOOST** — botão on/off ao lado de ONLY HIGH; reforço de +12 dB abaixo de 110 Hz
+- **BASS BOOST** — botão on/off, o último da fileira (5º lugar); reforço de +12 dB abaixo de 110 Hz
   (low-shelf real no master).
 - **GRAVAR MIX** — captura a saída do master em tempo real (`.webm`/`.ogg`/`.m4a`).
 - **CONVERTER** — renderiza a música offline e exporta WAV 16-bit/44,1 kHz/estéreo com
@@ -219,8 +219,9 @@ Para cada banda você tem:
 - **Botão KILL** — corta a banda na hora (o clássico *drop* de dub: mata o baixo,
   deixa a caixa ecoando, e devolve tudo de uma vez).
 - **LED** por banda, mostrando o nível em tempo real.
-- **Botões ONLY** — isola uma banda:
+- **Botões de banda** — na ordem da fileira: ONLY SUB, BASS+SUB KILL, ONLY MID-HIGH, ONLY HIGH, BASS BOOST:
   - **ONLY SUB** — só o grave.
+  - **BASS+SUB KILL** — mata (ou solta) BASS e SUB juntos.
   - **ONLY MID-HIGH** — tira o sub e o bass.
   - **ONLY HIGH** — só o agudo.
 

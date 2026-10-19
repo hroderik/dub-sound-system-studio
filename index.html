@@ -1303,7 +1303,7 @@
                     <progress id="progA" value="0" max="100" onclick="seekAudio(event, 'A')"></progress>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('A')">📀 TIRAR AGULHA</button>
-                        <button id="btnReversoA" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('A')" title="Backspin: puxa o disco pra trás — a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
+                        <button id="btnReversoA" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('A')" title="Backspin 2x: puxa o disco pra trás — a música fica voltando em 2x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
                     </div>
                 </div>
 
@@ -1426,7 +1426,7 @@
                     <progress id="progB" value="0" max="100" onclick="seekAudio(event, 'B')"></progress>
                     <div style="display:flex; gap:4px;">
                         <button class="btn-sm btn-amber" style="flex:1;" onclick="triggerNeedlePop('B')">📀 TIRAR AGULHA</button>
-                        <button id="btnReversoB" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('B')" title="Backspin: puxa o disco pra trás — a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
+                        <button id="btnReversoB" class="btn-sm btn-amber btn-reverso" style="flex:1;" onclick="tocarDiscoReverso('B')" title="Backspin 2x: puxa o disco pra trás — a música fica voltando em 2x com o som do disco arranhando, até você apertar de novo (ou TIRAR AGULHA / STOP)">🔄 DISCO REVERSO</button>
                     </div>
                 </div>
 
@@ -1554,10 +1554,10 @@
             <h4 style="margin:0; border:none; padding:0;">CROSSOVER 5-WAY ANALÓGICO + ISOLATOR</h4>
             <div style="display:flex; gap: 4px;">
                 <button id="btnOnlySub" class="btn-solo" onclick="toggleOnlySub()">ONLY SUB</button>
+                <button id="btnBassSubKill" class="btn-solo" onclick="toggleBassSubKill()" title="Mata (ou solta) BASS e SUB juntos">BASS+SUB KILL</button>
                 <button id="btnOnlyMidHigh" class="btn-solo" onclick="toggleOnlyMidHigh()">ONLY MID-HIGH</button>
                 <button id="btnOnlyHigh" class="btn-solo" onclick="toggleOnlyHigh()">ONLY HIGH</button>
                 <button id="btnBassBoost" class="btn-solo" onclick="toggleBassBoost()" title="Reforço de graves (+12 dB abaixo de 110 Hz)" aria-pressed="false">BASS BOOST</button>
-                <button id="btnBassSubKill" class="btn-solo" onclick="toggleBassSubKill()" title="Mata (ou solta) BASS e SUB juntos">BASS+SUB KILL</button>
             </div>
         </div>
         <div class="crossover-grid">
@@ -2148,6 +2148,7 @@
                 deck.pauseOffset = Math.max(0, deck.girandoRev.pos - (audioCtx.currentTime - deck.girandoRev.t) * deck.girandoRev.rate);
                 deck.girandoRev = null;
                 resetarBotaoReverso(deckID);
+                pararRasgoDoDisco(deck);
             } else { deck.pauseOffset += audioCtx.currentTime - deck.startTime; }
             try { deck.source.stop(); } catch(e) {}
             deck.isPlaying = false;
@@ -2160,6 +2161,7 @@
         if (deck.isPlaying && deck.source) { try { deck.source.stop(); } catch(e) {} deck.isPlaying = false; }
         deck.girandoRev = null;
         resetarBotaoReverso(deckID);
+        pararRasgoDoDisco(deck);
         deck.source = audioCtx.createBufferSource(); deck.source.buffer = deck.buffer; deck.gain = audioCtx.createGain(); deck.gain.gain.value = deck.vol;
         /* PAN: um StereoPanner por deck, entre o volume e o crossfader. */
         deck.panner = audioCtx.createStereoPanner(); deck.panner.pan.value = deck.pan;
@@ -2178,6 +2180,7 @@
         let deck = (deckID === 'A') ? deckA : deckB;
         deck.girandoRev = null;
         resetarBotaoReverso(deckID);
+        pararRasgoDoDisco(deck);
         if (deck.isPlaying && deck.source) { try { deck.source.stop(); } catch(e) {} deck.isPlaying = false; }
         deck.pauseOffset = 0; document.getElementById('prog' + deckID).value = 0;
     }
@@ -2201,6 +2204,11 @@
     function resetarBotaoReverso(deckID) {
         let btn = document.getElementById('btnReverso' + deckID);
         if (btn) { btn.classList.remove('active'); btn.textContent = '🔄 DISCO REVERSO'; }
+    }
+    /* Desliga o som do disco arranhando (quando o reverso termina) */
+    function pararRasgoDoDisco(deck) {
+        if (deck.rasgoRuido) { try { deck.rasgoRuido.stop(); } catch (e) {} deck.rasgoRuido = null; }
+        if (deck.rasgoLfo) { try { deck.rasgoLfo.stop(); } catch (e) {} deck.rasgoLfo = null; }
     }
     function tocarDiscoReverso(deckID) {
         unlockAudioContext();
@@ -2235,14 +2243,32 @@
         deck.gain = audioCtx.createGain(); deck.gain.gain.value = deck.vol;
         deck.panner = audioCtx.createStereoPanner(); deck.panner.pan.value = deck.pan;
         spin.connect(deck.gain); deck.gain.connect(deck.panner); deck.panner.connect(deckID === 'A' ? crossGainA : crossGainB);
+        spin.playbackRate.value = 2; /* reverso em 2x */
+        /* SOM DO DISCO ARRANHANDO: ruído da agulha raspando junto com o reverso */
+        if (!deck.rasgoBuffer) {
+            let rb = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
+            let rd = rb.getChannelData(0);
+            for (let i = 0; i < rd.length; i++) rd[i] = Math.random() * 2 - 1;
+            deck.rasgoBuffer = rb;
+        }
+        let rasgo = audioCtx.createBufferSource(); rasgo.buffer = deck.rasgoBuffer; rasgo.loop = true;
+        let filtroRasgo = audioCtx.createBiquadFilter(); filtroRasgo.type = 'bandpass'; filtroRasgo.frequency.value = 1400; filtroRasgo.Q.value = 1.1;
+        let ganhoRasgo = audioCtx.createGain(); ganhoRasgo.gain.value = 0.22;
+        let lfoRasgo = audioCtx.createOscillator(); lfoRasgo.frequency.value = 7; /* tremida do dedo no vinil */
+        let lfoGanho = audioCtx.createGain(); lfoGanho.gain.value = 0.09;
+        lfoRasgo.connect(lfoGanho); lfoGanho.connect(ganhoRasgo.gain);
+        rasgo.connect(filtroRasgo); filtroRasgo.connect(ganhoRasgo); ganhoRasgo.connect(deck.gain);
+        rasgo.start(now); lfoRasgo.start(now);
+        deck.rasgoRuido = rasgo; deck.rasgoLfo = lfoRasgo;
         let inicioRev = deck.bufferReverso.duration - pos;
         if (inicioRev > deck.bufferReverso.duration - 0.001) inicioRev = deck.bufferReverso.duration - 0.001;
         if (inicioRev < 0) inicioRev = 0;
-        deck.girandoRev = { t: now, pos: pos, rate: 1 };
+        deck.girandoRev = { t: now, pos: pos, rate: 2 };
         spin.onended = () => {
             /* Chegou no começo da música: a agulha para lá */
             if (deck.girandoRev && deck.source === spin) {
                 deck.girandoRev = null; deck.isPlaying = false; deck.pauseOffset = 0;
+                pararRasgoDoDisco(deck);
                 let pr = document.getElementById('prog' + deckID); if (pr) pr.value = 0;
                 resetarBotaoReverso(deckID);
             }
