@@ -44,6 +44,13 @@ jobs:
         working-directory: rust
         run: cargo tauri build
 
+      - name: Preparar executável portátil (Windows)
+        if: matrix.platform == 'windows-latest'
+        working-directory: rust
+        run: |
+          New-Item -ItemType Directory -Force -Path target/release/bundle/portable | Out-Null
+          Copy-Item target/release/dub-mixer.exe target/release/bundle/portable/
+
       - uses: actions/upload-artifact@v4
         with:
           name: dub-mixer-${{ matrix.label }}

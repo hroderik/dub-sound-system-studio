@@ -227,7 +227,7 @@ cargo tauri build     # Linux: .deb, .rpm e AppImage · Windows: .exe (NSIS) e .
 | Plataforma | Artefatos | Observação |
 |---|---|---|
 | Linux | `.deb` · `.rpm` · `.AppImage` | testado e gerado neste repo |
-| Windows | `.exe` (NSIS) · `.msi` | requer toolchain MSVC |
+| Windows | `.exe` (NSIS) · `.msi` · executável portátil | requer toolchain MSVC |
 | macOS | `.dmg` · `.app` | requer um Mac — há workflow de CI pronto em `.github/workflows/` |
 
 ## Verificação dos instaladores
@@ -254,7 +254,7 @@ Get-FileHash .\setup.exe -Algorithm MD5
 
 O hash calculado tem que bater com a linha do arquivo nos `*SUMS.txt`. Se não bater, não instale: baixe de novo da página oficial de releases.
 
-> Nos anexos da release o GitHub troca espaços por pontos no nome do arquivo (ex.: `DUB.MIXER.Sound.System_0.1.0_x64-setup.exe`). Os `*SUMS.txt` já usam os nomes como eles ficam para download.
+> Nos anexos da release o GitHub troca espaços por pontos no nome do arquivo (ex.: `DUB.MIXER.Sound.System_0.1.1_x64-setup.exe`). Os `*SUMS.txt` já usam os nomes como eles ficam para download.
 
 ## Segurança e privacidade
 
@@ -289,7 +289,7 @@ O hash calculado tem que bater com a linha do arquivo nos `*SUMS.txt`. Se não b
 - [x] **16 temas** com contraste revisado + modo edição + toolbar auto-hide
 - [x] **Executáveis** Linux e Windows (+ workflow de CI para macOS)
 - [x] **Segurança** — CSP, validação de arquivos, fonte/ícone embutidos
-- [x] **Publicado** — repositório público, Pages no ar e release `v0.1.0` com instaladores das 3 plataformas + checksums SHA-256/MD5
+- [x] **Publicado** — repositório público, Pages no ar e release `v0.1.1` com instaladores das 3 plataformas + checksums SHA-256/MD5
 
 ### Melhorias planejadas
 
