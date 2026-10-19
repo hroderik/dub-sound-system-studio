@@ -9,11 +9,6 @@
 > app continua evoluindo mais rápido que a bancada, o que é bom: cada função nova
 > lá é um circuito a menos pra errar aqui.
 
-> **Correção honesta de rota:** a primeira versão deste documento falava em "R$ 100"
-> — era otimista demais. Potenciômetros, knobs, jacks e uma caixa decente sozinhos já
-> passam de R$ 250, e os preços de 2026 (com frete e impostos num pedido único) não
-> perdoam. Os números desta versão são os que você encontra de fato em loja BR.
-
 ---
 
 ## 1. Por que fazer a versão física
@@ -235,8 +230,7 @@ de uma banda, somador e MASTER. Já é um instrumento pra ouvir e testar a spec.
 | **Total** | | | **≈ R$ 460** |
 
 > Comprando tudo novo dá **~R$ 400–500**. Reusando potenciômetros, jacks, caixa e
-> fonte de sucata, cai para **~R$ 250–300** — que era, honestamente, o que o "R$ 100"
-> da primeira versão queria dizer.
+> fonte de sucata, cai para **~R$ 250–300**.
 
 ### Nível 2 — "mesa completa mono" — Sirene + Synare + delay + VU + caixa de madeira
 
@@ -368,7 +362,7 @@ existe uma mesa de dub com sirene e Synare — não uma caixa de peças.
 
 | Risco | Mitigação |
 |---|---|
-| **A conta é de nível 2/3, não de "R$ 100"** | Os níveis existem justamente pra isso: comece no Nível 1 (~R$ 400) e só suba com som tocando |
+| **A conta cresce rápido quando a mesa fica completa** | Os níveis existem justamente pra isso: comece no Nível 1 (~R$ 400) e só suba com som tocando |
 | **Ruído, chiado e oscilação** no áudio analógico | Desacoplar cada CI, terra estrela, trilhas curtas, testar bloco por bloco (seção 3) |
 | **Comprar tudo de uma vez e não montar** | A Fase 0/1 é minúscula de propósito. Só comprar mais depois de ouvir a Fase 1 |
 | **PT2399 curto demais** para o delay de 1,2 s | Dois PT2399 em série; ou aceitar ~600 ms e usar como *slap*, que é o som do dub raiz |
