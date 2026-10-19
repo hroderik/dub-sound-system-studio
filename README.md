@@ -162,9 +162,10 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
   do eco, REVERB, INTENSITY, ECHO VOLUME, REPEAT RATE, DRY e **TAP TEMPO** (bata no ritmo pra
   marcar o eco). Todas as funções antigas continuam — só mudaram de nome (TIME→REPEAT RATE,
   FB→INTENSITY, WET→ECHO VOLUME).
-- **💥 TREMEDEIRA** — botão no crossover: **só o movimento físico** — todas as caixas
-  (gabinete e racks) tremem junto com os graves, em tempo real, seguindo o nível de
-  SUB + BASS. O áudio não muda em nada: sem boost, sem distorção e sem rumor grave.
+- **💥 TREMEDEIRA** — botão no crossover: corpo extra de graves (+15 dB abaixo de 100 Hz
+  + pico de +6 dB em 60 Hz, somável ao BASS BOOST), **um pouco de distorção** (saturação
+  suave) e o **ar do sistema fazendo barulho** (rumor grave que segue o nível dos graves,
+  com limitador pra não estourar) — e todas as caixas tremendo junto, em tempo real.
 - **TIRAR AGULHA com eco de 40 %** — o pop do disco sai com um eco de **40 %** de wet,
   no tempo (REPEAT RATE/MODE) e na INTENSIDADE do SPACE ECHO — e **a música também**:
   na hora do estalo o ECHO VOLUME do master sobe pra 40 % (se já estiver acima, fica)
@@ -248,7 +249,7 @@ Para cada banda você tem:
   - **BASS+SUB KILL** — mata (ou solta) BASS e SUB juntos.
   - **ONLY MID-HIGH** — tira o sub e o bass.
   - **ONLY HIGH** — só o agudo.
-  - **💥 TREMEDEIRA** — só o movimento físico: o gabinete e os racks tremem junto com os graves, em tempo real (o áudio não muda — a mesa sacode de verdade); desligou, tudo volta ao lugar.
+  - **💥 TREMEDEIRA** — corpo extra de graves + um pouco de distorção + o ar do sistema fazendo barulho + as caixas (gabinete e racks) tremendo junto com os graves, em tempo real; desligou, tudo volta ao lugar.
 
 ### ↔️ X-FADER
 
@@ -265,10 +266,10 @@ não uma estimativa. Cada lado tem:
 - **Torre de 12 LEDs** (verde → âmbar → vermelho) — acende com o som.
 - **VU analógico de ponteiro** — o medidor com agulha que acompanha o ritmo.
 
-Por dentro: o som sai do `masterGain`, passa pelo BASS BOOST (low-shelf de graves) e vai para o `AudioContext.destination`, e o
+Por dentro: o som sai do `masterGain`, passa pelo BASS BOOST/TREMEDEIRA (low-shelf de graves) e vai para o `AudioContext.destination`, e o
 **mesmo ponto final** alimenta um `ChannelSplitter` de 2 vias para os dois
 `AnalyserNode` (L e R). Por isso, ao jogar o **PAN** de um canal para o lado, você vê
-os dois VUs se desequilibrarem — e os VUs refletem o BASS BOOST ligado.
+os dois VUs se desequilibrarem — e os VUs refletem o BASS BOOST/TREMEDEIRA ligado.
 
 ![Master VU estéreo](docs/img/master-vu-estereo.png)
 
@@ -591,7 +592,7 @@ Deck B (arquivo) ─► Gain ─► Lowpass ─┘             ├─► HP80+LP
                                                     └─► HP5000 ──► gHigh ─► analHigh ──┤
                                               (mesmo ponto) ──► Space Echo (delay) ───┤
                                                                                        ▼
-                                                                                  masterGain ─► BASS BOOST ─► saída
+                                                                                  masterGain ─► BASS BOOST/TREMEDEIRA ─► saída
 Sirene ──► delay da sirene ──┐
 Synare ──► delay do Synare ──┴───────────────────────────────────────────────────────► masterGain
 ```
