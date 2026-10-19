@@ -1,0 +1,11 @@
+{
+  "name": "dub-mixer-shots",
+  "private": true,
+  "description": "Scripts de desenvolvimento do DUB MIXER Sound System (gera os prints do README)",
+  "scripts": {
+    "shots": "node shots.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}
