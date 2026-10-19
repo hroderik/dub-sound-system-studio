@@ -159,9 +159,10 @@ Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
 - **Toolbar auto-hide** — rola pra baixo e ela some; volta ao rolar pra cima ou com o
   mouse no topo.
 - **3D desativado por padrão** (botão 📐 3D: OFF).
-- **MODO EDIÇÃO** — botão ✥ EDITAR na toolbar: cada módulo externo (SIRENE, CROSSOVER,
-  SYNARE) ganha barras com setas ▲▼ para você escolher a ordem que quiser; a ordem
-  fica salva e volta quando abrir o app de novo.
+- **MODO EDIÇÃO** — botão ✥ EDITAR na toolbar: **segure o equipamento e arraste pra
+  cima ou pra baixo** (mouse ou dedo) pra mudar a ordem dos módulos externos (SIRENE,
+  CROSSOVER, SYNARE); as setas ▲▼ continuam como alternativa. A ordem fica salva e
+  volta quando abrir o app de novo.
 - **Aba PREAMP** — botão 🎛 PREAMP na toolbar: aplica o visual do pré-amp analógico
   clássico **face prata**: painel de alumínio escovado com tinta preta, knobs de
   alumínio nos canais e pretos no isolator, KILL vira chave com LED vermelho aceso,
