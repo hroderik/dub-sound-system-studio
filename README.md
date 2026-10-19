@@ -1,799 +1,312 @@
-# 🎛️ DUB MIXER SOUND SYSTEM
+# DUB MIXER Sound System
 
-**Uma mesa de som dub completa, dentro de um único arquivo HTML.**
-
-Crossover analógico de 5 vias + delay de fita estilo Roland Space Echo (RE-201) +
-gerador de sirene + pedal Synare/Space Drum — tudo rodando no navegador, sem instalar
-nada, sem conta, sem internet. A mesa toca apenas os seus arquivos locais.
+**Mesa de dub completa — crossover de 5 vias, delay de fita estilo RE-201, sirene e Synare — dentro de um único arquivo HTML.** Roda em qualquer navegador moderno, toca os seus arquivos locais e não acessa a internet.
 
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 [![Um arquivo só](https://img.shields.io/badge/arquivo%20%C3%BAnico-index.html-success.svg)](index.html)
-[![Sem dependências](https://img.shields.io/badge/depend%C3%AAncias-zero-brightgreen.svg)](#-detalhes-técnicos)
+[![Sem dependências](https://img.shields.io/badge/depend%C3%AAncias-zero-brightgreen.svg)](#como-funciona)
 [![Web Audio API](https://img.shields.io/badge/Web%20Audio-API-orange.svg)](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API)
 
 ![Mesa completa](docs/img/mesa-completa.png)
 
----
+## O que é
 
-## 📖 Índice
+Um simulador de mesa de dub em `index.html`, sem instalação, sem conta e sem build:
 
-- [Por que usar este app](#-por-que-usar-este-app)
-- [Como rodar (Windows / Linux / macOS / celular)](#-como-rodar)
-- [Funções — o que a mesa faz](#-funções--o-que-a-mesa-faz)
-- [Referência completa dos 36 knobs](#-referência-completa-dos-36-knobs)
-- [Pedais opcionais (mostrar / ocultar)](#-pedais-opcionais-mostrar--ocultar)
-- [Temas visuais](#-temas-visuais)
-- [Compatibilidade testada](#-compatibilidade-testada)
-- [Estrutura do projeto](#-estrutura-do-projeto)
-- [Detalhes técnicos](#-detalhes-técnicos)
-- [Próximos passos](#-próximos-passos)
-- [Melhorias planejadas](#-melhorias-planejadas)
-- [Perguntas frequentes](#-perguntas-frequentes)
-- [Licença e créditos](#-licença-e-créditos)
+- **Crossover de 5 vias** com fader, kill e LED por banda, mais ONLY SUB / BASS+SUB KILL / ONLY MID-HIGH / ONLY HIGH.
+- **SPACE ECHO (Roland RE-201)** — delay de fita separado, com 12 modos de tempo, TAP TEMPO, DRY, reverb de mola e EQ do eco.
+- **SIRENE** com 10 presets de sound system e **SYNARE (Space Drum)** com 10 presets — cada um com delay exclusivo.
+- **X-FADER** com lei de ganho constante, **VU estéreo** (L/R) e **BASS BOOST**.
+- **💥 TREMEDEIRA** — corpo extra de graves + saturação + o ar do sistema, com o gabinete tremendo junto.
+- **GRAVAR MIX** (`.webm`/`.ogg`/`.m4a`) e **CONVERTER** (WAV 16-bit/44,1 kHz com todos os ajustes).
+- **MIDI** com soft takeover, 16 temas, modo edição, PWA offline.
 
----
+## Como usar
 
-## 🎯 Por que usar este app
-
-Se você faz **dub, steppers, roots, sound system, dub techno ou reggae** — ou só gosta
-de brincar de dub em casa — você já topou com este problema:
-
-> pra ter um som de dub de verdade você precisa de uma mesa, um crossover, um delay
-> de fita e uma sirene. Isso é equipamento caro, pesado e que ocupa a sala inteira.
-
-Este app resolve isso com **um arquivo HTML**:
-
-| O problema do equipamento real | O que este app faz |
+| Modo | Como |
 |---|---|
-| Mesa + crossover custam milhares de reais | Roda de graça, em qualquer navegador |
-| Você precisa montar, ligar cabo, ajustar ganho | Abre o arquivo, aperta PLAY |
-| Delay de fita é caro e precisa de manutenção | Delay digital com FB/TIME/WET, 3 delays independentes |
-| Sirene de sound system custa uma fortuna | 10 presets de sirene prontos (O.B.F, Iration, King Tubby…) |
-| Não dá pra levar pro ensaio / viagem | Abre no celular também |
-| Produtor precisa exportar pra DAW | Você toca ao vivo e grava a saída de áudio do sistema |
+| **Arquivo local** | Baixe o ZIP → abra `index.html` (duplo clique). Funciona offline. |
+| **Servidor local** | `python3 -m http.server 8712` ou `./dub-mixer.sh` (Linux/macOS) |
+| **Celular na Wi-Fi** | Abra `http://<ip-do-pc>:8712` (o `dub-mixer.sh` mostra o endereço) |
+| **Online (GitHub Pages)** | https://hroderik.github.io/dub-sound-system-studio/ |
+| **PWA** | Instale pela barra do navegador — abre offline |
+| **Executável nativo** | Veja [Versão executável](#versão-executável-rust--tauri-2) (Linux / Windows) |
 
-**E o mais importante:** você vê a mesa exatamente como ela é. Madeira, parafusos,
-LEDs, knobs que giram de verdade com o mouse (ou com o dedo), fader com curso real.
-Não é um formulário com sliders — é um gabinete.
-
-### Pra quem é
-
-- **Sound system / selectah** que quer ensaiar dub em casa ou levar pronto numa festa.
-- **Produtor** que quer testar um kill de SUB ou um delay antes de montar na DAW.
-- **DJ de reggae/dub** que quer fazer um drop ao vivo.
-- **Curioso / estudante** que quer ver como funciona um crossover de 5 vias de verdade.
-- **Dev / maker** que quer um exemplo real de Web Audio API em um único arquivo.
-
-### O que ele NÃO é
-
-- Não é uma DAW. Não grava nem exporta áudio (você pode rotear a saída do sistema).
-- Não substitui uma mesa física se você precisa de pré-amp de microfone,
-  phono real ou XLR. (Mas veja o [roadmap de hardware](#-próximos-passos) — R$100.)
-- Não hospeda música. Ele toca **seus** arquivos (MP3, WAV, OGG, M4A).
-
----
-
-## 🗺️ Roadmaps (próximas frentes)
-
-O projeto tem **duas frentes futuras** documentadas:
-
-- **[Versão física (hardware, R$ 100)](docs/ROADMAP-HARDWARE.md)** — mesa de dub de
-  verdade que liga na tomada: crossover analógico, delay PT2399, sirene VCO, Synare
-  LM13700, tudo em chassi de madeira. **Os 36 knobs desta tela são a especificação.**
-- **Versão executável (app nativo)** — em desenvolvimento (Rust/Tauri, com DSP em
-  `rust/` e `dsp/`). Roda em Linux/macOS/Windows com a mesma interface.
-
-> Leia os roadmaps antes de comprar qualquer componente: o hardware começa por
-> "um canal de ponta a ponta" para não comprar tudo e não montar nada.
-
-## 🚀 Como rodar
-
-### Windows (jeito fácil)
-
-1. Baixe o repositório (botão verde **Code → Download ZIP**) e descompacte.
-2. **Abra o `index.html` com duplo clique** — funciona direto (os launchers opcionais usam `dub-mixer.sh` se tiver Git Bash/WSL).
-3. Se quiser servir localmente (ex.: para o celular na mesma Wi-Fi):
-   ```
-   python -m http.server 8712
-   ```
-   e abra **http://127.0.0.1:8712/index.html**.
-
-Precisa do **Python** instalado ([python.org](https://www.python.org/downloads/))
-apenas se for servir localmente (opcional).
-
-> Se a tela estiver estranha, um `Ctrl+Shift+R` resolve (limpa o cache).
-> A mesa toca apenas **arquivos locais**.
-
-### Linux
-
-```bash
-git clone https://github.com/hroderik/dub-sound-system-studio.git
-cd dub-sound-system-studio
-./dub-mixer.sh
-```
-
-O script detecta `python3`, sobe o servidor na porta `8712`, espera responder e abre o
-navegador (`xdg-open`, Firefox, Chrome, Chromium…). Ao fechar a janela, o servidor
-encerra sozinho.
-
-### macOS
-
-- **Duplo clique** em `Dub Mixer.command` (pode pedir para liberar em
-  *Ajustes → Privacidade e Segurança* na primeira vez), **ou**
-- pelo terminal: `./dub-mixer.sh`
-
-### Celular / tablet
-
-O mixer é responsivo e **funciona por toque** (knobs arrastam com o dedo). Duas formas:
-
-1. **Pelo PC na mesma Wi-Fi** — rode o `dub-mixer.sh` (ele já imprime o endereço):
-   ```
-   http://192.168.x.x:8712/index.html
-   ```
-2. **Pelo GitHub Pages** (não precisa de PC ligado):
-   👉 **https://hroderik.github.io/dub-sound-system-studio/**
+> Se a tela aparecer estranha depois de uma atualização: `Ctrl+Shift+R`.
 
 ![Modo edição](docs/img/modo-edicao.png)
 
-![Mobile](docs/img/mobile.png)
+## Funções
 
-### Ou... só abrir o arquivo
-
-Clique duas vezes em `index.html`. **Tudo funciona**, inclusive offline.
-
----
-
-## 🎛️ Funções — o que a mesa faz
-
-### ✨ Novidades recentes
-
-- **Orelhas laterais com rebites de verdade** — o gabinete agora tem **2 rebites
-  de metal em cada lado**, bem visíveis — antes eram manchas de gradiente que
-  nem pareciam parafuso.
-- **Fundo claro/noturno num botão só** — agora é só o emoji (☀️/🌙): clicou, troca
-  o ícone e o fundo muda, igual iPhone.
-- **SIRENE visível por padrão** — o rack SR-10 já abre na mesa junto com o mixer;
-  o botão **🚨 SIRENE** continua ocultando/mostrando quando quiser.
-- **Cabeçalho em faceplate de rack** — o topo do mixer (DUB MIXER SOUND SYSTEM /
-  5-WAY ANALOGUE CROSSOVER & PREAMP) virou metal escovado, sem parafusos — os
-  rebites ficaram só nas orelhas do gabinete.
-- **SPACE ECHO (Roland RE-201)** — o MASTER TAPE DELAY virou um **rack separado**, com o painel
-  clássico: chaves EFFECT/DIRECT (com LED), INPUT VOL, MODE SELECTOR (12 tempos), BASS/TREBLE
-  do eco, REVERB, INTENSITY, ECHO VOLUME, REPEAT RATE, DRY e **TAP TEMPO** (bata no ritmo pra
-  marcar o eco). Todas as funções antigas continuam — só mudaram de nome (TIME→REPEAT RATE,
-  FB→INTENSITY, WET→ECHO VOLUME).
-- **💥 TREMEDEIRA** — botão no crossover: corpo extra de graves (+15 dB abaixo de 100 Hz
-  + pico de +6 dB em 60 Hz, somável ao BASS BOOST), **um pouco de distorção** (saturação
-  suave) e o **ar do sistema fazendo barulho** (rumor grave que segue o nível dos graves,
-  com limitador pra não estourar) — e todas as caixas tremendo junto, em tempo real.
-- **TIRAR AGULHA com eco de 40 %** — o pop do disco sai com um eco de **40 %** de wet,
-  no tempo (REPEAT RATE/MODE) e na INTENSIDADE do SPACE ECHO — e **a música também**:
-  na hora do estalo o ECHO VOLUME do master sobe pra 40 % (se já estiver acima, fica)
-  e volta sozinho pro valor do painel quando a cauda morre. A música que estava
-  tocando ecoa a 40 % e a volta continua seca com o WET em 0 (sem delay forçado).
-- **BASS BOOST** — botão on/off, o 5º da fileira; reforço de +12 dB abaixo de 110 Hz
-  (low-shelf real no master).
-- **SYNARE com presets** — o pedal ganhou um seletor com **10 sons clássicos de syn
-  drum** (tom disco, laser, space drum, caixa seca, bumbo, trovão sub...): o preset
-  ajusta TUNE/SWEEP/DECAY/TONE/NOISE/SPACE e o delay exclusivo de uma vez — o
-  **VOL** fica como você deixar (e o pedal começa em **70 %**).
-- **GRAVAR MIX** — captura a saída do master em tempo real (`.webm`/`.ogg`/`.m4a`).
-- **CONVERTER** — renderiza a música offline e exporta WAV 16-bit/44,1 kHz/estéreo com
-  todos os seus ajustes.
-- **X-FADER na torre central**, logo abaixo do MASTER OUT.
-- **VOL movido para dentro do EQ & FILTERS** (ordem VOL → PAN → FILTER bipolar) nos dois canais.
-- **Toolbar auto-hide** — rola pra baixo e ela some; volta ao rolar pra cima ou com o
-  mouse no topo.
-- **3D desativado por padrão** (botão 📐 3D: OFF).
-- **MODO EDIÇÃO** — botão ✥ EDITAR na toolbar: **segure em qualquer lugar do
-  equipamento e arraste como uma janela** (mouse ou dedo) — ele segue o ponteiro nos
-  dois eixos e encaixa onde soltar; vale para os módulos externos (SIRENE, CROSSOVER,
-  SPACE ECHO, SYNARE) **e para o próprio DUB MIXER SOUND SYSTEM**. No modo edição os
-  **knobs, botões e faders ficam bloqueados** (nada de clicar sem querer); só as setas
-  ▲▼ continuam ativas como alternativa. A ordem fica salva e volta quando abrir de novo.
-- **Tudo com cara de rack 19"** — o gabinete principal tem orelhas metálicas com
-  **2 rebites de verdade em cada lado** e fica na mesma largura dos módulos
-  externos (SIREN, CROSSOVER e o SPACE ECHO, com orelhas e parafusos); o CROSSOVER
-  é um modelo diferente (anodizado preto/azul) e o SPACE ECHO tem o painel escuro
-  com blocos verdes do RE-201. O cabeçalho (DUB MIXER SOUND SYSTEM / 5-WAY
-  ANALOGUE CROSSOVER & PREAMP) é uma faceplate de rack de metal escovado.
-- **SYNARE externo** com visual de Space Drum (corpo escuro + pad circular de trigger) e **10 presets clássicos de syn drum** — o seletor **PRESET** configura os controles e o delay de uma vez (o **VOL** não muda).
-- **MASTER TAPE DELAY agora é o rack SPACE ECHO** (RE-201), separado — dá pra reposicionar no modo edição.
-- **Volume da sirene em 40 %** por padrão.
-- **VU estéreo real** (L/R) — mostradores retangulares laranja com moldura preta, sobre placa de alumínio com parafusos ("L METER" / "R METER" / "ANALOG VU METER"); a luz interna brilha junto com o SUB + BASS (e apaga quando os graves levam KILL).
-- **DRY no delay** — knob DRY no SPACE ECHO: mistura o sinal seco junto do eco (100 % por padrão).
-- **FILTER bipolar por canal** — um só knob no lugar de LOWPASS + HIGHPASS: centro = 0 (filtros abertos); girando para a ESQUERDA fecha o LOWPASS (100 Hz – 20 kHz) e para a DIREITA sobe o HIGHPASS (20 Hz – 20 kHz). Duplo clique volta ao centro.
-- **PWA** — manifest + service worker: instalável na tela inicial e funciona offline.
-- **Reverb de mola** — knob REVERB no painel do SPACE ECHO (a chave EFFECT liga/desliga o eco e a mola juntos), com impulso de spring.
-- **MIDI** — botão 🎹 MIDI: ON/OFF com soft takeover (CCs mapeados para os knobs).
-
-### 🎚️ Canal 1 e Canal 2 (decks)
-
-Cada canal aceita **arquivos locais** (MP3/WAV/OGG/M4A — o que o navegador suportar).
-
-Controles por canal:
+### Mixer e decks (2 canais)
 
 | Controle | O que faz |
 |---|---|
-| **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local |
-| **📀 TIRAR AGULHA** | Para o deck com o estalo da agulha saindo do disco — o pop e a música ecoam a 40 % (no tempo e INTENSIDADE do SPACE ECHO); o ECHO VOLUME volta sozinho pro painel depois que a cauda morre |
-| **🔄 DISCO REVERSO** | Backspin liga/desliga em **1,2x** com o **som do disco arranhando** junto: Aperta e a música fica voltando até você apertar de novo (ou TIRAR AGULHA / STOP) — aí a música volta de onde a agulha parou |
-| **VOL CH1 / VOL CH2** | Volume do canal (knob) |
-| **FILTER bipolar** | Um só knob: centro = 0 (tudo aberto); esquerda fecha o LOWPASS (100 Hz – 20 kHz), direita sobe o HIGHPASS (20 Hz – 20 kHz) |
-| **LED + VU** | Nível do canal, acende com o som |
-| **Barra de progresso** | Posição da faixa |
+| **▶ PLAY / ⏸ STOP** | Toca/pausa o arquivo local do canal |
+| **📀 TIRAR AGULHA** | Para com o estalo da agulha — o pop e a música ecoam a 40 % no SPACE ECHO |
+| **🔄 DISCO REVERSO** | Backspin de 1,2× com som de disco arranhando |
+| **VOL / PAN / FILTER** | Volume, pan e filtro bipolar (centro = aberto; esquerda fecha o lowpass, direita sobe o highpass) |
+| **LED + VU + barra** | Nível do canal e posição da faixa |
 
-> Os arquivos locais passam **todos** pelos filtros, crossover e delays.
+### Crossover de 5 vias
 
-### 🔀 Crossover de 5 vias + kills + only
-
-O coração do som dub: a música é dividida em **5 bandas** por filtros reais, e cada
-banda tem seu próprio fader e seu próprio kill.
-
-| Banda | Faixa de frequência | Filtros |
-|---|---|---|
-| **SUB** | abaixo de 80 Hz | lowpass 80 Hz |
-| **BASS** | 80 – 250 Hz | highpass 80 + lowpass 250 |
-| **L-MID** | 250 Hz – 1,2 kHz | highpass 250 + lowpass 1200 |
-| **H-MID** | 1,2 kHz – 5 kHz | highpass 1200 + lowpass 5000 |
-| **HIGH** | acima de 5 kHz | highpass 5000 |
-
-Para cada banda você tem:
-
-- **Knob de volume (0–200%)** — SUB, BASS, L-MID, H-MID, HIGH
-  (100% = neutro, abaixo disso corta, acima dá reforço).
-- **Botão KILL** — corta a banda na hora (o clássico *drop* de dub: mata o baixo,
-  deixa a caixa ecoando, e devolve tudo de uma vez).
-- **LED** por banda, mostrando o nível em tempo real.
-- **Botões de banda** — na ordem da fileira: ONLY SUB, BASS+SUB KILL, ONLY MID-HIGH, ONLY HIGH, BASS BOOST, 💥 TREMEDEIRA:
-  - **ONLY SUB** — só o grave.
-  - **BASS+SUB KILL** — mata (ou solta) BASS e SUB juntos.
-  - **ONLY MID-HIGH** — tira o sub e o bass.
-  - **ONLY HIGH** — só o agudo.
-  - **💥 TREMEDEIRA** — corpo extra de graves + um pouco de distorção + o ar do sistema fazendo barulho + as caixas (gabinete e racks) tremendo junto com os graves, em tempo real; desligou, tudo volta ao lugar.
-
-### ↔️ X-FADER
-
-Fader cruzado entre os canais, com curso real e porcentagem lida no visor
-(`X-FADER: CH 1 [ 82% ] CH 2`). Clique em qualquer ponto da pista ou arraste a
-capa com o mouse **ou com o dedo** (funciona nos dois navegadores).
-**Clique duplo volta para o centro (50/50)**.
-
-### 🔊 MASTER OUT — VU estéreo
-
-O master tem **dois VU meters**, um por lado (**L** e **R**) — o som que sai de verdade,
-não uma estimativa. Cada lado tem:
-
-- **Torre de 12 LEDs** (verde → âmbar → vermelho) — acende com o som.
-- **VU analógico de ponteiro** — o medidor com agulha que acompanha o ritmo.
-
-Por dentro: o som sai do `masterGain`, passa pelo BASS BOOST/TREMEDEIRA (low-shelf de graves) e vai para o `AudioContext.destination`, e o
-**mesmo ponto final** alimenta um `ChannelSplitter` de 2 vias para os dois
-`AnalyserNode` (L e R). Por isso, ao jogar o **PAN** de um canal para o lado, você vê
-os dois VUs se desequilibrarem — e os VUs refletem o BASS BOOST/TREMEDEIRA ligado.
-
-![Master VU estéreo](docs/img/master-vu-estereo.png)
-
-### 📼 Master Tape Delay / SPACE ECHO (RE-201)
-
-Delay **da música** (depois do crossover e antes do master), agora num **rack separado**
-com o painel do Roland Space Echo. Todas as funções antigas continuam — só mudaram de
-nome: o TIME virou **REPEAT RATE**, o FB virou **INTENSITY** e o WET virou **ECHO VOLUME**.
-
-- **EFFECT** — liga/desliga o eco (desligado, ECHO VOLUME e REVERB vão a zero, sem perder os ajustes)
-- **DIRECT** — liga/desliga o som seco que passa junto do eco (com LED vermelho)
-- **INPUT VOL** — volume de entrada do eco
-- **MODE SELECTOR** — 12 combinações de tempo do eco (1×, 0,5×, 0,75×, ⅔×, 1,25×, 1,5×, 2×, 2,5×, ⅓×, 3×, 4×, ¼×)
-- **BASS / TREBLE** — EQ do eco (−12 a +12 dB)
-- **REVERB** — reverb de mola (0–100 %)
-- **INTENSITY** — realimentação 0–90 %
-- **ECHO VOLUME** — quanto do eco entra no master (0 % por padrão, ligue conforme o gosto)
-- **REPEAT RATE** — 0,05 s a 1,20 s
-- **DRY** — quanto do sinal original continua junto do eco (100 % por padrão)
-- **TAP TEMPO** — bata 2 ou mais vezes no ritmo pra marcar o tempo do eco
-
-Tem um filtro passa-baixa no caminho do delay, pra ficar aquele eco escuro de fita
-em vez de eco digital brilhante. E um **VU próprio**, mostrando que o delay está vivo.
-
-### 🚨 SIREN GENERATOR & PRESETS
-
-Gerador de sirene de sound system, com **10 presets** já calibrados:
-
-| # | Preset | # | Preset |
+| Banda | Faixa | Banda | Faixa |
 |---|---|---|---|
-| 1 | O.B.F Dubquake Laser | 6 | Mungo's Hi Fi Rub-A-Dub |
-| 2 | Kebra Ethiopia Stepper | 7 | Alpha & Omega Cyber Beam |
-| 3 | Iration Steppas Year 3000 | 8 | Stand High Patrol Sweeper |
-| 4 | King Tubby Sub Siren | 9 | Channel One Roots Sine |
-| 5 | Jah Shaka Warrior Horn | 10 | Aba Shanti-I Meditation |
+| SUB | < 80 Hz | H-MID | 1,2 – 5 kHz |
+| BASS | 80 – 250 Hz | HIGH | > 5 kHz |
+| L-MID | 250 Hz – 1,2 kHz | | |
 
-Controles: **PITCH** (50–1500 Hz), **RATE** (0,01–25 Hz), **VOL SIRENE**,
-e um **🚨 delay exclusivo só da sirene** (TIME / FB / WET).
+Cada banda tem volume (0–200 %), kill na hora e LED. Os botões de banda fazem:
+**ONLY SUB** · **BASS+SUB KILL** · **ONLY MID-HIGH** · **ONLY HIGH** · **BASS BOOST** (+12 dB < 110 Hz) · **💥 TREMEDEIRA**.
 
-Dois **push buttons redondos metálicos** ficam embaixo dos controles, com o rótulo
-**embaixo do botão**. O botão em si é **liso, sem nada escrito dentro** — de propósito:
-no meio do set o dedo não cobre o nome, e a cor já diz tudo. Ambos são **on/off com
-um clique**:
+### SPACE ECHO (RE-201)
 
-| Botão | O que faz |
-|---|---|
-| **SIRENE** | Dispara a sirene. Clique de novo e ela para |
-| **SWEEP** | Abaixa o **RATE** gradualmente (a sirene vai desacelerando até o mínimo). Clique de novo e o RATE volta ao valor anterior |
+EFFECT e DIRECT (com LED), INPUT VOL, MODE SELECTOR (12 tempos: 1×, ½×, ¾×, ⅔×, 1¼×, 1½×, 2×, 2½×, ⅓×, 3×, 4×, ¼×), BASS/TREBLE do eco (±12 dB), REVERB de mola, INTENSITY (0–90 %), ECHO VOLUME, REPEAT RATE (0,05–1,20 s), DRY e **TAP TEMPO**.
 
-Os dois são **cinza quando desligados e vermelhos quando ligados** (com um brilho
-vermelho no aro), igual equipamento de verdade — no modo 3D dá para ver a cor
-mudar de longe, sem precisar ler nada.
-
-### 🥁 SYNARE / SPACE DRUM — pedal analógico
-
-O tambor sintético que virou assinatura do dub digital. Um oscilador com varredura
-de tom + ruído + filtro ressonante, disparado por um botão.
-
-- **PRESET** — 10 sons clássicos de syn drum que ajustam TUNE/SWEEP/DECAY/TONE/
-  NOISE/SPACE e o delay de uma vez (o **VOL** não muda): Synare Clássico, Tom Disco 70s, Laser Zap, Space Drum, Tom Dub
-  (Eco Longo), Caixa Seca, Bumbo Profundo, Zap Dub, Percussão Seca e Trovão Sub
-- **TUNE** — 40–1000 Hz (tom base)
-- **SWEEP** — 0–100 % (quanto o tom varre ao ser tocado)
-- **DECAY** — 0,05–1,5 s (duração do tambor)
-- **TONE** — 100–6000 Hz (filtro ressonante, Q alto)
-- **NOISE** — 0–100 % (mistura de ruído do ataque)
-- **SPACE** — 0–100 % (LFO de 6,5 Hz = o "space drum" que pulsa)
-- **VOL** — volume do pedal
-- **Exclusive Tape Delay:** **TIME / FB / WET** — delay **só do Synare**,
-  independente do delay da música e do delay da sirene.
-
-![Pedal Synare](docs/img/pedal-synare.png)
-
-Botão **🥁 TOCAR SYNARE** — toque quantas vezes quiser, cada toque é uma voz nova
-que se desconecta sozinha (sem vazamento de áudio).
+### Sirene e Synare
 
 ![Sirene](docs/img/sirene.png)
 
-### 🧰 Barra de ferramentas (topo)
+**SIRENE** — 10 presets (O.B.F, Iration, Tubby, Shaka...), PITCH 50–1500 Hz, RATE 0,01–25 Hz, VOL 40 %, delay exclusivo, botões **SIRENE** e **SWEEP** (desacelera o rate até o mínimo).
 
-| Grupo | O que faz |
-|---|---|
-| **🎛️ Tema** | 16 visuais de equipamento (veja [Temas](#-temas-visuais)) |
-| **☀️ / 🌙** | Fundo da página — botão único só com emoji: clicou, troca o ícone (igual iPhone) |
-| **🎛️ Pedais** | Mostra/oculta a SIRENE e o SYNARE |
+![Pedal Synare](docs/img/pedal-synare.png)
 
-![Barra de ferramentas](docs/img/toolbar.png)
+**SYNARE** — 10 presets de syn drum que ajustam TUNE/SWEEP/DECAY/TONE/NOISE/SPACE e o delay de uma vez (o **VOL**, que abre em **70 %**, fica como você deixar), delay exclusivo e pad de trigger.
 
----
+### Master, VU e utilitários
 
-## 🎚️ Referência completa dos 36 knobs
+![Master VU estéreo](docs/img/master-vu-estereo.png)
 
-Todos os knobs: **arraste para cima/baixo** com o mouse ou **com o dedo**.
-**Duplo clique** volta ao valor de fábrica. O valor aparece ao lado do nome.
-
-### Deck 1 e Deck 2
-
-| Knob | Rótulo | Faixa | Padrão |
-|---|---|---|---|
-| `knobVolA` | VOL CH1 | 0–100 % | 100 % |
-| `knobSweepA` | FILTER (CH1) | LP 100 Hz – 20 kHz ◄ 0 ► HP 20 Hz – 20 kHz | 0 (centro) |
-| `knobPanA` | PAN (CH1) | L 100 – C – R 100 | C (centro) |
-| `knobVolB` | VOL CH2 | 0–100 % | 100 % |
-| `knobSweepB` | FILTER (CH2) | LP 100 Hz – 20 kHz ◄ 0 ► HP 20 Hz – 20 kHz | 0 (centro) |
-| `knobPanB` | PAN (CH2) | L 100 – C – R 100 | C (centro) |
-
-> O **PAN** fica ao lado do **FILTER** em cada canal. Ele é um `StereoPannerNode`
-> criado a cada play.
-
-![CUTOFF + PAN](docs/img/eq-cutoff-pan.png)
-
-### Crossover — ganho por banda
-
-| Knob | Rótulo | Faixa | Padrão |
-|---|---|---|---|
-| `knobIsoSub` | SUB | 0–200 % | 100 % |
-| `knobIsoBass` | BASS | 0–200 % | 100 % |
-| `knobIsoLM` | L-MID | 0–200 % | 100 % |
-| `knobIsoHM` | H-MID | 0–200 % | 100 % |
-| `knobIsoHigh` | HIGH | 0–200 % | 100 % |
-
-### Master Tape Delay / SPACE ECHO
-
-| Knob | Rótulo | Faixa | Padrão |
-|---|---|---|---|
-| `knobMasterDTime` | REPEAT RATE | 0,05 – 1,20 s | 0,375 s |
-| `knobMasterDFB` | INTENSITY | 0–90 % | 40 % |
-| `knobMasterDWet` | ECHO VOLUME | 0–100 % | 0 % (desligado) |
-| `knobMasterDDry` | DRY | 0–100 % | 100 % (sinal seco) |
-| `knobMasterReverb` | REVERB | 0–100 % | 0 % |
-| `knobEchoInput` | INPUT VOL | 0 – 150 % | 100 % |
-| `knobEchoMode` | MODE SELECTOR | 1–12 | 1 |
-| `knobEchoBass` | BASS (eco) | −12 – +12 dB | 0 dB |
-| `knobEchoTreble` | TREBLE (eco) | −12 – +12 dB | 0 dB |
-
-### Siren Generator
-
-| Knob | Rótulo | Faixa | Padrão |
-|---|---|---|---|
-| `knobSirenPitch` | PITCH | 50 – 1500 Hz | 440 Hz |
-| `knobSirenRate` | RATE | 0,01 – 25 Hz | 3,0 Hz |
-| `knobSirenVol` | VOL SIRENE | 0–100 % | 40 % |
-| `knobSirenDTime` | TIME (delay) | 0,05 – 1,20 s | 0,375 s |
-| `knobSirenDFB` | FB (delay) | 0–90 % | 40 % |
-| `knobSirenDWet` | WET (delay) | 0–100 % | 30 % |
-
-### Synare / Space Drum
-
-| Knob | Rótulo | Faixa | Padrão |
-|---|---|---|---|
-| `knobSynTune` | TUNE | 40 – 1000 Hz | 220 Hz |
-| `knobSynSweep` | SWEEP | 0–100 % | 80 % |
-| `knobSynDecay` | DECAY | 0,05 – 1,50 s | 0,45 s |
-| `knobSynTone` | TONE | 100 – 6000 Hz | 900 Hz |
-| `knobSynNoise` | NOISE | 0–100 % | 35 % |
-| `knobSynSpace` | SPACE | 0–100 % | 20 % |
-| `knobSynVol` | VOL | 0–100 % | 70 % |
-| `knobSynDTime` | TIME (delay) | 0,05 – 1,20 s | 0,300 s |
-| `knobSynDFB` | FB (delay) | 0–90 % | 45 % |
-| `knobSynDWet` | WET (delay) | 0–100 % | 35 % |
-
-> **Presets do Synare**: o seletor **PRESET** aplica os 10 sons clássicos de uma vez
-> (e gira os controles na hora — o **VOL** fica como você deixou). De fábrica ele
-> abre no **1. Synare Clássico**, com o **VOL em 70 %**.
-
-> **Três delays independentes**: um da música (master), um da sirene e um do Synare.
-> Você pode mandar um eco gigante no tambor sem sujar a música.
-
----
-
-## 🎛️ Pedais opcionais (mostrar / ocultar)
-
-Nem todo mundo usa tudo. Na barra **🎛️ Pedais** você liga e desliga:
-
-- **🚨 SIRENE** — o bloco *SIREN GENERATOR & PRESETS*
-- **🥁 SYNARE** — o pedal completo
-
-> **A SIRENE já vem visível** quando o app abre, pronta pra tocar — o botão
-> **🚨 SIRENE** oculta ela se você não for usar. Já o **SYNARE vem oculto**: é um
-> pedal de uso pontual (você dispara e pronto), então a mesa abre mais enxuta —
-> e um clique em **🥁 SYNARE** traz ele de volta. O app lembra do estado enquanto
-> a página está aberta.
-
-Quando você oculta, acontecem três coisas:
-
-1. O equipamento **sai de cima da mesa**.
-2. A mesa entra em **modo compacto**: fica ~**686 px mais curta** e ~**86 px mais estreita**.
-3. Segurança: se a sirene estiver **soando** e você ocultar o pedal, ela **para sozinha**
-   (nunca fica um som fantasma sem controle na tela).
-
-| Estado | Altura do gabinete |
-|---|---|
-| Tudo visível | 1815 px |
-| **Só o Synare oculto** (como o app **abre**) | **1394 px** |
-| Só a sirene oculta | 1508 px |
-| Os dois ocultos | 1129 px |
+- **X-FADER** (duplo clique volta ao centro) e **VU estéreo L/R** (LED + ponteiro analógico, dependendo do tema).
+- **GRAVAR MIX** e **CONVERTER** para levar o dub pra fora.
+- **🎹 MIDI** (CC mapeado, soft takeover) e **☀️/🌙** (fundo claro/noturno num botão só).
+- **Barra de pedais**: SIRENE (visível por padrão) e SYNARE (oculto por padrão) ligam/desligam. Ocultar encurta a mesa.
 
 ![Mesa compacta](docs/img/mesa-compacta.png)
 
----
+### Os 36 knobs
 
-## 🎨 Temas visuais
+Todos: **arraste para cima/baixo** (mouse ou dedo), **duplo clique** volta ao padrão.
 
-Dezesseis visuais de equipamento, trocados na barra de ferramentas. O tema muda o material
-do painel, a cor dos knobs, os LEDs e o texto — mantendo o mesmo layout.
+| Deck (×2) | Faixa | Padrão | | Crossover | Faixa | Padrão |
+|---|---|---|---|---|---|---|
+| VOL | 0–100 % | 100 % | | SUB / BASS / L-MID / H-MID / HIGH | 0–200 % | 100 % |
+| FILTER | LP ↔ HP | centro | | | | |
+| PAN | L ↔ R | centro | | | | |
 
-| # | Tema | Visual |
-|---|---|---|
-| 1 | **Dub Preamp Original** | Preto com madeira e LED master (padrão) |
-| 2 | **Mustard Synth** | Painel amarelo mostarda |
-| 3 | **Benidub Style** | Preto/branco com knobs prata |
-| 4 | **DIY Box** | Alumínio com knobs coloridos |
-| 5 | **Golden Acapulco** | Psicodélico rosa/amarelo |
-| 6 | **DJ Mixer** | Painel escuro de DJ |
-| 7 | **Vintage Conservado** | Mesa antiga, madeira envelhecida |
-| 8 | **MPC Clássica** | Cinza com vermelho Akai |
-| 9 | **Rastafari** | Verde, ouro e vermelho (LED master) |
-| 10 | **King Tubby's Water** | Azul água (VU analógico) |
-| 11 | **Volcano Lava** | Laranja sobre basalto (LED master) |
-| 12 | **Cosmic Dub** | Violeta espacial (VU analógico) |
-| 13 | **Neve 1073** | Azul marinho + prata (preamp clássico) |
-| 14 | **API 512** | Burgundy + prata (preamp americano) |
-| 15 | **SSL 4000** | Grafite + azul (channel strip) |
-| 16 | **Tube Preamp** | Valvulado, warm, dourado |
+| SPACE ECHO | Faixa | Padrão | | Sirene | Faixa | Padrão |
+|---|---|---|---|---|---|---|
+| REPEAT RATE | 0,05–1,20 s | 0,375 s | | PITCH | 50–1500 Hz | 440 Hz |
+| INTENSITY | 0–90 % | 40 % | | RATE | 0,01–25 Hz | 3 Hz |
+| ECHO VOLUME | 0–100 % | 0 % | | VOL | 0–100 % | 40 % |
+| DRY | 0–100 % | 100 % | | TIME/FB/WET (delay) | — | 0,375 s / 40 % / 30 % |
+| REVERB | 0–100 % | 0 % | | **Synare** | | |
+| INPUT VOL | 0–150 % | 100 % | | TUNE | 40–1000 Hz | 220 Hz |
+| MODE | 1–12 | 1 | | SWEEP | 0–100 % | 80 % |
+| BASS / TREBLE | ±12 dB | 0 dB | | DECAY | 0,05–1,5 s | 0,45 s |
+| | | | | TONE | 100–6000 Hz | 900 Hz |
+| | | | | NOISE / SPACE | 0–100 % | 35 % / 20 % |
+| | | | | VOL | 0–100 % | **70 %** |
+| | | | | TIME/FB/WET (delay) | — | 0,3 s / 45 % / 35 % |
 
-Combine com o botão de fundo **☀️ Claro / 🌙 Noturno** (um botão único só com o
-emoji do modo atual — clicou, troca o ícone e o fundo muda).
+### Temas (16)
 
-> **Contraste revisado:** nos temas de **painel claro** (Mustard, DIY, Acapulco,
-> Vintage, MPC) as cores de status — verde do arquivo carregado, azul de aviso, âmbar
-> e vermelho de erro — e o dourado dos títulos são trocados por tons **escuros**,
-> senão o texto sumiria no fundo claro. E nas superfícies que continuam **escuras de
-> propósito** em qualquer tema (torre do MASTER OUT, módulos de rack, botões
-> GRAVAR/CONVERTER, VUs) esses temas usam uma versão **clara** do dourado — assim
-> nenhum texto fica com a cor parecida com a do fundo.
+Trocados na barra de ferramentas — mudam material, cor dos knobs, LEDs e texto, mantendo o layout.
+
+| | | | |
+|---|---|---|---|
+| 1. Dub Preamp Original | 2. Mustard Synth | 3. Benidub Style | 4. DIY Box |
+| 5. Golden Acapulco | 6. DJ Mixer | 7. Vintage Conservado | 8. MPC Clássica |
+| 9. Rastafari | 10. King Tubby's Water | 11. Volcano Lava | 12. Cosmic Dub |
+| 13. Neve 1073 | 14. API 512 | 15. SSL 4000 | 16. Tube Preamp |
 
 ![Tema Rastafari](docs/img/tema-rasta.png)
 ![Tema Cosmic Dub](docs/img/tema-cosmic.png)
 
----
+## Como funciona
 
-## ✅ Compatibilidade testada
+O grafo de áudio é montado **uma única vez** quando o áudio é liberado; os knobs só alteram parâmetros (com rampas de ~50 ms, sem estalo). Sirene e Synare são vozes *one-shot* que se desconectam sozinhas ao fim do envelope — pode martelar o trigger que não acumula. Tudo em um arquivo: sem framework, sem build, sem dependência.
 
-Testes automatizados reais (Playwright) rodando o app de verdade:
+```mermaid
+flowchart LR
+  DA[Deck A · file] --> CA[VOL · FILTER · PAN]
+  DB[Deck B · file] --> CB[VOL · FILTER · PAN]
+  CA --> SUM[Sum]
+  CB --> SUM
+  SUM --> XF[X-FADER cos/sen]
+  XF --> CO{Crossover 5 vias}
+  CO -->|SUB| G1[gain + kill + LED]
+  CO -->|BASS| G2[gain + kill + LED]
+  CO -->|L-MID| G3[gain + kill + LED]
+  CO -->|H-MID| G4[gain + kill + LED]
+  CO -->|HIGH| G5[gain + kill + LED]
+  G1 --> ECHO[SPACE ECHO · delay + mola]
+  G2 --> ECHO
+  G3 --> ECHO
+  G4 --> ECHO
+  G5 --> ECHO
+  ECHO --> MG[Master · BASS BOOST / TREMEDEIRA]
+  SR[SIRENE] --> DS[delay da sirene] --> MG
+  SY[SYNARE] --> DY[delay do Synare] --> MG
+  MG --> OUT((Saída L/R))
+  MG --> VU[VU estéreo]
+  MG --> REC[GRAVAR · CONVERTER]
+```
 
-| Navegador / dispositivo | Viewports testados | Resultado |
-|---|---|---|
-| **Firefox** (desktop) | 1440, 1280, 1024, 960, 900, 768, 600, 520, 420, 380, 320 px | ✅ 88 combinações, **zero** problemas de layout |
-| **Chromium / Chrome** | 1280 px | ✅ |
-| **iPhone (390×844)** retrato | toque | ✅ sem rolagem lateral |
-| **Celular (844×390)** paisagem | toque | ✅ |
-| **Android (360×740)** | toque | ✅ |
+## Da eletrônica ao software
 
-O que é verificado em cada rodada:
+A mesa foi desenhada como **equipamento**: cada bloco segue um circuito clássico — e vira o nó equivalente no Web Audio. É este o mapa entre o roadmap de hardware e o app:
 
-- **Rolagem lateral = 0 px** em todas as larguras (nada de "arrastar pra ver o resto").
-- **Alinhamento da torre central**: desvio máximo de **0,01 px**.
-- **Visual realista preservado**: orelhas metálicas 26 px, borda superior 4 px, knob com borda 2 px,
-  fader 58 px, fonte *Share Tech Mono*, transformação 3D presente.
-- **Arraste de knob por mouse e por toque** funciona (inclusive em Chrome, e depois da
-  página ser rolada).
-- **Show/hide de pedais** funciona por toque e por clique.
-- **Áudio real**: impacto do Synare, cauda do delay a ~1,3 s, kills e onlys mudando o
-  espectro, sirene acesa/apagada.
-- **Zero erros de JavaScript.**
+```mermaid
+flowchart LR
+  subgraph FIS["Mesa física (projeto DIY)"]
+    J1[Jack CH1] --> P1[Pré + filtro]
+    J2[Jack CH2] --> P2[Pré + filtro]
+    P1 --> XO[Crossover 5 vias · TL072]
+    P2 --> XO
+    XO --> KL[Kill/Only · CD4066]
+    KL --> SM[Somador]
+    SI[Sirene · VCO CD4046] --> SM
+    SN[Synare · LM13700 + ruído] --> SM
+    SM --> DL[Delay PT2399 + mola]
+    DL --> SM
+    SM --> MST[Master + VU] --> SAI[Saída L/R]
+  end
+  subgraph SW["No app (Web Audio)"]
+    A1[decodeAudioData] --> B1[BiquadFilter · Gain]
+    B1 --> C1[Biquads por banda + Gain]
+    C1 --> D1[Gain com rampa · kill]
+    D1 --> E1[DelayNode + Convolver + WaveShaper]
+    E1 --> F1[Analyser → VU]
+  end
+```
 
----
+| Bloco no equipamento | No app |
+|---|---|
+| Filtros por canal / crossover (Sallen-Key, TL072) | `BiquadFilterNode` (lowpass/highpass) + `GainNode` por banda |
+| Kill / only (chave analógica CD4066) | `GainNode` indo a zero com rampa de ~50 ms |
+| Delay de fita (RE-201) | `DelayNode` + feedback + lowpass + `ConvolverNode` (mola) |
+| Sirene (VCO CD4046 + LFO) | `OscillatorNode` + LFO modulando a frequência |
+| Synare (oscilador + ruído + VCA LM13700) | `OscillatorNode` + buffer de ruído + envelope de ganho |
+| VU (LM3915 / ponteiro) | `AnalyserNode` + `requestAnimationFrame` |
+| X-FADER (pot duplo cos/sen) | dois `GainNode` com curvas cos/sen |
+| BASS BOOST / TREMEDEIRA | `BiquadFilterNode` lowshelf + `WaveShaper` (saturação) + limiter |
+| Gravação / exportação | `MediaRecorder` e `OfflineAudioContext` → WAV |
 
-## 📁 Estrutura do projeto
+> Os kernels DSP também existem em Rust (`rust/src/dsp.rs`) para a versão nativa — mesma matemática, outro runtime.
+
+## Estrutura do projeto
 
 ```
 dub-sound-system-studio/
+├── index.html                  ← O APP INTEIRO (HTML+CSS+JS, fonte e favicon embutidos)
+├── icon-192.png / icon-512.png ← ícones do PWA
+├── manifest.json + sw.js       ← PWA (instalável, offline)
+├── shots.mjs + package.json    ← gerador dos prints do README (dev)
 │
-├── index.html                         ← O APP INTEIRO (um arquivo só, ~160 KB)
-│
-├── manifest.json + sw.js              ← PWA (instalável, offline)
-├── shots.mjs                         ← helper de screenshots (dev)
-│
-├── frontend/                         ← assets web para o Tauri (index.html, sw.js, dsp/)
-├── dsp/                              ← kernels DSP (C + AudioWorklet JS)
-│   ├── tape_delay.c
-│   └── tape_delay_processor.js
-│
-├── rust/                             ← versão executável nativa (Tauri 2)
-│   ├── Cargo.toml, tauri.conf.json, build.rs
-│   └── src/ (main.rs, dsp.rs)
-│
-├── dub-mixer.sh                       ← Launcher Linux / macOS
-├── Dub Mixer.command                  ← Launcher macOS (duplo clique no Finder)
-│
-├── README.md                          ← este arquivo
-├── LICENSE                            ← MIT
+├── frontend/                   ← assets web para o executável (index.html, sw.js, ícones)
+├── dsp/                        ← kernels DSP de referência (C + JS)
+├── rust/                       ← executável nativo (Tauri 2): src/, icons/, tauri.conf.json
+├── dub-mixer.sh                ← launcher Linux/macOS
+├── Dub Mixer.command           ← launcher macOS (duplo clique)
 │
 └── docs/
-    ├── ROADMAP-HARDWARE.md            ← plano da versão física (PCB, R$100)
-    └── img/                           ← capturas de tela
+    ├── ROADMAP-HARDWARE.md     ← plano da versão física (DIY)
+    └── img/                    ← prints e ícone (icon.svg)
 ```
 
-**A versão web não tem build nem dependência** — baixou o `index.html`, abriu,
-funcionou. A versão executável (`rust/`) usa Rust/Tauri e requer `cargo tauri build`
-(veja o README dentro de `rust/`).
+## Versão executável (Rust + Tauri 2)
 
----
+A pasta `rust/` empacota a mesma interface num app de janela (sem navegador). Os 6 kernels de DSP (`dsp.rs`) ficam prontos para os próximos racks.
 
-## 🔧 Detalhes técnicos
-
-### Um arquivo, zero dependências
-
-Todo o app vive em `index.html`: HTML + CSS + JavaScript. A única coisa externa é a
-fonte **Share Tech Mono** (Google Fonts, cai para monoespaçada do sistema se estiver offline).
-
-### O grafo de áudio (Web Audio API)
-
-```
-Deck A (arquivo) ─► Gain ─► Lowpass ─┐
-                                      ├─► mixerSum ─┬─► LP 80 ──► gSub  ─► analSub  ─┐
-Deck B (arquivo) ─► Gain ─► Lowpass ─┘             ├─► HP80+LP250 ─► gBass ─► analBass ─┤
-                                                    ├─► HP250+LP1200 ► gLM  ─► analLM  ─┤
-                                                    ├─► HP1200+LP5000 ► gHM ─► analHM  ─┤
-                                                    └─► HP5000 ──► gHigh ─► analHigh ──┤
-                                              (mesmo ponto) ──► Space Echo (delay) ───┤
-                                                                                       ▼
-                                                                                  masterGain ─► BASS BOOST/TREMEDEIRA ─► saída
-Sirene ──► delay da sirene ──┐
-Synare ──► delay do Synare ──┴───────────────────────────────────────────────────────► masterGain
+```bash
+cd rust
+cargo tauri build     # Linux: .deb, .rpm e AppImage · Windows: .exe (NSIS) e .msi · macOS: .dmg
 ```
 
-Cada banda tem um **AnalyserNode** próprio (`fftSize: 64`) alimentando seu VU.
+| Plataforma | Artefatos | Observação |
+|---|---|---|
+| Linux | `.deb` · `.rpm` · `.AppImage` | testado e gerado neste repo |
+| Windows | `.exe` (NSIS) · `.msi` | requer toolchain MSVC |
+| macOS | `.dmg` · `.app` | requer um Mac — há workflow de CI pronto em `.github/workflows/` |
 
-### Os três delays
+## Segurança e privacidade
 
-Cada delay é um trio `DelayNode` + `GainNode` (feedback) + `GainNode` (wet), montado
-**uma única vez** dentro de `unlockAudioContext()`. Os knobs só mudam parâmetros —
-nunca recriam nós. Isso evita zumbido, clique e vazamento de memória.
+- **100 % offline** — a fonte e o ícone estão embutidos no arquivo; o app não faz *nenhum* request externo, não tem telemetria e toca apenas arquivos que você escolhe.
+- **CSP** no HTML e no app nativo — bloqueia script e conteúdo de terceiros.
+- **Validação dos arquivos** carregados (formato de áudio e limite de tamanho) e **drag & drop desativado** — soltar um arquivo na janela não navega pra fora do app.
+- **Service worker restrito** a GET do mesmo domínio (nada de interceptar outros domínios).
+- **Kernel Rust com limites** de buffer e de parâmetros — nunca confia no que vem da interface.
+- Sem `innerHTML`: nada de HTML injetado por dados.
 
-### As vozes (sirene e Synare)
+## Compatibilidade
 
-São **one-shot**: cada disparo cria oscilador + envelope, conecta no master e no delay,
-e **se desconecta sozinho** quando o envelope termina (`onended`). Você pode martelar
-o botão do Synare que não acumula.
+| Navegador / dispositivo | Resultado |
+|---|---|
+| Firefox (desktop, 320–1440 px) | ✅ testado |
+| Chrome / Chromium / Edge | ✅ testado (inclui os prints do README, via Playwright) |
+| Android / iPhone (toque) | ✅ testado |
+| Safari (macOS / iOS) | ⏳ ainda não testado — é o único motor em aberto |
 
-### O problema do disco (`file://`)
+## Roadmap
 
-`window.location.protocol === 'file:'` → o app mostra a faixa amarela de aviso
-automaticamente e explica o que fazer. É o único jeito honesto de tratar isso.
+### Concluído
 
-### Quatro correções que valem registro
+- [x] **GRAVAR MIX** + **CONVERTER** (WAV 16-bit/44,1 kHz)
+- [x] **BASS BOOST** (+12 dB < 110 Hz) e **💥 TREMEDEIRA**
+- [x] **Delay sincronizado** — TAP TEMPO + MODE SELECTOR de 12 divisões
+- [x] **Reverb de mola** no caminho do eco
+- [x] **MIDI com soft takeover**
+- [x] **PWA** — instalável e offline (manifest + service worker + ícone próprio)
+- [x] **Orientação paisagem** travada pelo manifest
+- [x] **SPACE ECHO (RE-201)**, TIRAR AGULHA com eco a 40 %, DISCO REVERSO, VU estéreo, X-FADER
+- [x] **16 temas** com contraste revisado + modo edição + toolbar auto-hide
+- [x] **Executáveis** Linux e Windows (+ workflow de CI para macOS)
+- [x] **Segurança** — CSP, validação de arquivos, fonte/ícone embutidos
 
-**1. O "gabinete 3D" quebrava o clique no Chrome.**
-O gabinete usa `perspective` + `transform: rotateX()` + `transform-style: preserve-3d`.
-No Chrome, **depois de rolar a página**, o teste de acerto (hit-test) do navegador
-devolvia o *container* do knob em vez do knob — o clique "se perdia" em **todos** os
-knobs (no Firefox funcionava). A correção foi escutar o `pointerdown` no
-`.knob-container` (que **não** tem transformação): o evento borbulha do knob quando o
-navegador acerta o knob, e é capturado pelo container quando o navegador erra. Uma
-correção, dois navegadores.
+### Melhorias planejadas
 
-**2. Nada de `transform`/`filter` em botões dentro do `preserve-3d`.**
-Efeitos de hover/active com `transform` ou `filter` em elementos dentro do gabinete 3D
-faziam o Firefox desenhar "bordas invisíveis" em volta de cada elemento e quebravam o
-`mousedown`/`mouseup`. Agora o feedback de clique é feito com `box-shadow` e cor.
+- [ ] **Presets da mesa inteira** — salvar/carregar os 36 knobs + kills + xfader num snapshot
+- [ ] **Reset geral** — volta tudo ao padrão de uma vez
+- [ ] **Filtro ressonante (Q ajustável)** nos canais
+- [ ] **Teclado** — setas para ajustar o knob em foco (fino com Shift)
+- [ ] **Roda do mouse** sobre o knob (hoje: arraste com mouse/dedo)
+- [ ] **Modo palco** — esconde a toolbar e deixa só a mesa
+- [ ] **Zoom/escala** da mesa (75 / 100 / 125 %)
+- [ ] **Exportar/importar tema**
+- [ ] **Testes no Safari** (macOS e iOS)
+- [ ] **Verificar memória** com muitas vozes simultâneas
 
-**3. O X-FADER só funcionava no Firefox.**
-O mesmo problema do item 1, um nível abaixo: o arraste era escutado no **cap** (a
-peça que corre na pista), e no Chrome o `pointerdown` era entregue à **pista**. O
-resultado era silencioso e cruel — o **clique** na pista funcionava (então parecia
-tudo bem), mas **arrastar a capa não fazia nada**. Agora o arraste é escutado na
-pista e o clique duplo (que volta ao centro) também: um só lugar, os dois
-navegadores.
+### Novos racks (candidatos)
 
-**4. O arraste do X-FADER criava uma seleção de texto.**
-Ao arrastar o fader, o navegador começava a selecionar o texto do rótulo acima
-(`X-FADER: CH 1 [ 82% ] CH 2`). Dentro do gabinete 3D essa faixa de seleção era
-projetada e aparecia como uma **borda fantasma**. A seção do X-FADER agora tem
-`user-select: none`, e o `border-style: inset` da pista virou `solid`: o "inset"
-faz o navegador desenhar um bisel claro/escuro que, rasterizado dentro do 3D, vira
-uma linha de borda visível.
+Backlog de equipamento clássico que cabe no grafo — os três primeiros já têm kernel DSP escrito em Rust:
 
-### Acessibilidade
+| Rack | Base clássica | Observação |
+|---|---|---|
+| **PHASER** | MXR Phase 90 / Small Stone | kernel `process_phaser` pronto em `dsp.rs` |
+| **FLANGER** | ADA / Electric Mistress | kernel `process_flanger` pronto |
+| **AUTOWAH** | Mu-Tron III | kernel `process_autowah` pronto |
+| **SPRING REVERB** | Grampian / Fisher | hoje o REVERB mora no SPACE ECHO; rack próprio com DWELL/TONE |
+| **MULTI-HEAD ECHO** | Binson Echorec | 4 cabeças com padrões rítmicos (o eco "suíço" do dub) |
+| **EQ PASSIVO** | Pultec EQP-1A | low/high boost-cut pro "sweep" de dub |
+| **COMPRESSOR** | Teletronix LA-2A | o "pump" de sound system no master |
+| **SUB HARMONIC** | DBX 120 | o "boom" que faz o paredão tremer |
+| **FX GENERATOR** | caixinhas de sound system | one-shots: laser, bomba, sonar, trovão |
+| **AUX MATRIX** | patch bay de estúdio | mandar qualquer canal pra qualquer delay (roteamento) |
 
-- Botões com `aria-label`, `aria-pressed` e `title` descritivos.
-- `role="group"` nos grupos de botões segmentados.
-- `button:focus:not(:focus-visible) { outline: none }` — sem anel de foco no clique de
-  mouse, mas mantido para navegação por teclado.
+### O que vem em seguida
 
----
+1. **Publicar** o repositório no GitHub (README, prints e builds já prontos neste estado).
+2. **Rodar a fita no Safari/iOS** e corrigir o que aparecer.
+3. **Publicar os releases** das três plataformas (macOS sai pelo workflow de CI).
+4. **Melhorias de UI** da lista acima, na ordem de utilidade.
+5. **Racks novos**, um por vez, começando pelos que já têm kernel (phaser, flanger, autowah).
+6. **Hardware** — começar a Fase 1 ("um canal de ponta a ponta") do [roadmap físico](docs/ROADMAP-HARDWARE.md).
 
-## 🗺️ Próximos passos
+## Licença e créditos
 
-O roadmap tem **duas frentes**. Cada uma tem seu documento:
+**MIT** — use, modifique e distribua. Veja [`LICENSE`](LICENSE).
 
-### 2. Versão física — a mesa de verdade, por R$100
-
-**→ [`docs/ROADMAP-HARDWARE.md`](docs/ROADMAP-HARDWARE.md)**
-
-Um gabinete de madeira (ou impressão 3D) com **PCB próprio**, componentes soldados,
-Arduino e os mesmos controles desta tela — **custo-alvo R$100** no patamar mais
-simples (mono, reaproveitando sucata; o doc detalha os **três patamares** de custo).
-
-Resumo do plano: crossover analógico de verdade com filtros Sallen-Key (TL072),
-delay via **PT2399** (o chip de delay barato e musical), sirene com **VCO CD4046**,
-Synare com **LM13700 + ruído**, kill/only com **CD4066**, tudo em um chassi de
-madeira com knobs de verdade. O documento traz o **BOM com preços**, o
-esquemático em blocos, o roteiro do **PCB no KiCad** e as **fases** — sendo a
-primeira "um canal de ponta a ponta", para não comprar tudo e não montar nada.
-
-> Os **36 knobs desta tela são a especificação do hardware**: cada potenciômetro
-> físico tem um controle equivalente aqui, com a mesma faixa de valores.
-
-### Ordem sugerida
-
-1. ✅ **Agora** — app web em arquivo único (esta versão).
-2. **Depois** — terminar a documentação e os testes de compatibilidade (Android Safari,
-   Safari iOS).
-3. **Depois** — versão executável nativa (Rust/Tauri, em `rust/`).
-4. **Depois** — protótipo em protoboard da versão física.
-5. **Depois** — PCB, chassi e produção do primeiro lote.
-
----
-
-## 💡 Melhorias planejadas
-
-Ideias já mapeadas, em ordem de utilidade:
-
-### Áudio
-
-- [x] **Gravação da saída** — botão REC gravando o master em `.webm`/`.ogg`/`.m4a`
-      (via `MediaStreamDestination`), pra você levar o dub direto pra DAW ou postar.
-- [x] **CONVERTER** — renderiza a música offline (WAV 16-bit/44,1 kHz/estéreo) com
-      todos os seus ajustes (VOL, PAN, FILTER, crossfader, isolator, kills, onlys,
-      master tape delay, BASS BOOST).
-- [x] **BASS BOOST** — reforço de +12 dB abaixo de 110 Hz no master (on/off).
-- [ ] **Presets da mesa inteira** — salvar/carregar a posição de todos os 36 knobs +
-      kills + xfader em um "snapshot" (ex.: "Steppa", "Roots", "Digital").
-- [ ] **Botão de pânico / reset geral** — volta tudo ao padrão de uma vez.
-- [ ] **Delay com sincronia de tempo** — travar o TIME em BPM (1/4, 1/8 pontuado, etc.).
-- [ ] **Filtro ressonante (Q ajustável)** no cutoff dos canais, não só lowpass.
-- [ ] **Reverb de mola** depois do delay (o som clássico de dub não é só delay).
-- [ ] **MIDI / Gamepad** — usar um controlador MIDI barato para os knobs (com
-      *soft takeover*, como no DubStemMix).
-
-### Interface
-
-- [x] **Arrastar com a roda do mouse** sobre o knob — (já funciona por toque e mouse).
-- [ ] **Teclado** — setas para ajustar o knob em foco (finamente com Shift).
-- [ ] **Modo "palco"** — esconde a barra de ferramentas e deixa só a mesa.
-- [ ] **Zoom / escala da mesa** (75 %, 100 %, 125 %) para telas pequenas.
-- [ ] **Exportar/importar o tema** para compartilhar com outros usuários.
-- [ ] **PWA** — instalar na tela inicial e funcionar offline.
-
-### Mobile
-
-- [ ] **Layout de 2 colunas em tablet** (hoje empilha em 1 coluna abaixo de 768 px).
-- [ ] **Botões maiores no toque** (mínimo recomendado de 44×44 px nos alvos principais).
-- [ ] **Travar a orientação em paisagem** pelo manifest (mesa é mais larga que alta).
-
-### Robustez
-
-- [ ] **Testes no Safari (macOS e iOS)** — é o único motor não coberto ainda.
-- [ ] **Verificar uso de memória** com muitas vozes de Synare simultâneas.
-
----
-
-## ❓ Perguntas frequentes
-
-**Preciso instalar alguma coisa?**
-O app em si não instala nada — é um arquivo HTML. O Python só é necessário para
-o launcher `dub-mixer.sh` (opcional). No GitHub Pages nem o Python é necessário.
-
-**Funciona no celular?**
-Sim, e com arraste por toque. Use o GitHub Pages ou o endereço na Wi-Fi que o
-`dub-mixer.sh` imprime.
-
-**Funciona offline?**
-Sim — os arquivos locais, os filtros, delays, sirene e Synare funcionam sem internet.
-
-**Posso usar minhas músicas?**
-Sim, o canal 1 e o canal 2 tocam arquivos locais (MP3, WAV, OGG, M4A — o que o
-navegador suportar). Elas passam por todos os filtros e delays.
-
-**Por que o botão da sirene não tem texto dentro?**
-Por escolha de design: no meio do set você quer acertar o botão sem ler. O botão é um
-**círculo metálico liso, sem nada escrito dentro** (nem emoji) e o **rótulo fica embaixo**
-dele, como num equipamento de verdade — o dedo não cobre o nome. Vale para o botão da
-sirene e para o do sweep. Os dois são **on/off com um clique** e mudam de **cinza para
-vermelho** quando ligados.
-
-**Como faço um drop de dub clássico?**
-1. Toque a música com o baixo presente.
-2. **KILL SUB** (mata o grave) e **KILL BASS**.
-3. Aumente o **WET do Master Tape Delay** e mande a sirene (🚨).
-4. No momento certo, **solte os kills** e devolva o grave.
-
-**O valor aparece errado / travou.**
-Duplo clique no knob volta ao padrão de fábrica. Se a sirene ficar soando, clique no
-**push button** de novo ou oculte o pedal **SIRENE** (ela para sozinha).
-
-**Posso usar comercialmente?**
-O código é MIT (veja [Licença](#-licença-e-créditos)). Respeite os direitos das músicas
-que você tocar.
-
----
-
-## 📜 Licença e créditos
-
-**MIT** — use, modifique, distribua, faça sua versão. Veja [`LICENSE`](LICENSE).
-
-Créditos e inspirações:
-
-- **[DubStemMix](https://github.com/hroderik/DubStemMix)** — console dub nativo (Swift/C,
-  MIT). Referência de arquitetura para a futura versão executável: buses compartilhados
-  com handoff de 1 buffer, soft takeover de knobs, perfis de controlador como dados.
-- **Presets de sirene** — nomes inspirados nos estilos clássicos de sound system
-  (O.B.F, Iration Steppas, King Tubby, Jah Shaka, Channel One, Mungo's Hi Fi,
-  Alpha & Omega, Aba Shanti-I, Kebra Ethiopia, Stand High Patrol). São apenas
-  homenagens de estilo — nenhuma gravação ou sample de terceiros é usada.
-- **[Web Audio API](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API)** —
-  toda a engine de áudio.
-- **Share Tech Mono** — a fonte do painel (Google Fonts, licença SIL OFL).
-
----
-
-<p align="center">
-  <strong>🎛️ Feito para tocar dub. Abra o arquivo e mande o grave.</strong><br>
-  <sub>Se este app foi útil, deixe uma ⭐ no repositório — ajuda outras pessoas a achar.</sub>
-</p>
+- [Web Audio API](https://developer.mozilla.org/pt-BR/docs/Web/API/Web_Audio_API) — toda a engine de áudio.
+- **Share Tech Mono** — a fonte do painel (SIL OFL, embutida no arquivo).
+- Os nomes dos presets de sirene são homenagens de estilo aos sound systems clássicos — nenhuma gravação ou sample de terceiros é usada.
